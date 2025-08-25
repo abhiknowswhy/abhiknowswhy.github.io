@@ -8,5 +8,20 @@
     "name": "About", 
     "path": "/about", 
     "visible": true 
+  },
+  { 
+    "name": "Work", 
+    "path": "/work", 
+    "visible": true 
+  },
+  { 
+    "name": "Blogs", 
+    "path": "/blogs", 
+    "visible": true 
+  },
+  { 
+    "name": "Connect", 
+    "path": "/connect", 
+    "visible": true 
   }
 ]
