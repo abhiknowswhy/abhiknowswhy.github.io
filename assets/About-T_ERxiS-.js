@@ -1,4 +1,4 @@
-import{j as t}from"./index-BeR063r7.js";import{d as e,L as i}from"./Layout-_6PIJseI.js";const s=e.div`
+import{j as t}from"./index-B6Qwkbmu.js";import{d as e,L as i}from"./Layout-BdXv-ryv.js";const s=e.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
