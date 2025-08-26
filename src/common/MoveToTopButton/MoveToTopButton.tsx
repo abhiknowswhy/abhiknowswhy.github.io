@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { styles } from "./styles";
 
-const MoveToTopButton: React.FC = () => {
+export const MoveToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -17,13 +18,11 @@ const MoveToTopButton: React.FC = () => {
 
   return visible ? (
     <button
-      className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-white shadow-lg hover:bg-secondary transition"
+      className={styles.button}
       onClick={handleClick}
       aria-label="Move to top"
     >
-      ↑
+      <span className={styles.arrow}>↑</span>
     </button>
   ) : null;
 };
-
-export default MoveToTopButton;

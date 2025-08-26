@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './styles';
-import Layout from '../../common/Layout';
+import { Layout } from '../../common/Layout';
 
 const Work: React.FC = () => {
   return (

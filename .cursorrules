@@ -1,0 +1,133 @@
+# .cursorrules
+
+## Project Overview
+This is a personal portfolio website built with React, TypeScript, and Tailwind CSS. The project follows modern React patterns and emphasizes clean, maintainable code.
+
+### Key Features
+- **Modern Design**: Clean, professional design with smooth animations
+- **Responsive**: Works perfectly on all devices
+- **Theme Support**: Multiple theme options (light, dark, neon, glassmorphism)
+- **Data-Driven**: Content is loaded from JSON files for easy maintenance
+- **Performance**: Optimized with Vite and modern React patterns
+- **Multi-Page Navigation**: React Router implementation with clean URLs
+
+The portfolio supports multiple themes that can be toggled:
+- Light theme
+- Dark theme  
+- Neon theme
+- Glassmorphism theme
+
+## Technology Stack
+- React 18+ with TypeScript
+- Vite for build tooling
+- Tailwind CSS for styling
+- React Router for navigation
+- ESLint for code quality
+
+## Code Style & Patterns
+
+### React Components
+- Use functional components with hooks
+- Prefer named exports over default exports
+- Keep components focused and single-responsibility
+- Use TypeScript interfaces for prop definitions
+- Place component styles in separate `styles.tsx` files
+
+### TypeScript
+- Use strict TypeScript configuration
+- Define interfaces for all data structures
+- Avoid `any` type - use proper typing
+- Use union types for component variants
+- Export types from dedicated type files
+
+### Styling
+- Use Tailwind CSS utility classes
+- Prefer Tailwind over custom CSS when possible
+- Use `tailwind-merge` for dynamic class combinations
+- Keep styles consistent across components
+- Use CSS custom properties for theme values
+
+All styling is done with Tailwind CSS classes. The design system uses CSS custom properties for consistent theming.
+
+### File Organization
+- Components go in `src/components/`
+- Pages go in `src/pages/` with their own folders
+- Each page folder contains the main component and `styles.tsx`
+- Common utilities go in `src/lib/`
+- Configuration files go in `src/config/`
+
+### Components
+Each section is a separate React component that can be easily modified or extended.
+
+### Naming Conventions
+- Use PascalCase for components and interfaces
+- Use camelCase for functions, variables, and files
+- Use kebab-case for CSS classes and file names
+- Prefix interfaces with 'I' (e.g., `IUserProps`)
+
+### Code Quality
+- Write self-documenting code with clear variable names
+- Add JSDoc comments for complex functions
+- Keep functions small and focused
+- Use early returns to reduce nesting
+- Prefer const over let when possible
+
+### Performance
+- Use React.memo() for expensive components
+- Implement proper dependency arrays in useEffect
+- Lazy load routes when appropriate
+- Optimize images and assets
+
+### Accessibility
+- Include proper ARIA labels
+- Use semantic HTML elements
+- Ensure keyboard navigation works
+- Maintain proper color contrast ratios
+
+## Common Patterns
+
+### Component Structure
+```tsx
+import React from 'react';
+import { IComponentProps } from './types';
+import { styles } from './styles';
+
+export const Component: React.FC<IComponentProps> = ({ prop1, prop2 }) => {
+  return (
+    <div className={styles.container}>
+      {/* Component content */}
+    </div>
+  );
+};
+```
+
+### Styling Pattern
+```tsx
+// styles.tsx
+import { twMerge } from 'tailwind-merge';
+
+export const styles = {
+  container: twMerge(
+    'flex flex-col items-center justify-center',
+    'min-h-screen bg-background text-foreground'
+  ),
+  // ... other styles
+};
+```
+
+## What NOT to Do
+- Don't use class components
+- Don't use inline styles
+- Don't create overly complex components
+- Don't ignore TypeScript errors
+- Don't hardcode values that could be configurable
+- Don't forget about mobile responsiveness
+
+## AI Assistant Guidelines
+When suggesting code:
+- Follow the established patterns above
+- Use TypeScript interfaces for all props
+- Implement proper error handling
+- Consider accessibility implications
+- Suggest performance optimizations when relevant
+- Maintain consistent styling with Tailwind

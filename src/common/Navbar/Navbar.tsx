@@ -1,33 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { styles } from "./styles";
 
-export interface NavbarProps {
+export interface INavbarProps {
   logoUrl?: string;
   menuItems: { name: string; path: string }[];
 }
 
-const Navbar: React.FC<NavbarProps> = ({ logoUrl, menuItems }) => {
+export const Navbar: React.FC<INavbarProps> = ({ logoUrl, menuItems }) => {
   return (
-    <nav className="w-full flex items-center justify-between p-4 bg-primary text-white fixed top-0 left-0 z-50">
-      <div className="flex items-center">
-        {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 mr-2" />}
-        <span className="font-bold text-lg">Portfolio</span>
+    <nav className={styles.nav}>
+      <div className={styles.logoContainer}>
+        {logoUrl && <img src={logoUrl} alt="Logo" className={styles.logo} />}
+        <span className={styles.brandName}>Portfolio</span>
       </div>
-      <ul className="hidden md:flex space-x-6">
+      <ul className={styles.menuList}>
         {menuItems.map((item, idx) => (
-          <li key={idx} className="hover:underline cursor-pointer">
+          <li key={idx} className={styles.menuItem}>
             <Link to={item.path}>{item.name}</Link>
           </li>
         ))}
       </ul>
       <div className="md:hidden">
         {/* Mobile menu icon or dropdown can be added here */}
-        <button aria-label="Open menu">
+        <button className={styles.mobileMenuButton} aria-label="Open menu">
           <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
       </div>
     </nav>
   );
 };
-
-export default Navbar;
