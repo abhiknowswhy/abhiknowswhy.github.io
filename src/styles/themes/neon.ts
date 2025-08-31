@@ -1,0 +1,18 @@
+export const neonTheme = {
+  name: 'neon',
+  background: 'bg-black',
+  foreground: 'text-cyan-400',
+  card: 'bg-black',
+  cardForeground: 'text-cyan-400',
+  popover: 'bg-black',
+  popoverForeground: 'text-cyan-400',
+  primary: 'bg-cyan-400 text-black',
+  primaryText: 'text-cyan-400',
+  secondary: 'bg-cyan-400/10 text-cyan-300',
+  secondaryText: 'text-cyan-300',
+  muted: 'text-cyan-300/80',
+  accent: 'text-cyan-300',
+  border: 'border-cyan-400',
+  input: 'border-cyan-400/60',
+  ring: 'ring-cyan-400/60',
+};

@@ -1,0 +1,18 @@
+export const darkTheme = {
+  name: 'dark',
+  background: 'bg-gray-900',
+  foreground: 'text-white',
+  card: 'bg-gray-900',
+  cardForeground: 'text-white',
+  popover: 'bg-gray-900',
+  popoverForeground: 'text-white',
+  primary: 'bg-white text-gray-900',
+  primaryText: 'text-white',
+  secondary: 'bg-gray-800 text-white',
+  secondaryText: 'text-gray-300',
+  muted: 'text-gray-400',
+  accent: 'text-gray-100',
+  border: 'border-gray-800/50',
+  input: 'border-gray-800/50',
+  ring: 'ring-gray-700',
+};

@@ -1,0 +1,20 @@
+/*
+ * Tailwind CSS Foundation Styles
+ * 
+ * This file contains the essential Tailwind CSS directives that must be imported
+ * for all Tailwind utilities, components, and base styles to work properly.
+ * 
+ * DO NOT REMOVE OR MODIFY THESE DIRECTIVES unless you understand the implications.
+ * They are the foundation upon which all Tailwind-based styling in this project depends.
+ */
+
+/* Import animation library for enhanced Tailwind animations */
+@import "tw-animate-css";
+
+/* Custom dark mode variant for theme switching */
+@custom-variant dark (&:is(.dark *));
+
+/* Tailwind CSS Core Directives */
+@tailwind base;      /* Base/reset styles and element defaults */
+@tailwind components; /* Component classes and patterns */
+@tailwind utilities;  /* Utility classes (spacing, colors, layout, etc.) */

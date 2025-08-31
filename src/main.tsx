@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+// Import all styles from the centralized styles index
+import './styles'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(

@@ -1,0 +1,18 @@
+export const glassmorphismTheme = {
+  name: 'glassmorphism',
+  background: 'bg-white/10 backdrop-blur-2xl',
+  foreground: 'text-white',
+  card: 'bg-white/20 backdrop-blur-2xl',
+  cardForeground: 'text-white',
+  popover: 'bg-white/20 backdrop-blur-2xl',
+  popoverForeground: 'text-white',
+  primary: 'bg-white/30 text-white',
+  primaryText: 'text-white',
+  secondary: 'bg-white/20 text-white',
+  secondaryText: 'text-white/80',
+  muted: 'text-white/80',
+  accent: 'text-white',
+  border: 'border-white/30',
+  input: 'border-white/30',
+  ring: 'ring-white/30',
+};

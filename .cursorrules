@@ -46,6 +46,7 @@ The portfolio supports multiple themes that can be toggled:
 - Use `tailwind-merge` for dynamic class combinations
 - Keep styles consistent across components
 - Use CSS custom properties for theme values
+- **IMPORTANT**: All spacing must be in rem units only (e.g., `p-4` = `p-4`, `m-2` = `m-2`, but custom spacing should use rem values)
 
 All styling is done with Tailwind CSS classes. The design system uses CSS custom properties for consistent theming.
 
@@ -122,6 +123,7 @@ export const styles = {
 - Don't ignore TypeScript errors
 - Don't hardcode values that could be configurable
 - Don't forget about mobile responsiveness
+- Don't use pixel values for spacing - use rem units only
 
 ## AI Assistant Guidelines
 When suggesting code:
@@ -131,3 +133,4 @@ When suggesting code:
 - Consider accessibility implications
 - Suggest performance optimizations when relevant
 - Maintain consistent styling with Tailwind
+- Always use rem units for spacing (Tailwind's default spacing scale is already in rem)

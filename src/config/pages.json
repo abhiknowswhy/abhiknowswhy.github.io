@@ -23,5 +23,10 @@
     "name": "Connect", 
     "path": "/connect", 
     "visible": true 
+  },
+  {
+    "name": "Components",
+    "path": "/gallery",
+    "visible": false
   }
 ]

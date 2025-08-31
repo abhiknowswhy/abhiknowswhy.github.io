@@ -1,0 +1,18 @@
+export const lightTheme = {
+  name: 'light',
+  background: 'bg-white',
+  foreground: 'text-gray-900',
+  card: 'bg-white',
+  cardForeground: 'text-gray-900',
+  popover: 'bg-white',
+  popoverForeground: 'text-gray-900',
+  primary: 'bg-gray-900 text-white',
+  primaryText: 'text-gray-900',
+  secondary: 'bg-gray-100 text-gray-900',
+  secondaryText: 'text-gray-700',
+  muted: 'text-gray-600',
+  accent: 'text-gray-900',
+  border: 'border-gray-200/50',
+  input: 'border-gray-200/50',
+  ring: 'ring-gray-300',
+};
