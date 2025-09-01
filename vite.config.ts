@@ -1,8 +1,28 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import mdx from '@mdx-js/rollup'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
+import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    mdx({
+      remarkPlugins: [remarkFrontmatter, remarkGfm],
+      rehypePlugins: [rehypeHighlight],
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  base: './', // For GitHub Pages deployment
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
 })
