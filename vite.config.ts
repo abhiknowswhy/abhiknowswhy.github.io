@@ -8,21 +8,21 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    mdx({
-      remarkPlugins: [remarkFrontmatter, remarkGfm],
-      rehypePlugins: [rehypeHighlight],
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
-  base: './', // For GitHub Pages deployment
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-  },
+	plugins: [
+		react(),
+		mdx({
+			remarkPlugins: [remarkFrontmatter, remarkGfm],
+			rehypePlugins: [rehypeHighlight],
+		})
+	],
+	resolve: {
+		alias: {
+			'@': fileURLToPath(new URL('./src', import.meta.url)),
+		},
+	},
+	base: './', // For GitHub Pages deployment
+	build: {
+		outDir: 'dist',
+		assetsDir: 'assets',
+	},
 })
