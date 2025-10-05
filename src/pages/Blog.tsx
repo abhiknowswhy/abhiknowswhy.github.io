@@ -9,8 +9,8 @@ export default function Blog() {
 	const [selectedTag, setSelectedTag] = useState<string | null>(null);
 	const [posts, setPosts] = useState<BlogPost[]>([]);
 	
-	const allBlogPosts = getAllBlogPosts();
-	const allTags = getAllBlogTags();
+	const [allBlogPosts] = useState(() => getAllBlogPosts());
+	const [allTags] = useState(() => getAllBlogTags());
 	
 	useEffect(() => {
 		// Filter posts based on search and tags
