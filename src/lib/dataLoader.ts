@@ -1,13 +1,16 @@
 import personalData from '../data/personal.json';
 import projectsData from '../data/projects.json';
 import libraryData from '../data/library.json';
+import blogData from '../data/blog.json';
 
 import type {
   PersonalData,
   ProjectsData,
   Project,
   LibraryData,
-  Book
+  Book,
+  BlogData,
+  BlogPost
 } from '../types/data';
 
 // Personal Data
@@ -251,9 +254,74 @@ export const getRecentlyReadBooks = (limit = 3): Book[] => {
     .slice(0, limit);
 };
 
+// Blog Data
+export const getBlogData = (): BlogData => blogData as BlogData;
+
+export const getAllBlogPosts = (): BlogPost[] => {
+  return (blogData as BlogData).posts.filter(post => post.published);
+};
+
+export const getFeaturedBlogPosts = (): BlogPost[] => {
+  return (blogData as BlogData).posts.filter(post => 
+    blogData.featured.includes(post.id) && post.published
+  );
+};
+
+export const getBlogPostById = (id: string): BlogPost | undefined => {
+  return (blogData as BlogData).posts.find(post => post.id === id);
+};
+
+export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
+  return (blogData as BlogData).posts.find(post => post.slug === slug && post.published);
+};
+
+export const getBlogPostsByCategory = (category: string): BlogPost[] => {
+  return (blogData as BlogData).posts.filter(post => 
+    post.category === category && post.published
+  );
+};
+
+export const getBlogPostsByTag = (tag: string): BlogPost[] => {
+  return (blogData as BlogData).posts.filter(post => 
+    post.tags.includes(tag) && post.published
+  );
+};
+
+export const getRecentBlogPosts = (limit = 5): BlogPost[] => {
+  return (blogData as BlogData).posts
+    .filter(post => post.published)
+    .sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
+    .slice(0, limit);
+};
+
+export const getAllBlogCategories = (): string[] => {
+  return blogData.categories;
+};
+
+export const getAllBlogTags = (): string[] => {
+  const allTags = (blogData as BlogData).posts.reduce((tags, post) => {
+    return [...tags, ...post.tags];
+  }, [] as string[]);
+  return [...new Set(allTags)];
+};
+
+export const getAllBlogAuthors = (): string[] => {
+  const allAuthors = (blogData as BlogData).posts.reduce((authors, post) => {
+    return [...authors, ...post.authors];
+  }, [] as string[]);
+  return [...new Set(allAuthors)];
+};
+
+export const getBlogPostsByAuthor = (author: string): BlogPost[] => {
+  return (blogData as BlogData).posts.filter(post => 
+    post.authors.includes(author) && post.published
+  );
+};
+
 // Export all data for sitemap generation or other needs
 export const getAllData = () => ({
   personal: getPersonalData(),
   projects: getProjectsData(),
-  library: getLibraryData()
+  library: getLibraryData(),
+  blog: getBlogData()
 });

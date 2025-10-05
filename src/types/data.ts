@@ -277,16 +277,21 @@ export interface BlogPost {
   content?: string; // Full content, can be loaded separately
   category: string;
   tags: string[];
+  date: string; // Display date (YYYY-MM-DD format)
   publishedDate: string;
   updatedDate?: string;
+  lastModified?: string;
   readingTime: number; // in minutes
   featured: boolean;
   published: boolean;
-  authorName: string;
+  authors: string[];
+  authorName?: string;
   authorAvatar?: string;
   coverImage?: string;
   seoTitle?: string;
   seoDescription?: string;
+  metaDescription?: string;
+  keywords?: string[];
   views?: number;
   likes?: number;
   comments?: number;
@@ -301,9 +306,8 @@ export interface BlogCategory {
 }
 
 export interface BlogData {
-  categories: BlogCategory[];
+  categories: string[];
   featured: string[];
-  totalPosts: number;
   posts: BlogPost[];
 }
 
