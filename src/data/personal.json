@@ -1,118 +1,216 @@
 {
-  "profile": {
-    "name": "Your Name",
-    "title": "Full Stack Developer",
-    "bio": "Passionate full-stack developer with expertise in modern web technologies. I love creating beautiful, functional applications that solve real-world problems.",
-    "location": "Your City, Country",
-    "email": "your.email@example.com",
-    "phone": "+1 (555) 123-4567",
-    "website": "https://yourwebsite.com",
-    "profileImage": "/images/profile.jpg",
-    "resumeUrl": "/files/resume.pdf",
-    "availability": "Available for freelance projects",
-    "tagline": "Building digital experiences that matter",
-    "skills": [
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Python",
-      "JavaScript",
-      "Next.js",
-      "Tailwind CSS",
-      "PostgreSQL",
-      "MongoDB",
-      "AWS",
-      "Docker",
-      "Git"
-    ],
-    "interests": [
-      "Web Development",
-      "UI/UX Design",
-      "Open Source",
-      "Photography",
-      "Travel",
-      "Music Production"
-    ]
-  },
-  "social": {
-    "github": "https://github.com/yourusername",
-    "linkedin": "https://linkedin.com/in/yourprofile",
-    "twitter": "https://twitter.com/yourusername",
-    "instagram": "https://instagram.com/yourusername",
-    "youtube": "https://youtube.com/@yourchannel",
-    "medium": "https://medium.com/@yourusername",
-    "dev": "https://dev.to/yourusername"
-  },
-  "experience": [
-    {
-      "id": "exp-1",
-      "company": "Tech Company Inc.",
-      "position": "Senior Full Stack Developer",
-      "location": "San Francisco, CA",
-      "startDate": "2022-01",
-      "endDate": null,
-      "description": "Lead development of web applications using React, Node.js, and cloud technologies. Mentored junior developers and improved team productivity by 30%.",
-      "technologies": ["React", "Node.js", "TypeScript", "AWS", "PostgreSQL"],
-      "achievements": [
-        "Led team of 5 developers",
-        "Improved application performance by 40%",
-        "Implemented CI/CD pipeline reducing deployment time by 60%"
-      ],
-      "companyLogo": "/images/companies/tech-company.png",
-      "companyUrl": "https://techcompany.com"
-    },
-    {
-      "id": "exp-2",
-      "company": "Startup Co.",
-      "position": "Frontend Developer",
-      "location": "New York, NY",
-      "startDate": "2020-06",
-      "endDate": "2021-12",
-      "description": "Built responsive web applications and collaborated with designers to create intuitive user interfaces.",
-      "technologies": ["React", "JavaScript", "Sass", "Redux"],
-      "achievements": [
-        "Developed 3 major product features",
-        "Reduced bundle size by 25%",
-        "Implemented mobile-first design system"
-      ],
-      "companyLogo": "/images/companies/startup-co.png",
-      "companyUrl": "https://startup.co"
-    }
-  ],
-  "education": [
-    {
-      "id": "edu-1",
-      "institution": "University of Technology",
-      "degree": "Bachelor of Science",
-      "fieldOfStudy": "Computer Science",
-      "location": "Your City, Country",
-      "startDate": "2016-09",
-      "endDate": "2020-05",
-      "gpa": "3.8/4.0",
-      "honors": ["Magna Cum Laude", "Dean's List"],
-      "description": "Focused on software engineering, algorithms, and web development.",
-      "logo": "/images/education/university-logo.png"
-    }
-  ],
-  "certifications": [
-    {
-      "id": "cert-1",
-      "name": "AWS Certified Developer",
-      "issuer": "Amazon Web Services",
-      "issueDate": "2023-03",
-      "expiryDate": "2026-03",
-      "credentialId": "AWS-12345678",
-      "credentialUrl": "https://aws.amazon.com/verification",
-      "logo": "/images/certifications/aws.png"
-    },
-    {
-      "id": "cert-2",
-      "name": "React Developer Certification",
-      "issuer": "Meta",
-      "issueDate": "2022-08",
-      "credentialId": "META-87654321",
-      "credentialUrl": "https://coursera.org/verify/123456",
-      "logo": "/images/certifications/meta.png"
-    }
-  ]
+	"profile": {
+		"name": "Abhiram Bondada",
+		"title": "Software Development Engineer at Microsoft",
+		"bio": "I am a software engineer with a passion for building scalable and efficient systems. I am currently working as a software engineer at Microsoft.",
+		"location": "Hyderabad, India",
+		"email": "abhiknowswhy@gmail.com",
+		"website": "https://abhiknowswhy.github.io",
+		"profileImage": "https://github.com/abhiknowswhy.png",
+		"resumeUrl": "https://drive.google.com/uc?export=download&id=1kMjcnUj2H8VsvRGdP4wqRvspeNg55jZ6",
+		"availability": "Collaboration projects, Freelance work, and Content creation.",
+		"tagline": "Building scalable systems and AI-powered solutions",
+		"skills": [
+			"JavaScript",
+			"TypeScript",
+			"React",
+			"Node.js",
+			"Python",
+			"Microsoft Graph",
+			"Semantic Kernel",
+			"Azure OpenAI",
+			"Vector Databases",
+			"Flask",
+			"Docker",
+			"Azure PaaS"
+		],
+		"interests": [
+			"AI and Machine Learning",
+			"Software Engineering",
+			"Algorithmic Game Theory",
+			"Cloud Computing",
+			"Open Source",
+			"Product Management"
+		]
+	},
+	"social": {
+		"github": "https://github.com/abhiknowswhy",
+		"linkedin": "https://www.linkedin.com/in/guna-abhiram-bondada-582a9b203/",
+		"twitter": "",
+		"instagram": "",
+		"youtube": "https://youtube.com/@abhiknowswhy",
+		"medium": "https://medium.com/@abhiknowswhy",
+		"leetcode": "",
+		"codeforces": ""
+	},
+	"experience": [
+		{
+			"id": "exp-1",
+			"company": "Microsoft",
+			"position": "Software Development Engineer",
+			"location": "Hyderabad, India",
+			"startDate": "2025-03",
+			"endDate": null,
+			"description": "Working on Dataverse CRM Foundations team, focusing on Microsoft Graph, Semantic Kernel, and AI-powered solutions.",
+			"technologies": ["Microsoft Graph", "Semantic Kernel", "Vector Databases", "React JS", "Flask", "Model Context Protocol"],
+			"achievements": [
+				"Developing AI-powered CRM solutions",
+				"Working with cutting-edge AI technologies",
+				"Contributing to Microsoft's AI initiatives"
+			],
+			"companyLogo": "/images/companies/microsoft.png",
+			"companyUrl": "https://microsoft.com"
+		},
+		{
+			"id": "exp-2",
+			"company": "Microsoft",
+			"position": "Software Engineer",
+			"location": "Hyderabad, India",
+			"startDate": "2022-06",
+			"endDate": "2025-03",
+			"description": "Worked on Cloud for Industry - Energy charter team, building Copilot for Energy customers and AI-powered automation solutions.",
+			"technologies": ["Semantic Kernel", "Azure OpenAI", "AI Foundry", "Copilot SDK", "Azure PaaS", "Apache Airflow", "Docker", "CI/CD"],
+			"achievements": [
+				"Built Copilot for Energy customers",
+				"On-call incident summary automation saving ~5 hours/week",
+				"Winner, Energy team Hackathon 2023: GPT for automated customer support ticket resolution",
+				"Azure Costs analysis: identified issues resulting in $7.2M savings"
+			],
+			"companyLogo": "/images/companies/microsoft.png",
+			"companyUrl": "https://microsoft.com"
+		},
+		{
+			"id": "exp-3",
+			"company": "Microsoft",
+			"position": "Shadow Product Manager",
+			"location": "Hyderabad and Bangalore, India",
+			"startDate": "2024-07",
+			"endDate": "2024-11",
+			"description": "Worked on Microsoft Fabric adoption strategy for Energy customers and product specifications for Customer Data Consumption experiences.",
+			"technologies": ["Microsoft Fabric", "Product Management", "Customer Analytics"],
+			"achievements": [
+				"Microsoft Fabric adoption strategy for Energy customers",
+				"Product specs for Customer Data Consumption experiences",
+				"Customer conversations with Equinor, Halliburton, Schlumberger"
+			],
+			"companyLogo": "/images/companies/microsoft.png",
+			"companyUrl": "https://microsoft.com"
+		},
+		{
+			"id": "exp-4",
+			"company": "Microsoft",
+			"position": "Software Engineer Intern",
+			"location": "India · Remote",
+			"startDate": "2021-05",
+			"endDate": "2021-07",
+			"description": "Worked on Azure Datamanager for Energy team, focusing on Redis optimization for storage record retrieval.",
+			"technologies": ["Java", "Microsoft Azure", "Redis"],
+			"achievements": [
+				"Gauged effectiveness of Redis optimization for storage record retrieval"
+			],
+			"companyLogo": "/images/companies/microsoft.png",
+			"companyUrl": "https://microsoft.com"
+		},
+		{
+			"id": "exp-5",
+			"company": "IIIT Hyderabad",
+			"position": "Student Researcher",
+			"location": "Hyderabad, India",
+			"startDate": "2020-07",
+			"endDate": "2021-04",
+			"description": "Undergraduate Research Assistant under Prof. Praveen Paruchuri in the area of Algorithmic Game Theory.",
+			"technologies": ["Algorithmic Game Theory", "Psychology", "Security", "Machine Learning"],
+			"achievements": [
+				"Research in Algorithmic Game Theory",
+				"Published research in machine learning and security"
+			],
+			"companyLogo": "/images/companies/iiit-hyderabad.png",
+			"companyUrl": "https://iiit.ac.in"
+		}
+	],
+	"education": [
+		{
+			"id": "edu-1",
+			"institution": "International Institute of Information Technology, Hyderabad",
+			"degree": "B.Tech in Electronics and Communication Engineering Hons.",
+			"fieldOfStudy": "Electronics and Communication Engineering",
+			"location": "Hyderabad, India",
+			"startDate": "2018-07",
+			"endDate": "2022-05",
+			"gpa": "Honors",
+			"honors": ["Graduated with Honors", "Specialized in AI and Game theory"],
+			"description": "Graduated with honors, specialized in AI and Game theory. Active in research and teaching assistant roles.",
+			"logo": "/images/education/iiit-hyderabad-logo.png"
+		}
+	],
+	"certifications": [
+		{
+			"id": "cert-1",
+			"name": "AI Fluency: Framework & Foundations",
+			"issuer": "Anthropic Education",
+			"issueDate": "2025-09-21",
+			"credentialId": "xg3edx872jr9",
+			"credentialUrl": "http://verify.skilljar.com/c/xg3edx872jr9",
+			"logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/anthropic.svg"
+		},
+		{
+			"id": "cert-2",
+			"name": "Kubernetes and Cloud Native Associate (KCNA)",
+			"issuer": "Cloud Native Computing Foundation",
+			"issueDate": "2025-06-14",
+			"credentialId": "LF-czo0bl961q",
+			"credentialUrl": "https://www.linkedin.com/in/guna-abhiram-bondada-582a9b203/details/certifications/1749883925068/single-media-viewer/?type=DOCUMENT&profileId=ACoAADPzznIBXbpKXQpBkXlfkBHXBJQrkqTpPF4",
+			"logo": "https://avatars.githubusercontent.com/u/13455738?s=200&v=4"
+		},
+		{
+			"id": "cert-3",
+			"name": "GitHub Copilot Certification Program",
+			"issuer": "GitHub",
+			"issueDate": "2025-05-23",
+			"expiryDate": "2028-05-23",
+			"credentialId": "9ca46e51-6670-42ef-ab46-8a6173b5fdbe",
+			"credentialUrl": "https://www.credly.com/badges/9ca46e51-6670-42ef-ab46-8a6173b5fdbe/linked_in_profile",
+			"logo": "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+		},
+		{
+			"id": "cert-4",
+			"name": "Microsoft Certified: Azure Developer Associate",
+			"issuer": "Microsoft",
+			"issueDate": "2025-05-04",
+			"expiryDate": "2026-05-05",
+			"credentialId": "D4D11CC2B52D7FA8",
+			"certificationNumber": "F49G86-8A3E38",
+			"credentialUrl": "https://learn.microsoft.com/en-us/users/gunaabhirambondada-2003/credentials/d4d11cc2b52d7fa8?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
+		},
+		{
+			"id": "cert-5",
+			"name": "Microsoft Certified: Azure AI Fundamentals",
+			"issuer": "Microsoft",
+			"issueDate": "2025-04-17",
+			"credentialId": "277958C7CD91E254",
+			"certificationNumber": "622226-800L5E",
+			"credentialUrl": "https://learn.microsoft.com/en-us/users/gunaabhirambondada-2003/credentials/277958c7cd91e254?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
+		},
+		{
+			"id": "cert-6",
+			"name": "Microsoft Certified: Azure Fundamentals",
+			"issuer": "Microsoft",
+			"issueDate": "2025-04-12",
+			"credentialId": "40B6635333E54CA6",
+			"certificationNumber": "A9E5C8-306885",
+			"credentialUrl": "https://learn.microsoft.com/en-us/users/gunaabhirambondada-2003/credentials/40b6635333e54ca6",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
+		},
+		{
+			"id": "cert-7",
+			"name": "Weaviate Vector Databases Professional Certificate",
+			"issuer": "Weaviate, LinkedIn Learning",
+			"issueDate": "2025-03-19",
+			"credentialId": "8d03a0fb4e013e89d28844fed04f636c38f975edaa47e2ba424c343a7bcba2ee",
+			"credentialUrl": "https://www.linkedin.com/learning/certificates/8d03a0fb4e013e89d28844fed04f636c38f975edaa47e2ba424c343a7bcba2ee?u=3322",
+			"logo": "https://weaviate.io/img/site/weaviate-logo-light.png"
+		}
+	]
 }

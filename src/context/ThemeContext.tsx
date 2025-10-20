@@ -7,43 +7,43 @@ interface ThemeProviderProps {
 }
 
 export default function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as Theme) || 'light';
-    }
-    return 'light';
-  });
+	const [theme, setTheme] = useState<Theme>(() => {
+		if (typeof window !== 'undefined') {
+			return (localStorage.getItem('theme') as Theme) || 'light';
+		}
+		return 'light';
+	});
 
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+	const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
-  useEffect(() => {
-    const root = window.document.documentElement;
+	useEffect(() => {
+		const root = window.document.documentElement;
 
-    const updateTheme = () => {
-      const newResolvedTheme = theme;
-      setResolvedTheme(newResolvedTheme);
+		const updateTheme = () => {
+			const newResolvedTheme = theme;
+			setResolvedTheme(newResolvedTheme);
 
-      root.classList.remove('light', 'dark');
-      root.classList.add(newResolvedTheme);
-      root.setAttribute('data-theme', newResolvedTheme);
-    };
+			root.classList.remove('light', 'dark');
+			root.classList.add(newResolvedTheme);
+			root.setAttribute('data-theme', newResolvedTheme);
+		};
 
-    updateTheme();
-  }, [theme]);
+		updateTheme();
+	}, [theme]);
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+	useEffect(() => {
+		localStorage.setItem('theme', theme);
+	}, [theme]);
 
-  const value: ThemeContextType = {
-    theme,
-    setTheme,
-    resolvedTheme,
-  };
+	const value: ThemeContextType = {
+		theme,
+		setTheme,
+		resolvedTheme,
+	};
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+	return (
+		<ThemeContext.Provider value={value}>
+			{children}
+		</ThemeContext.Provider>
+	);
 }

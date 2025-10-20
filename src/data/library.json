@@ -1,155 +1,155 @@
 {
-  "currentlyReading": ["book-1", "book-2"],
-  "readingGoals": [
-    {
-      "year": 2024,
-      "target": 24,
-      "completed": 18
-    },
-    {
-      "year": 2023,
-      "target": 20,
-      "completed": 22
-    }
-  ],
-  "favoriteGenres": ["Technology", "Science Fiction", "Biography", "Philosophy", "Design"],
-  "books": [
-    {
-      "id": "book-1",
-      "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
-      "author": "Robert C. Martin",
-      "isbn": "9780132350884",
-      "publisher": "Prentice Hall",
-      "publishedDate": "2008-08-01",
-      "pageCount": 464,
-      "genre": ["Technology", "Software Development"],
-      "rating": 5,
-      "review": "An essential read for any software developer. The principles and practices outlined in this book have significantly improved my coding style and maintainability of my projects.",
-      "notes": "Key takeaways: meaningful names, small functions, clear comments, and proper error handling.",
-      "coverImage": "/images/books/clean-code.jpg",
-      "readingStatus": "currently-reading",
-      "startDate": "2024-01-15",
-      "favorite": true,
-      "quotes": [
-        "Clean code is not written by following a set of rules. You don't become a software craftsman by learning a list of heuristics. Professionalism and craftsmanship come from values that drive disciplines.",
-        "The ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/3735293-clean-code",
-      "amazonUrl": "https://amazon.com/dp/0132350884"
-    },
-    {
-      "id": "book-2",
-      "title": "The Design of Everyday Things",
-      "author": "Don Norman",
-      "isbn": "9780465050659",
-      "publisher": "Basic Books",
-      "publishedDate": "2013-11-05",
-      "pageCount": 368,
-      "genre": ["Design", "Psychology", "Technology"],
-      "rating": 4,
-      "review": "A fascinating look into how design affects our daily interactions with objects. Norman's principles of good design are applicable beyond physical products to digital interfaces.",
-      "coverImage": "/images/books/design-everyday-things.jpg",
-      "readingStatus": "currently-reading",
-      "startDate": "2024-02-01",
-      "favorite": true,
-      "quotes": [
-        "Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible.",
-        "The real problem with the interface is that it is an interface. Interfaces get in the way. I don't want to focus my energies on an interface. I want to focus on the job."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/840.The_Design_of_Everyday_Things",
-      "amazonUrl": "https://amazon.com/dp/0465050659"
-    },
-    {
-      "id": "book-3",
-      "title": "Dune",
-      "author": "Frank Herbert",
-      "isbn": "9780441172719",
-      "publisher": "Ace Books",
-      "publishedDate": "1965-08-01",
-      "pageCount": 688,
-      "genre": ["Science Fiction", "Adventure"],
-      "rating": 5,
-      "review": "A masterpiece of science fiction that creates an incredibly detailed and immersive universe. The political intrigue, environmental themes, and character development are outstanding.",
-      "coverImage": "/images/books/dune.jpg",
-      "readingStatus": "read",
-      "startDate": "2023-11-01",
-      "finishDate": "2023-12-15",
-      "favorite": true,
-      "quotes": [
-        "I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.",
-        "He who controls the spice controls the universe."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/234225.Dune",
-      "amazonUrl": "https://amazon.com/dp/0441172719"
-    },
-    {
-      "id": "book-4",
-      "title": "Steve Jobs",
-      "author": "Walter Isaacson",
-      "isbn": "9781451648539",
-      "publisher": "Simon & Schuster",
-      "publishedDate": "2011-10-24",
-      "pageCount": 656,
-      "genre": ["Biography", "Technology", "Business"],
-      "rating": 4,
-      "review": "An in-depth look at one of the most influential figures in technology. Isaacson does an excellent job of showing both Jobs' genius and his flaws.",
-      "coverImage": "/images/books/steve-jobs.jpg",
-      "readingStatus": "read",
-      "startDate": "2023-08-10",
-      "finishDate": "2023-09-20",
-      "favorite": false,
-      "quotes": [
-        "Innovation distinguishes between a leader and a follower.",
-        "Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/11084145-steve-jobs",
-      "amazonUrl": "https://amazon.com/dp/1451648537"
-    },
-    {
-      "id": "book-5",
-      "title": "Atomic Habits",
-      "author": "James Clear",
-      "isbn": "9780735211292",
-      "publisher": "Avery",
-      "publishedDate": "2018-10-16",
-      "pageCount": 320,
-      "genre": ["Self-Help", "Psychology", "Productivity"],
-      "rating": 5,
-      "review": "Practical and actionable advice on building good habits and breaking bad ones. The 1% better principle has been transformative in my daily routine.",
-      "coverImage": "/images/books/atomic-habits.jpg",
-      "readingStatus": "read",
-      "startDate": "2023-06-01",
-      "finishDate": "2023-06-25",
-      "favorite": true,
-      "quotes": [
-        "You do not rise to the level of your goals. You fall to the level of your systems.",
-        "Every action you take is a vote for the type of person you wish to become."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/40121378-atomic-habits",
-      "amazonUrl": "https://amazon.com/dp/0735211299"
-    },
-    {
-      "id": "book-6",
-      "title": "The Pragmatic Programmer",
-      "author": "David Thomas, Andrew Hunt",
-      "isbn": "9780135957059",
-      "publisher": "Addison-Wesley Professional",
-      "publishedDate": "2019-09-13",
-      "pageCount": 352,
-      "genre": ["Technology", "Software Development", "Programming"],
-      "rating": 5,
-      "review": "A timeless classic that every programmer should read. Filled with practical advice and wisdom that remains relevant regardless of the programming language or technology stack.",
-      "coverImage": "/images/books/pragmatic-programmer.jpg",
-      "readingStatus": "read",
-      "startDate": "2023-03-01",
-      "finishDate": "2023-04-10",
-      "favorite": true,
-      "quotes": [
-        "Care about your craft. Why spend your life developing software unless you care about doing it well?",
-        "Don't live with broken windows."
-      ],
-      "goodreadsUrl": "https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer",
-      "amazonUrl": "https://amazon.com/dp/0135957052"
-    }
-  ]
+	"currentlyReading": ["book-1", "book-2"],
+	"readingGoals": [
+		{
+			"year": 2024,
+			"target": 24,
+			"completed": 18
+		},
+		{
+			"year": 2023,
+			"target": 20,
+			"completed": 22
+		}
+	],
+	"favoriteGenres": ["Technology", "Science Fiction", "Biography", "Philosophy", "Design"],
+	"books": [
+		{
+			"id": "book-1",
+			"title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+			"author": "Robert C. Martin",
+			"isbn": "9780132350884",
+			"publisher": "Prentice Hall",
+			"publishedDate": "2008-08-01",
+			"pageCount": 464,
+			"genre": ["Technology", "Software Development"],
+			"rating": 5,
+			"review": "An essential read for any software developer. The principles and practices outlined in this book have significantly improved my coding style and maintainability of my projects. As someone working at Microsoft, these principles are especially relevant for enterprise-level development.",
+			"notes": "Key takeaways: meaningful names, small functions, clear comments, and proper error handling. Applied these principles in my work on Azure services.",
+			"coverImage": "/images/books/clean-code.jpg",
+			"readingStatus": "currently-reading",
+			"startDate": "2024-01-15",
+			"favorite": true,
+			"quotes": [
+				"Clean code is not written by following a set of rules. You don't become a software craftsman by learning a list of heuristics. Professionalism and craftsmanship come from values that drive disciplines.",
+				"The ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/3735293-clean-code",
+			"amazonUrl": "https://amazon.com/dp/0132350884"
+		},
+		{
+			"id": "book-2",
+			"title": "The Design of Everyday Things",
+			"author": "Don Norman",
+			"isbn": "9780465050659",
+			"publisher": "Basic Books",
+			"publishedDate": "2013-11-05",
+			"pageCount": 368,
+			"genre": ["Design", "Psychology", "Technology"],
+			"rating": 4,
+			"review": "A fascinating look into how design affects our daily interactions with objects. Norman's principles of good design are applicable beyond physical products to digital interfaces. Very relevant for my work on user experiences in Microsoft products.",
+			"coverImage": "/images/books/design-everyday-things.jpg",
+			"readingStatus": "currently-reading",
+			"startDate": "2024-02-01",
+			"favorite": true,
+			"quotes": [
+				"Good design is actually a lot harder to notice than poor design, in part because good designs fit our needs so well that the design is invisible.",
+				"The real problem with the interface is that it is an interface. Interfaces get in the way. I don't want to focus my energies on an interface. I want to focus on the job."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/840.The_Design_of_Everyday_Things",
+			"amazonUrl": "https://amazon.com/dp/0465050659"
+		},
+		{
+			"id": "book-3",
+			"title": "Dune",
+			"author": "Frank Herbert",
+			"isbn": "9780441172719",
+			"publisher": "Ace Books",
+			"publishedDate": "1965-08-01",
+			"pageCount": 688,
+			"genre": ["Science Fiction", "Adventure"],
+			"rating": 5,
+			"review": "A masterpiece of science fiction that creates an incredibly detailed and immersive universe. The political intrigue, environmental themes, and character development are outstanding.",
+			"coverImage": "/images/books/dune.jpg",
+			"readingStatus": "read",
+			"startDate": "2023-11-01",
+			"finishDate": "2023-12-15",
+			"favorite": true,
+			"quotes": [
+				"I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.",
+				"He who controls the spice controls the universe."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/234225.Dune",
+			"amazonUrl": "https://amazon.com/dp/0441172719"
+		},
+		{
+			"id": "book-4",
+			"title": "Steve Jobs",
+			"author": "Walter Isaacson",
+			"isbn": "9781451648539",
+			"publisher": "Simon & Schuster",
+			"publishedDate": "2011-10-24",
+			"pageCount": 656,
+			"genre": ["Biography", "Technology", "Business"],
+			"rating": 4,
+			"review": "An in-depth look at one of the most influential figures in technology. Isaacson does an excellent job of showing both Jobs' genius and his flaws.",
+			"coverImage": "/images/books/steve-jobs.jpg",
+			"readingStatus": "read",
+			"startDate": "2023-08-10",
+			"finishDate": "2023-09-20",
+			"favorite": false,
+			"quotes": [
+				"Innovation distinguishes between a leader and a follower.",
+				"Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/11084145-steve-jobs",
+			"amazonUrl": "https://amazon.com/dp/1451648537"
+		},
+		{
+			"id": "book-5",
+			"title": "Atomic Habits",
+			"author": "James Clear",
+			"isbn": "9780735211292",
+			"publisher": "Avery",
+			"publishedDate": "2018-10-16",
+			"pageCount": 320,
+			"genre": ["Self-Help", "Psychology", "Productivity"],
+			"rating": 5,
+			"review": "Practical and actionable advice on building good habits and breaking bad ones. The 1% better principle has been transformative in my daily routine and professional development at Microsoft.",
+			"coverImage": "/images/books/atomic-habits.jpg",
+			"readingStatus": "read",
+			"startDate": "2023-06-01",
+			"finishDate": "2023-06-25",
+			"favorite": true,
+			"quotes": [
+				"You do not rise to the level of your goals. You fall to the level of your systems.",
+				"Every action you take is a vote for the type of person you wish to become."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/40121378-atomic-habits",
+			"amazonUrl": "https://amazon.com/dp/0735211299"
+		},
+		{
+			"id": "book-6",
+			"title": "The Pragmatic Programmer",
+			"author": "David Thomas, Andrew Hunt",
+			"isbn": "9780135957059",
+			"publisher": "Addison-Wesley Professional",
+			"publishedDate": "2019-09-13",
+			"pageCount": 352,
+			"genre": ["Technology", "Software Development", "Programming"],
+			"rating": 5,
+			"review": "A timeless classic that every programmer should read. Filled with practical advice and wisdom that remains relevant regardless of the programming language or technology stack.",
+			"coverImage": "/images/books/pragmatic-programmer.jpg",
+			"readingStatus": "read",
+			"startDate": "2023-03-01",
+			"finishDate": "2023-04-10",
+			"favorite": true,
+			"quotes": [
+				"Care about your craft. Why spend your life developing software unless you care about doing it well?",
+				"Don't live with broken windows."
+			],
+			"goodreadsUrl": "https://www.goodreads.com/book/show/4099.The_Pragmatic_Programmer",
+			"amazonUrl": "https://amazon.com/dp/0135957052"
+		}
+	]
 }
