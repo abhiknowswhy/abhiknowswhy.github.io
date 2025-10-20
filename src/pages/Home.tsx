@@ -11,12 +11,15 @@ export default function Home() {
 	const libraryData = getLibraryData();
 
 	const downloadResume = () => {
-		// Create a link element and trigger download if resumeUrl exists
+		// Trigger download without leaving the page
 		if (personalData.profile.resumeUrl) {
 			const link = document.createElement('a');
 			link.href = personalData.profile.resumeUrl;
-			link.download = `${personalData.profile.name.replace(' ', '_')}_Resume.pdf`;
+			link.download = `${personalData.profile.name.replace(/\s+/g, '_')}_Resume.pdf`;
+			link.style.display = 'none';
+			document.body.appendChild(link);
 			link.click();
+			document.body.removeChild(link);
 		}
 	};
 

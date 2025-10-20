@@ -255,65 +255,85 @@ export const getRecentlyReadBooks = (limit = 3): Book[] => {
 };
 
 // Blog Data
-export const getBlogData = (): BlogData => blogData as BlogData;
+export const getBlogData = (): BlogData => {
+	return {
+		...blogData,
+		featured: blogData.featured.map(id => id.toString()),
+		posts: blogData.posts.map(post => ({
+			...post,
+			id: post.id.toString()
+		}))
+	} as BlogData;
+};
 
 export const getAllBlogPosts = (): BlogPost[] => {
-	return (blogData as BlogData).posts.filter(post => post.published);
+	const data = getBlogData();
+	return data.posts.filter(post => post.published);
 };
 
 export const getFeaturedBlogPosts = (): BlogPost[] => {
-	return (blogData as BlogData).posts.filter(post => 
-		blogData.featured.includes(post.id) && post.published
+	const data = getBlogData();
+	return data.posts.filter(post => 
+		data.featured.includes(post.id) && post.published
 	);
 };
 
 export const getBlogPostById = (id: string): BlogPost | undefined => {
-	return (blogData as BlogData).posts.find(post => post.id === id);
+	const data = getBlogData();
+	return data.posts.find(post => post.id === id);
 };
 
 export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
-	return (blogData as BlogData).posts.find(post => post.slug === slug && post.published);
+	const data = getBlogData();
+	return data.posts.find(post => post.slug === slug && post.published);
 };
 
 export const getBlogPostsByCategory = (category: string): BlogPost[] => {
-	return (blogData as BlogData).posts.filter(post => 
+	const data = getBlogData();
+	return data.posts.filter(post => 
 		post.category === category && post.published
 	);
 };
 
 export const getBlogPostsByTag = (tag: string): BlogPost[] => {
-	return (blogData as BlogData).posts.filter(post => 
+	const data = getBlogData();
+	return data.posts.filter(post => 
 		post.tags.includes(tag) && post.published
 	);
 };
 
 export const getRecentBlogPosts = (limit = 5): BlogPost[] => {
-	return (blogData as BlogData).posts
+	const data = getBlogData();
+	return data.posts
 		.filter(post => post.published)
 		.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
 		.slice(0, limit);
 };
 
 export const getAllBlogCategories = (): string[] => {
-	return blogData.categories;
+	const data = getBlogData();
+	return data.categories;
 };
 
 export const getAllBlogTags = (): string[] => {
-	const allTags = (blogData as BlogData).posts.reduce((tags, post) => {
+	const data = getBlogData();
+	const allTags = data.posts.reduce((tags, post) => {
 		return [...tags, ...post.tags];
 	}, [] as string[]);
 	return [...new Set(allTags)];
 };
 
 export const getAllBlogAuthors = (): string[] => {
-	const allAuthors = (blogData as BlogData).posts.reduce((authors, post) => {
+	const data = getBlogData();
+	const allAuthors = data.posts.reduce((authors, post) => {
 		return [...authors, ...post.authors];
 	}, [] as string[]);
 	return [...new Set(allAuthors)];
 };
 
 export const getBlogPostsByAuthor = (author: string): BlogPost[] => {
-	return (blogData as BlogData).posts.filter(post => 
+	const data = getBlogData();
+	return data.posts.filter(post => 
 		post.authors.includes(author) && post.published
 	);
 };

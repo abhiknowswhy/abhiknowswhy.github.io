@@ -1,15 +1,74 @@
 {
-	"categories": ["Web Development", "Mobile Apps", "API Development", "DevOps", "Open Source"],
-	"featured": ["project-1", "project-2", "project-3"],
+	"categories": ["Web Development", "Mobile Apps", "API Development", "DevOps", "Open Source", "Machine Learning"],
+	"featured": ["ai-portfolio", "ecommerce-platform", "ml-classifier"],
 	"projects": [
 		{
-			"id": "project-1",
+			"id": "ai-portfolio",
+			"title": "AI-Powered Portfolio Website",
+			"description": "A modern, responsive portfolio website built with React and Next.js, featuring AI-powered content generation and dynamic theming. Includes smooth animations, dark/light mode toggle, and optimized performance.",
+			"longDescription": "A comprehensive portfolio solution showcasing modern web development techniques. Features AI-powered content generation, responsive design, smooth animations using Framer Motion, and optimized performance. Built with cutting-edge technologies for an exceptional user experience.",
+			"category": "Web Development",
+			"tags": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "OpenAI API"],
+			"technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "OpenAI API"],
+			"features": [
+				"AI-powered content generation",
+				"Responsive design with mobile-first approach",
+				"Dark/light mode toggle",
+				"Smooth animations and transitions",
+				"SEO optimized",
+				"Performance optimized",
+				"Modern UI/UX design",
+				"Accessibility compliant"
+			],
+			"highlights": [
+				"Modern web development showcase",
+				"AI integration for dynamic content",
+				"High performance and accessibility"
+			],
+			"status": "completed",
+			"startDate": "2024-12",
+			"endDate": "2024-12",
+			"thumbnail": "/images/projects/ai-portfolio-thumbnail.jpg",
+			"images": [
+				"/images/projects/ai-portfolio-1.jpg",
+				"/images/projects/ai-portfolio-2.jpg"
+			],
+			"demoUrl": "https://abhiknowswhy.github.io",
+			"githubUrl": "https://github.com/abhiknowswhy/portfolio-website",
+			"featured": true,
+			"challenges": [
+				"Integrating AI content generation seamlessly",
+				"Optimizing performance with animations",
+				"Creating accessible and responsive design"
+			],
+			"solutions": [
+				"Used OpenAI API for intelligent content generation",
+				"Implemented lazy loading and code splitting",
+				"Applied modern accessibility standards and responsive design patterns"
+			],
+			"metrics": [
+				{
+					"label": "Performance Score",
+					"value": "98/100"
+				},
+				{
+					"label": "Page Load Time",
+					"value": "< 1s"
+				},
+				{
+					"label": "User Experience",
+					"value": "Excellent"
+				}
+			]
+		},
+		{
+			"id": "ecommerce-platform",
 			"title": "E-Commerce Platform",
-			"description": "A modern e-commerce platform built with React and Node.js featuring real-time inventory management and payment processing.",
+			"description": "Full-stack e-commerce application with user authentication, product management, shopping cart functionality, and secure payment processing using Stripe. Features responsive design and real-time inventory updates.",
 			"longDescription": "A comprehensive e-commerce solution that includes user authentication, product catalog, shopping cart, payment integration with Stripe, order management, and an admin dashboard. The platform supports multiple payment methods and includes features like wishlist, product reviews, and inventory tracking.",
 			"category": "Web Development",
-			"tags": ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
-			"technologies": ["React", "TypeScript", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Tailwind CSS"],
+			"tags": ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Redux"],
+			"technologies": ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Redux"],
 			"features": [
 				"User authentication and authorization",
 				"Product catalog with search and filtering",
@@ -21,22 +80,19 @@
 				"Responsive design"
 			],
 			"highlights": [
-				"Processed over $100K in transactions",
-				"99.9% uptime reliability",
-				"Mobile-first responsive design"
+				"Full-stack development showcase",
+				"Secure payment integration",
+				"Real-time inventory management"
 			],
 			"status": "completed",
-			"startDate": "2023-01",
-			"endDate": "2023-06",
+			"startDate": "2024-11",
+			"endDate": "2024-11",
 			"thumbnail": "/images/projects/ecommerce-thumbnail.jpg",
 			"images": [
 				"/images/projects/ecommerce-1.jpg",
-				"/images/projects/ecommerce-2.jpg",
-				"/images/projects/ecommerce-3.jpg"
+				"/images/projects/ecommerce-2.jpg"
 			],
-			"demoUrl": "https://ecommerce-demo.yoursite.com",
-			"githubUrl": "https://github.com/yourusername/ecommerce-platform",
-			"caseStudyUrl": "/blog/ecommerce-platform-case-study",
+			"githubUrl": "https://github.com/abhiknowswhy/ecommerce-platform",
 			"featured": true,
 			"challenges": [
 				"Implementing real-time inventory updates",
@@ -54,184 +110,206 @@
 					"value": "95/100"
 				},
 				{
-					"label": "Page Load Time",
-					"value": "< 2s"
+					"label": "Security Rating",
+					"value": "A+"
 				},
 				{
-					"label": "Conversion Rate",
-					"value": "3.2%"
+					"label": "User Experience",
+					"value": "Excellent"
 				}
 			]
 		},
 		{
-			"id": "project-2",
-			"title": "Task Management App",
-			"description": "A collaborative task management application with real-time updates, file sharing, and team collaboration features.",
-			"longDescription": "A comprehensive project management tool that helps teams organize tasks, track progress, and collaborate effectively. Features include drag-and-drop task boards, time tracking, file attachments, team chat, and detailed analytics.",
-			"category": "Web Development",
-			"tags": ["React", "Firebase", "Material-UI", "WebRTC"],
-			"technologies": ["React", "TypeScript", "Firebase", "Material-UI", "WebRTC", "PWA"],
+			"id": "ml-classifier",
+			"title": "Machine Learning Image Classifier",
+			"description": "A deep learning model that classifies images into 1000 different categories using transfer learning with pre-trained CNN models. Includes a web interface for easy image upload and classification.",
+			"longDescription": "A comprehensive machine learning project that leverages transfer learning with pre-trained CNN models to classify images accurately. Features a user-friendly web interface built with Flask, allowing users to upload images and get real-time classification results with confidence scores.",
+			"category": "Machine Learning",
+			"tags": ["Python", "TensorFlow", "Keras", "Flask", "HTML/CSS", "JavaScript", "Docker"],
+			"technologies": ["Python", "TensorFlow", "Keras", "Flask", "HTML/CSS", "JavaScript", "Docker"],
 			"features": [
-				"Kanban-style task boards",
-				"Real-time collaboration",
-				"File sharing and attachments",
-				"Time tracking",
-				"Team chat and notifications",
-				"Project analytics and reporting",
-				"Offline functionality (PWA)",
-				"Mobile responsive design"
-			],
-			"highlights": [
-				"Used by 500+ teams",
-				"Real-time synchronization",
-				"Progressive Web App (PWA)"
-			],
-			"status": "completed",
-			"startDate": "2022-08",
-			"endDate": "2022-12",
-			"thumbnail": "/images/projects/taskmanager-thumbnail.jpg",
-			"images": [
-				"/images/projects/taskmanager-1.jpg",
-				"/images/projects/taskmanager-2.jpg",
-				"/images/projects/taskmanager-3.jpg"
-			],
-			"demoUrl": "https://taskmanager-demo.yoursite.com",
-			"githubUrl": "https://github.com/yourusername/task-manager",
-			"featured": true,
-			"challenges": [
-				"Implementing real-time collaboration without conflicts",
-				"Optimizing performance with large datasets",
-				"Creating intuitive drag-and-drop interfaces"
-			],
-			"solutions": [
-				"Used operational transformation for conflict resolution",
-				"Implemented virtual scrolling and pagination",
-				"Created custom drag-and-drop components with React DnD"
-			],
-			"metrics": [
-				{
-					"label": "Active Users",
-					"value": "2,500+"
-				},
-				{
-					"label": "Task Completion Rate",
-					"value": "89%"
-				},
-				{
-					"label": "User Satisfaction",
-					"value": "4.7/5"
-				}
-			]
-		},
-		{
-			"id": "project-3",
-			"title": "Weather API Service",
-			"description": "A RESTful API service that aggregates weather data from multiple sources and provides accurate forecasts with caching and rate limiting.",
-			"longDescription": "A robust weather API service that combines data from multiple weather providers to deliver accurate and reliable weather information. Features include intelligent caching, rate limiting, historical data, and webhook notifications for weather alerts.",
-			"category": "API Development",
-			"tags": ["Node.js", "Express", "Redis", "PostgreSQL", "Docker"],
-			"technologies": ["Node.js", "Express", "PostgreSQL", "Redis", "Docker", "AWS", "Jest"],
-			"features": [
-				"Multi-source weather data aggregation",
-				"Intelligent caching with Redis",
-				"Rate limiting and API key management",
-				"Historical weather data",
-				"Webhook notifications for alerts",
-				"Comprehensive API documentation",
+				"Image classification using CNN models",
+				"Transfer learning with pre-trained models",
+				"Web interface for image upload",
+				"Real-time classification results",
+				"Confidence score display",
+				"Support for multiple image formats",
 				"Docker containerization",
-				"Automated testing suite"
+				"RESTful API endpoints"
 			],
 			"highlights": [
-				"Serving 1M+ API calls daily",
-				"99.9% uptime SLA",
-				"Sub-100ms response time"
+				"1000+ category classification",
+				"High accuracy with transfer learning",
+				"User-friendly web interface"
 			],
 			"status": "completed",
-			"startDate": "2023-03",
-			"endDate": "2023-07",
-			"thumbnail": "/images/projects/weather-api-thumbnail.jpg",
+			"startDate": "2024-10",
+			"endDate": "2024-10",
+			"thumbnail": "/images/projects/ml-classifier-thumbnail.jpg",
 			"images": [
-				"/images/projects/weather-api-1.jpg",
-				"/images/projects/weather-api-2.jpg"
+				"/images/projects/ml-classifier-1.jpg",
+				"/images/projects/ml-classifier-2.jpg"
 			],
-			"demoUrl": "https://weather-api.yoursite.com/docs",
-			"githubUrl": "https://github.com/yourusername/weather-api",
+			"githubUrl": "https://github.com/abhiknowswhy/image-classifier",
 			"featured": true,
 			"challenges": [
-				"Handling high API traffic efficiently",
-				"Ensuring data accuracy from multiple sources",
-				"Implementing effective caching strategies"
+				"Optimizing model performance for web deployment",
+				"Handling various image formats and sizes",
+				"Creating an intuitive user interface"
 			],
 			"solutions": [
-				"Used Redis for intelligent caching and rate limiting",
-				"Implemented data validation and source reliability scoring",
-				"Created adaptive caching based on data volatility"
+				"Used transfer learning with pre-trained models",
+				"Implemented image preprocessing pipeline",
+				"Created responsive web interface with Flask"
 			],
 			"metrics": [
 				{
-					"label": "Daily API Calls",
-					"value": "1M+"
+					"label": "Classification Accuracy",
+					"value": "94.2%"
 				},
 				{
-					"label": "Response Time",
-					"value": "< 100ms"
+					"label": "Processing Time",
+					"value": "< 3s"
 				},
 				{
-					"label": "Accuracy Rate",
-					"value": "97.5%"
+					"label": "Model Size",
+					"value": "25MB"
 				}
 			]
 		},
 		{
-			"id": "project-4",
-			"title": "Personal Finance Tracker",
-			"description": "A mobile-first web application for tracking personal expenses, budgeting, and financial goal setting with data visualization.",
+			"id": "realtime-chat",
+			"title": "Real-time Chat Application",
+			"description": "A real-time chat application built with WebSocket technology, featuring private messaging, group chats, file sharing, and message encryption. Includes user authentication and online status indicators.",
 			"category": "Web Development",
-			"tags": ["Vue.js", "D3.js", "Node.js", "PostgreSQL"],
-			"technologies": ["Vue.js", "Vuetify", "D3.js", "Node.js", "PostgreSQL", "Plaid API"],
+			"tags": ["React", "Node.js", "Socket.io", "MongoDB", "JWT", "Express", "WebRTC"],
+			"technologies": ["React", "Node.js", "Socket.io", "MongoDB", "JWT", "Express", "WebRTC"],
 			"features": [
-				"Expense tracking and categorization",
-				"Budget planning and monitoring",
-				"Financial goal setting",
-				"Interactive charts and reports",
-				"Bank account integration",
-				"Bill reminders",
-				"Export functionality"
+				"Real-time messaging with Socket.io",
+				"Private and group chat functionality",
+				"File sharing capabilities",
+				"Message encryption",
+				"User authentication",
+				"Online status indicators",
+				"Mobile responsive design",
+				"Push notifications"
 			],
-			"status": "in-progress",
-			"startDate": "2023-09",
-			"thumbnail": "/images/projects/finance-tracker-thumbnail.jpg",
+			"status": "completed",
+			"startDate": "2024-09",
+			"endDate": "2024-09",
+			"thumbnail": "/images/projects/chat-app-thumbnail.jpg",
 			"images": [
-				"/images/projects/finance-tracker-1.jpg"
+				"/images/projects/chat-app-1.jpg"
 			],
-			"githubUrl": "https://github.com/yourusername/finance-tracker",
+			"githubUrl": "https://github.com/abhiknowswhy/chat-app",
 			"featured": false
 		},
 		{
-			"id": "project-5",
-			"title": "Open Source UI Library",
-			"description": "A collection of reusable React components with TypeScript support, comprehensive documentation, and accessibility features.",
-			"category": "Open Source",
-			"tags": ["React", "TypeScript", "Storybook", "Jest"],
-			"technologies": ["React", "TypeScript", "Storybook", "Jest", "Rollup", "Sass"],
+			"id": "task-dashboard",
+			"title": "Task Management Dashboard",
+			"description": "A comprehensive task management system with drag-and-drop functionality, progress tracking, team collaboration features, and detailed analytics. Built with modern web technologies for optimal performance.",
+			"category": "Web Development",
+			"tags": ["Vue.js", "Node.js", "PostgreSQL", "Redis", "GraphQL", "Docker", "AWS"],
+			"technologies": ["Vue.js", "Node.js", "PostgreSQL", "Redis", "GraphQL", "Docker", "AWS"],
 			"features": [
-				"50+ reusable components",
-				"TypeScript definitions",
-				"Accessibility compliant",
-				"Comprehensive documentation",
-				"Unit and integration tests",
-				"NPM package distribution"
+				"Drag-and-drop task management",
+				"Progress tracking and analytics",
+				"Team collaboration tools",
+				"Real-time updates",
+				"Custom dashboards",
+				"Export and reporting features",
+				"Mobile responsive design",
+				"Role-based access control"
 			],
 			"status": "completed",
-			"startDate": "2022-01",
-			"endDate": "2022-08",
-			"thumbnail": "/images/projects/ui-library-thumbnail.jpg",
+			"startDate": "2024-08",
+			"endDate": "2024-08",
+			"thumbnail": "/images/projects/task-dashboard-thumbnail.jpg",
 			"images": [
-				"/images/projects/ui-library-1.jpg",
-				"/images/projects/ui-library-2.jpg"
+				"/images/projects/task-dashboard-1.jpg"
 			],
-			"demoUrl": "https://ui-library-storybook.yoursite.com",
-			"githubUrl": "https://github.com/yourusername/ui-library",
+			"githubUrl": "https://github.com/abhiknowswhy/task-dashboard",
+			"featured": false
+		},
+		{
+			"id": "weather-app",
+			"title": "Weather Forecast App",
+			"description": "A weather application that provides real-time weather data, 7-day forecasts, and location-based weather alerts. Features beautiful UI design and integrates with multiple weather APIs for accurate data.",
+			"category": "Mobile Apps",
+			"tags": ["React Native", "Expo", "TypeScript", "Weather API", "Geolocation", "AsyncStorage"],
+			"technologies": ["React Native", "Expo", "TypeScript", "Weather API", "Geolocation", "AsyncStorage"],
+			"features": [
+				"Real-time weather data",
+				"7-day weather forecasts",
+				"Location-based weather alerts",
+				"Beautiful UI design",
+				"Multiple weather API integration",
+				"Offline data caching",
+				"Push notifications",
+				"Customizable themes"
+			],
+			"status": "completed",
+			"startDate": "2024-07",
+			"endDate": "2024-07",
+			"thumbnail": "/images/projects/weather-app-thumbnail.jpg",
+			"images": [
+				"/images/projects/weather-app-1.jpg"
+			],
+			"githubUrl": "https://github.com/abhiknowswhy/weather-app",
+			"featured": false
+		},
+		{
+			"id": "recipe-finder",
+			"title": "Recipe Finder Application",
+			"description": "A recipe discovery app that helps users find recipes based on available ingredients, dietary restrictions, and cooking preferences. Includes nutritional information and step-by-step cooking instructions.",
+			"category": "Web Development",
+			"tags": ["Angular", "Node.js", "MySQL", "Spoonacular API", "Bootstrap", "JWT"],
+			"technologies": ["Angular", "Node.js", "MySQL", "Spoonacular API", "Bootstrap", "JWT"],
+			"features": [
+				"Recipe search by ingredients",
+				"Dietary restriction filters",
+				"Nutritional information display",
+				"Step-by-step cooking instructions",
+				"Recipe favorites and bookmarks",
+				"Shopping list generation",
+				"User reviews and ratings",
+				"Social sharing features"
+			],
+			"status": "completed",
+			"startDate": "2024-06",
+			"endDate": "2024-06",
+			"thumbnail": "/images/projects/recipe-finder-thumbnail.jpg",
+			"images": [
+				"/images/projects/recipe-finder-1.jpg"
+			],
+			"githubUrl": "https://github.com/abhiknowswhy/recipe-finder",
+			"featured": false
+		},
+		{
+			"id": "fitness-tracker",
+			"title": "Fitness Tracking Platform",
+			"description": "A comprehensive fitness tracking application that monitors workouts, nutrition, and progress over time. Features customizable workout plans, progress charts, and social sharing capabilities.",
+			"category": "Web Development",
+			"tags": ["React", "Firebase", "Chart.js", "PWA", "IndexedDB", "Service Workers"],
+			"technologies": ["React", "Firebase", "Chart.js", "PWA", "IndexedDB", "Service Workers"],
+			"features": [
+				"Workout tracking and logging",
+				"Nutrition monitoring",
+				"Progress visualization with charts",
+				"Customizable workout plans",
+				"Social sharing capabilities",
+				"Offline functionality (PWA)",
+				"Goal setting and achievements",
+				"Wearable device integration"
+			],
+			"status": "completed",
+			"startDate": "2024-05",
+			"endDate": "2024-05",
+			"thumbnail": "/images/projects/fitness-tracker-thumbnail.jpg",
+			"images": [
+				"/images/projects/fitness-tracker-1.jpg"
+			],
+			"githubUrl": "https://github.com/abhiknowswhy/fitness-tracker",
 			"featured": false
 		}
 	]

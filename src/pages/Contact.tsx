@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, Twitter, Download } from 'lucide-react';
 import { getPersonalData } from '../lib/dataLoader';
 
 export default function Contact() {
@@ -115,34 +115,6 @@ export default function Contact() {
 									</div>
 								</div>
 							</motion.div>
-
-							{personalData.profile.phone && (
-								<motion.div 
-									className="glass-card p-6 rounded-xl"
-									whileHover={{ scale: 1.02 }}
-									transition={{ duration: 0.2 }}
-								>
-									<div className="flex items-start space-x-4">
-										<div className="flex-shrink-0">
-											<Phone className="w-6 h-6 text-primary-600 dark:text-primary-400" />
-										</div>
-										<div>
-											<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-												Phone
-											</h3>
-											<p className="text-gray-600 dark:text-gray-400 mb-2">
-												Call me for urgent matters or quick discussions.
-											</p>
-											<a
-												href={`tel:${personalData.profile.phone}`}
-												className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
-											>
-												{personalData.profile.phone}
-											</a>
-										</div>
-									</div>
-								</motion.div>
-							)}
 
 							<motion.div 
 								className="glass-card p-6 rounded-xl"
@@ -331,14 +303,17 @@ export default function Contact() {
 								Send Email
 							</a>
 							{personalData.profile.resumeUrl && (
-								<a
+								<motion.a
 									href={personalData.profile.resumeUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="inline-flex items-center px-6 py-3 glass-card hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors duration-200"
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
 								>
-									View Resume
-								</a>
+									<Download className="w-4 h-4 mr-2" />
+									Download Resume
+								</motion.a>
 							)}
 						</div>
 					</div>

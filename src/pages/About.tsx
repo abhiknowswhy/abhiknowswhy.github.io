@@ -55,7 +55,7 @@ export default function About() {
 									className="w-full max-w-sm mx-auto rounded-xl shadow-lg"
 								/>
 							</div>
-              
+
 							<div className="glass-card p-6 rounded-xl">
 								<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
 									Quick Facts
@@ -200,7 +200,7 @@ export default function About() {
 						<GraduationCap className="w-8 h-8 mr-3 text-primary-600 dark:text-primary-400" />
 						Education
 					</h2>
-          
+
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						{personalData.education.map((edu) => (
 							<motion.div
@@ -255,11 +255,13 @@ export default function About() {
 									transition={{ duration: 0.2 }}
 								>
 									{cert.logo && (
-										<img
-											src={cert.logo}
-											alt={cert.issuer}
-											className="w-16 h-16 mx-auto mb-4 object-contain"
-										/>
+										<div className="w-16 h-16 mx-auto mb-4 bg-white dark:bg-gray-800 rounded-lg p-2 shadow-sm border border-gray-200 dark:border-gray-700">
+											<img
+												src={cert.logo}
+												alt={cert.issuer}
+												className="w-full h-full object-contain"
+											/>
+										</div>
 									)}
 									<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
 										{cert.name}
@@ -275,7 +277,7 @@ export default function About() {
 											Expires: {cert.expiryDate}
 										</p>
 									)}
-                  
+
 									{cert.credentialUrl && (
 										<a
 											href={cert.credentialUrl}
