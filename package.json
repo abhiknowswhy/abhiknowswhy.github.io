@@ -6,9 +6,10 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"preview": "vite preview"
+		"lint": "eslint . && stylelint \"**/*.css\"",
+		"lint:fix": "eslint . --fix && stylelint \"**/*.css\" --fix",
+		"preview": "vite preview",
+		"clean:history": "node -e \"require('fs').rmSync('.history', {recursive: true, force: true})\""
 	},
 	"dependencies": {
 		"@mdx-js/react": "^3.1.0",
@@ -40,6 +41,8 @@
 		"eslint-plugin-react-refresh": "^0.4.20",
 		"globals": "^16.3.0",
 		"postcss": "^8.5.6",
+		"stylelint": "^16.25.0",
+		"stylelint-config-standard": "^39.0.1",
 		"tailwindcss": "^4.1.11",
 		"typescript": "~5.8.3",
 		"typescript-eslint": "^8.35.1",

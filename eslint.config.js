@@ -8,7 +8,7 @@ import jsonc from 'eslint-plugin-jsonc'
 
 export default tseslint.config([
 	{
-		ignores: ['dist/**', 'node_modules/**']
+		ignores: ['dist/**', 'node_modules/**', '.history/**']
 	},
 	{
 		files: ['**/*.{ts,tsx}'],
