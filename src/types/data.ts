@@ -296,6 +296,7 @@ export interface BlogPost {
   likes?: number;
   comments?: number;
   relatedPosts?: string[];
+  externalLink?: string; // Link to external blog (e.g., Medium article)
 }
 
 export interface BlogCategory {

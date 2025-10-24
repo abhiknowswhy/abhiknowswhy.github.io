@@ -256,14 +256,7 @@ export const getRecentlyReadBooks = (limit = 3): Book[] => {
 
 // Blog Data
 export const getBlogData = (): BlogData => {
-	return {
-		...blogData,
-		featured: blogData.featured.map(id => id.toString()),
-		posts: blogData.posts.map(post => ({
-			...post,
-			id: post.id.toString()
-		}))
-	} as BlogData;
+	return blogData as BlogData;
 };
 
 export const getAllBlogPosts = (): BlogPost[] => {
