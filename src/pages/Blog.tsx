@@ -43,7 +43,7 @@ export default function Blog() {
 				{/* Header */}
 				<div className="text-center">
 					<h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-						Blog
+						My <span className="gradient-text">Blogs</span>
 					</h1>
 					<p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400">
 						Thoughts, ideas, and insights on web development, design, and technology.

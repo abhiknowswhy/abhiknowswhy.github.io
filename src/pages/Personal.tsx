@@ -157,9 +157,9 @@ export default function Personal() {
 	// Filter books
 	const filteredBooks = libraryData.books.filter((book: Book) => {
 		const matchesSearch = searchTerm === '' || 
-      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.genre.some((g: string) => g.toLowerCase().includes(searchTerm.toLowerCase()));
+		book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+		book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+		book.genre.some((g: string) => g.toLowerCase().includes(searchTerm.toLowerCase()));
 		const matchesGenre = selectedGenre === 'all' || book.genre.includes(selectedGenre);
 		const matchesStatus = selectedStatus === 'all' || book.readingStatus === selectedStatus;
     
@@ -187,7 +187,7 @@ export default function Personal() {
 				{/* Header */}
 				<div className="text-center">
 					<h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-						Personal Interests
+						My <span className="gradient-text">Interests</span>
 					</h1>
 					<p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400">
 						Beyond code and design, these are the things that bring me joy and inspiration.
