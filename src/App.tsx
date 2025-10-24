@@ -9,11 +9,13 @@ import Blog from './pages/Blog.tsx';
 import Personal from './pages/Personal.tsx';
 import Privacy from './pages/Privacy.tsx';
 import Contact from './pages/Contact.tsx';
+import ScrollRestoration from './components/ui/ScrollRestoration.tsx';
 
 function App() {
 	return (
 		<ThemeProvider>
 			<Router>
+				<ScrollRestoration />
 				<Layout>
 					<Routes>
 						<Route path="/" element={<Home />} />

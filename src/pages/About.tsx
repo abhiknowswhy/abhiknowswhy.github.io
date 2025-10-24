@@ -28,7 +28,7 @@ export default function About() {
 
 	return (
 		<motion.div
-			className="min-h-screen pt-20"
+			className="min-h-screen"
 			variants={containerVariants}
 			initial="hidden"
 			animate="visible"
