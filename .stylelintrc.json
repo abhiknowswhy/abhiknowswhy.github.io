@@ -1,0 +1,35 @@
+{
+	"extends": "stylelint-config-standard",
+	"ignoreFiles": ["dist/**", "node_modules/**", ".history/**"],
+	"defaultSeverity": "warning",
+	"rules": {
+		"selector-class-pattern": null,
+		"custom-property-pattern": null,
+		"no-descending-specificity": null,
+		"declaration-block-single-line-max-declarations": null,
+		"property-no-vendor-prefix": null,
+		"value-no-vendor-prefix": null,
+		"at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": [
+					"tailwind",
+					"apply",
+					"variants",
+					"responsive",
+					"screen",
+					"layer",
+					"theme",
+					"variant",
+					"import"
+				]
+			}
+		],
+		"function-no-unknown": [
+			true,
+			{
+				"ignoreFunctions": ["theme"]
+			}
+		]
+	}
+}
