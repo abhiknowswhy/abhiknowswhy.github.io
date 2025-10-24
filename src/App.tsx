@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ThemeProvider from './context/ThemeContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home.tsx';
@@ -9,6 +9,7 @@ import Blog from './pages/Blog.tsx';
 import Personal from './pages/Personal.tsx';
 import Privacy from './pages/Privacy.tsx';
 import Contact from './pages/Contact.tsx';
+import NotFound from './pages/NotFound.tsx';
 import ScrollRestoration from './components/ui/ScrollRestoration.tsx';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 				<Layout>
 					<Routes>
 						<Route path="/" element={<Home />} />
+						<Route path="/home" element={<Navigate to="/" />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/projects" element={<Projects />} />
 						<Route path="/projects/:id" element={<ProjectDetail />} />
@@ -26,6 +28,7 @@ function App() {
 						<Route path="/personal" element={<Personal />} />
 						<Route path="/privacy" element={<Privacy />} />
 						<Route path="/contact" element={<Contact />} />
+						<Route path="*" element={<NotFound />} />
 					</Routes>
 				</Layout>
 			</Router>
