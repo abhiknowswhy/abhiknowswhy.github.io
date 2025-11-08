@@ -2,20 +2,23 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Search, Filter, ExternalLink, Github, ArrowRight } from 'lucide-react';
-import { getProjectsData } from '../lib/dataLoader';
+import { SiBuymeacoffee } from 'react-icons/si';
+import { getProjectsData, getPersonalData } from '../lib/dataLoader';
 import type { Project } from '../types/data';
 import { useTheme } from '../hooks/useTheme';
 
 export default function Projects() {
 	const { theme } = useTheme();
+	const projectsData = getProjectsData();
+	const personalData = getPersonalData();
+	const [searchTerm, setSearchTerm] = useState('');
+	const [selectedCategory, setSelectedCategory] = useState('all');
+	const [selectedStatus, setSelectedStatus] = useState('all');
+	
 	useEffect(() => {
 		const bodyBgColor = window.getComputedStyle(document.body).backgroundColor;
 		console.log(`[Projects.tsx] Theme is: ${theme}, Body background color is: ${bodyBgColor}`);
 	}, [theme]);
-	const projectsData = getProjectsData();
-	const [searchTerm, setSearchTerm] = useState('');
-	const [selectedCategory, setSelectedCategory] = useState('all');
-	const [selectedStatus, setSelectedStatus] = useState('all');
 
 	// Get unique categories and statuses
 	const categories = Array.from(new Set(projectsData.projects.map(p => p.category)));
@@ -85,6 +88,22 @@ export default function Projects() {
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
 						A collection of projects I've worked on, showcasing my skills and passion for development.
+					</p>
+				</motion.div>
+
+				{/* Buy Me A Coffee Section */}
+				<motion.div variants={itemVariants} className="flex items-center justify-center mb-12">
+					<p className="text-gray-600 dark:text-gray-400">
+						If you like my work, consider{' '}
+						<a
+							href={personalData.social.buymeacoffee}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+						>
+							buying me a coffee
+							<SiBuymeacoffee className="w-5 h-5" />
+						</a>
 					</p>
 				</motion.div>
 

@@ -23,6 +23,9 @@ export interface SocialLinks {
   youtube?: string;
   medium?: string;
   dev?: string;
+  leetcode?: string;
+  codeforces?: string;
+  buymeacoffee?: string;
 }
 
 export interface Experience {
@@ -274,28 +277,13 @@ export interface BlogPost {
   title: string;
   slug: string;
   excerpt: string;
-  content?: string; // Full content, can be loaded separately
   category: string;
   tags: string[];
   date: string; // Display date (YYYY-MM-DD format)
-  publishedDate: string;
-  updatedDate?: string;
-  lastModified?: string;
   readingTime: number; // in minutes
   featured: boolean;
-  published: boolean;
   authors: string[];
-  authorName?: string;
-  authorAvatar?: string;
   coverImage?: string;
-  seoTitle?: string;
-  seoDescription?: string;
-  metaDescription?: string;
-  keywords?: string[];
-  views?: number;
-  likes?: number;
-  comments?: number;
-  relatedPosts?: string[];
   externalLink?: string; // Link to external blog (e.g., Medium article)
 }
 

@@ -1,16 +1,21 @@
-import { Heart, Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getPersonalData } from '../../lib/dataLoader';
+import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaMedium } from 'react-icons/fa6';
+import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
 
 export default function Footer() {
 	const personalData = getPersonalData();
 	const currentYear = new Date().getFullYear();
 
 	const socialIcons = {
-		github: Github,
-		linkedin: Linkedin,
-		twitter: Twitter,
-		email: Mail,
+		github: FaGithub,
+		linkedin: FaLinkedin,
+		twitter: FaTwitter,
+		youtube: FaYoutube,
+		medium: FaMedium,
+		leetcode: SiLeetcode,
+		buymeacoffee: SiBuymeacoffee,
 	};
 
 	return (

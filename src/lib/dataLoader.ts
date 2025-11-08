@@ -261,13 +261,13 @@ export const getBlogData = (): BlogData => {
 
 export const getAllBlogPosts = (): BlogPost[] => {
 	const data = getBlogData();
-	return data.posts.filter(post => post.published);
+	return data.posts;
 };
 
 export const getFeaturedBlogPosts = (): BlogPost[] => {
 	const data = getBlogData();
 	return data.posts.filter(post => 
-		data.featured.includes(post.id) && post.published
+		data.featured.includes(post.id)
 	);
 };
 
@@ -278,28 +278,27 @@ export const getBlogPostById = (id: string): BlogPost | undefined => {
 
 export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
 	const data = getBlogData();
-	return data.posts.find(post => post.slug === slug && post.published);
+	return data.posts.find(post => post.slug === slug);
 };
 
 export const getBlogPostsByCategory = (category: string): BlogPost[] => {
 	const data = getBlogData();
 	return data.posts.filter(post => 
-		post.category === category && post.published
+		post.category === category
 	);
 };
 
 export const getBlogPostsByTag = (tag: string): BlogPost[] => {
 	const data = getBlogData();
 	return data.posts.filter(post => 
-		post.tags.includes(tag) && post.published
+		post.tags.includes(tag)
 	);
 };
 
 export const getRecentBlogPosts = (limit = 5): BlogPost[] => {
 	const data = getBlogData();
 	return data.posts
-		.filter(post => post.published)
-		.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime())
+		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 		.slice(0, limit);
 };
 
@@ -327,7 +326,7 @@ export const getAllBlogAuthors = (): string[] => {
 export const getBlogPostsByAuthor = (author: string): BlogPost[] => {
 	const data = getBlogData();
 	return data.posts.filter(post => 
-		post.authors.includes(author) && post.published
+		post.authors.includes(author)
 	);
 };
 
