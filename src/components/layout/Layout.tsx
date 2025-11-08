@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
 		<div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
 			<SkipToContent />
 			<Navigation />
-			<main id="main-content" className="flex-grow pt-16 relative z-10" role="main">
+			<main id="main-content" className="flex-grow relative z-10" role="main">
 				<ErrorBoundary>
 					{children}
 				</ErrorBoundary>

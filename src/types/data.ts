@@ -23,6 +23,9 @@ export interface SocialLinks {
   youtube?: string;
   medium?: string;
   dev?: string;
+  leetcode?: string;
+  codeforces?: string;
+  buymeacoffee?: string;
 }
 
 export interface Experience {
@@ -269,35 +272,51 @@ export interface ArtworkData {
 }
 
 // Blog Data Types
-export interface BlogPost {
+// Blog Visitor Pattern Types
+export interface BlogVisitor<T> {
+  visitSolo(post: SoloBlogPost): T;
+  visitSeries(series: BlogSeries): T;
+}
+
+// Base BlogItem interface
+export interface BlogItem {
   id: string;
+  type: 'series' | 'solo';
+  accept<T>(visitor: BlogVisitor<T>): T;
+}
+
+// Solo blog post
+export interface SoloBlogPost extends BlogItem {
+  type: 'solo';
   title: string;
   slug: string;
   excerpt: string;
-  content?: string; // Full content, can be loaded separately
   category: string;
   tags: string[];
   date: string; // Display date (YYYY-MM-DD format)
-  publishedDate: string;
-  updatedDate?: string;
-  lastModified?: string;
   readingTime: number; // in minutes
   featured: boolean;
-  published: boolean;
   authors: string[];
-  authorName?: string;
-  authorAvatar?: string;
   coverImage?: string;
-  seoTitle?: string;
-  seoDescription?: string;
-  metaDescription?: string;
-  keywords?: string[];
-  views?: number;
-  likes?: number;
-  comments?: number;
-  relatedPosts?: string[];
   externalLink?: string; // Link to external blog (e.g., Medium article)
 }
+
+// Blog series (contains multiple solo posts)
+export interface BlogSeries extends BlogItem {
+  type: 'series';
+  title: string;
+  description: string;
+  excerpt: string;
+  category: string;
+  tags: string[];
+  date: string;
+  featured: boolean;
+  coverImage?: string;
+  posts: SoloBlogPost[];
+}
+
+// Legacy BlogPost type (kept for compatibility, maps to SoloBlogPost)
+export type BlogPost = SoloBlogPost;
 
 export interface BlogCategory {
   id: string;
@@ -309,7 +328,8 @@ export interface BlogCategory {
 export interface BlogData {
   categories: string[];
   featured: string[];
-  posts: BlogPost[];
+  items: BlogItem[];
+  posts: SoloBlogPost[]; // Legacy - kept for compatibility
 }
 
 // Contact Data Types
