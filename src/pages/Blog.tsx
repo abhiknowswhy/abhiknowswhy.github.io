@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment, useRef } from 'react';
 import { Calendar, Clock, Tag, User, Grid3x3, Rows3, ChevronDown } from 'lucide-react';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { getAllBlogItems, getAllBlogTagsFromItems, getPersonalData } from '../lib/dataLoader';
@@ -16,6 +16,7 @@ export default function Blog() {
 	const [allBlogItems] = useState(() => getAllBlogItems());
 	const [allTags] = useState(() => getAllBlogTagsFromItems());
 	const personalData = getPersonalData();
+	const gridRef = useRef<HTMLDivElement>(null);
 	
 	useEffect(() => {
 		// Create filter visitor
@@ -25,6 +26,18 @@ export default function Blog() {
 		const filtered = allBlogItems.filter(item => item.accept(filterVisitor));
 		setFilteredItems(filtered);
 	}, [searchTerm, selectedTag, allBlogItems]);
+
+	useEffect(() => {
+		// Handle click outside to collapse expanded series
+		const handleClickOutside = (event: MouseEvent) => {
+			if (gridRef.current && !gridRef.current.contains(event.target as Node)) {
+				setExpandedSeries(new Set());
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => document.removeEventListener('mousedown', handleClickOutside);
+	}, []);
 
 	const toggleSeriesExpand = (seriesId: string) => {
 		const newExpanded = new Set(expandedSeries);
@@ -48,23 +61,25 @@ export default function Blog() {
 			href={post.externalLink || `/blog/${post.slug}`}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="block group"
+			className="block group h-full"
 		>
 			<motion.article
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5, delay: index * 0.05 }}
 				whileHover={{ scale: 1.05 }}
-				className="flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+				className="flex flex-col bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
 			>
 				{/* Cover Image */}
-				{post.coverImage && (
-					<img 
-						src={post.coverImage} 
-						alt={post.title}
-						className="w-full h-48 object-cover"
-					/>
-				)}
+				<div className="w-full h-48 overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+					{post.coverImage && (
+						<img 
+							src={post.coverImage} 
+							alt={post.title}
+							className="w-full h-full object-cover"
+						/>
+					)}
+				</div>
 				
 				<div className="p-6 flex-grow flex flex-col">
 					<div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4 mb-3">
@@ -84,15 +99,15 @@ export default function Blog() {
 						<span>{renderAuthors(post.authors)}</span>
 					</div>
 	
-					<h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+					<h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
 						{post.title}
 					</h2>
 	
-					<p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
+					<p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3">
 						{post.excerpt}
 					</p>
 	
-					<div className="flex flex-wrap gap-2">
+					<div className="flex flex-wrap gap-2 mb-4 min-h-6">
 						{post.tags.map(tag => (
 							<span
 								key={tag}
@@ -127,39 +142,41 @@ export default function Blog() {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5, delay: index * 0.05 }}
 				whileHover={{ scale: 1.05 }}
-				className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col h-full"
+				className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col"
 			>
 				{/* Series Cover Image */}
-				{seriesCoverImage && (
-					<img 
-						src={seriesCoverImage} 
-						alt={series.title}
-						className="w-full h-48 object-cover"
-					/>
-				)}
+				<div className="w-full h-48 overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+					{seriesCoverImage && (
+						<img 
+							src={seriesCoverImage} 
+							alt={series.title}
+							className="w-full h-full object-cover"
+						/>
+					)}
+				</div>
 				
 				{/* Series Header */}
 				<div
 					onClick={() => toggleSeriesExpand(series.id)}
 					className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors flex-grow flex flex-col"
 				>
-					<div className="flex items-start justify-between mb-3">
+					<div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4 mb-2">
+						<span className="flex items-center">
+							<Calendar className="h-4 w-4 mr-1" />
+							{metadata.date}
+						</span>
+						<span className="flex items-center">
+							<Clock className="h-4 w-4 mr-1" />
+							{metadata.readingTime} min
+						</span>
+					</div>
+					<div className="flex items-start justify-between mb-2">
 						<div className="flex-grow">
-							<div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4 mb-2">
-								<span className="flex items-center">
-									<Calendar className="h-4 w-4 mr-1" />
-									{metadata.date}
-								</span>
-								<span className="flex items-center">
-									<Clock className="h-4 w-4 mr-1" />
-									{metadata.readingTime} min
-								</span>
-							</div>
-							<h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+							<h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2">
 								{series.title}
 							</h3>
 							{series.description && (
-								<p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+								<p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
 									{series.description}
 								</p>
 							)}
@@ -172,15 +189,15 @@ export default function Blog() {
 							<ChevronDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
 						</motion.div>
 					</div>
-					<div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
+					<div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-2">
 						<User className="h-4 w-4 mr-1" />
-						<span>{renderAuthors(metadata.authors)}</span>
+						<span className="line-clamp-1">{renderAuthors(metadata.authors)}</span>
 					</div>
 					<div className="text-sm text-gray-500 dark:text-gray-400 mb-3">
 						{series.posts.length} {series.posts.length === 1 ? 'post' : 'posts'} in series
 					</div>
-					<div className="flex flex-wrap gap-2 mb-3">
-						{metadata.tags.map((tag: string) => (
+					<div className="flex flex-wrap gap-2 mb-4 min-h-6">
+						{metadata.tags.slice(0, 3).map((tag: string) => (
 							<span
 								key={tag}
 								className="inline-flex items-center text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
@@ -189,6 +206,11 @@ export default function Blog() {
 								{tag}
 							</span>
 						))}
+						{metadata.tags.length > 3 && (
+							<span className="text-xs text-gray-500 dark:text-gray-400">
+								+{metadata.tags.length - 3} more
+							</span>
+						)}
 					</div>
 					<div className="mt-auto pt-2">
 						<div className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:text-blue-800 dark:hover:text-blue-300 transition-all duration-300">
@@ -304,7 +326,7 @@ export default function Blog() {
 											exit={{ opacity: 0, scale: 0.9 }}
 											transition={{ duration: 0.25, delay: postIndex * 0.04 }}
 											whileHover={{ scale: 1.05 }}
-											className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
+											className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
 										>
 											<a 
 												href={post.externalLink || `/blog/${post.slug}`}
@@ -312,25 +334,28 @@ export default function Blog() {
 												rel="noopener noreferrer"
 												className="block group h-full flex flex-col"
 											>
-												{/* Cover Image */}
-												{post.coverImage && (
-													<img 
-														src={post.coverImage} 
-														alt={post.title}
-														className="w-full h-48 object-cover"
-													/>
-												)}
-												
-												<div className="p-6 flex flex-col h-full">
-													<div className="flex items-center justify-between mb-3">
-														<span className="text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-100 px-3 py-1 rounded-full">
+												{/* Cover Image with Badges Overlay */}
+												<div className="relative w-full h-48 overflow-hidden bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+													{post.coverImage && (
+														<img 
+															src={post.coverImage} 
+															alt={post.title}
+															className="w-full h-full object-cover"
+														/>
+													)}
+													
+													{/* Badges Overlay */}
+													<div className="absolute inset-0 px-4 pt-3 pb-2 flex items-start justify-between pointer-events-none">
+														<span className="text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-100 px-3 py-1 rounded-full shadow-md">
 															Part {postIndex + 1}
 														</span>
-														<span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 px-2 py-1 rounded">
+														<span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 px-2 py-1 rounded shadow-md">
 															Series
 														</span>
 													</div>
-													
+												</div>
+												
+												<div className="p-6 flex flex-col h-full">
 													<div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4 mb-3">
 														<span className="flex items-center">
 															<Calendar className="h-4 w-4 mr-1" />
@@ -342,21 +367,21 @@ export default function Blog() {
 														</span>
 													</div>
 
-													<h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+													<h3 className="text-base font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
 														{post.title}
 													</h3>
 													
-													<p className="text-gray-600 dark:text-gray-300 mb-3 flex-grow">
+													<p className="text-gray-600 dark:text-gray-300 mb-3 flex-grow line-clamp-3">
 														{post.excerpt}
 													</p>
 
-													<div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
-														<User className="h-4 w-4 mr-1" />
+													<div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-1">
+														<User className="h-4 w-4 mr-1 flex-shrink-0" />
 														<span>{renderAuthors(post.authors)}</span>
 													</div>
 
-													<div className="flex flex-wrap gap-2 mb-3">
-														{post.tags.map(tag => (
+													<div className="flex flex-wrap gap-2 mb-4 min-h-6">
+														{post.tags.slice(0, 2).map(tag => (
 															<span
 																key={tag}
 																className="inline-flex items-center text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
@@ -365,6 +390,11 @@ export default function Blog() {
 																{tag}
 															</span>
 														))}
+														{post.tags.length > 2 && (
+															<span className="text-xs text-gray-500 dark:text-gray-400">
+																+{post.tags.length - 2} more
+															</span>
+														)}
 													</div>
 
 													<div className="mt-auto pt-4">
@@ -715,7 +745,7 @@ export default function Blog() {
 
 				{/* Blog Posts - Tile View */}
 				{viewMode === 'tile' && (
-					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+					<div ref={gridRef} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" style={{ gridAutoRows: 'minmax(0, 1fr)' }}>
 						{renderTileView()}
 					</div>
 				)}
