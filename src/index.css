@@ -502,4 +502,14 @@ body {
 	.gap-gr {
 		gap: 21px; /* gr-3 */
 	}
+
+	/* Minimal/hidden scrollbar */
+	.scrollbar-hide {
+		-ms-overflow-style: none; /* Internet Explorer and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+	
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none; /* Chrome, Safari and Opera */
+	}
 }

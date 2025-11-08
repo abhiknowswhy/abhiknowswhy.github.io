@@ -272,8 +272,22 @@ export interface ArtworkData {
 }
 
 // Blog Data Types
-export interface BlogPost {
+// Blog Visitor Pattern Types
+export interface BlogVisitor<T> {
+  visitSolo(post: SoloBlogPost): T;
+  visitSeries(series: BlogSeries): T;
+}
+
+// Base BlogItem interface
+export interface BlogItem {
   id: string;
+  type: 'series' | 'solo';
+  accept<T>(visitor: BlogVisitor<T>): T;
+}
+
+// Solo blog post
+export interface SoloBlogPost extends BlogItem {
+  type: 'solo';
   title: string;
   slug: string;
   excerpt: string;
@@ -287,6 +301,23 @@ export interface BlogPost {
   externalLink?: string; // Link to external blog (e.g., Medium article)
 }
 
+// Blog series (contains multiple solo posts)
+export interface BlogSeries extends BlogItem {
+  type: 'series';
+  title: string;
+  description: string;
+  excerpt: string;
+  category: string;
+  tags: string[];
+  date: string;
+  featured: boolean;
+  coverImage?: string;
+  posts: SoloBlogPost[];
+}
+
+// Legacy BlogPost type (kept for compatibility, maps to SoloBlogPost)
+export type BlogPost = SoloBlogPost;
+
 export interface BlogCategory {
   id: string;
   name: string;
@@ -297,7 +328,8 @@ export interface BlogCategory {
 export interface BlogData {
   categories: string[];
   featured: string[];
-  posts: BlogPost[];
+  items: BlogItem[];
+  posts: SoloBlogPost[]; // Legacy - kept for compatibility
 }
 
 // Contact Data Types
