@@ -58,6 +58,21 @@
 					"featured": false,
 					"coverImage": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*XEzE8y_Xg0gXv2KVP7K6HA.png",
 					"externalLink": "https://medium.com/@abhiknowswhy/what-the-auth-6b364a001419"
+				},
+				{
+					"type": "solo",
+					"id": "4",
+					"title": "What The Auth? (Pt.4)",
+					"excerpt": "The Passwordless Future: How WebAuthn and FIDO2 are finally killing the password",
+					"date": "2025-10-24",
+					"readingTime": 7,
+					"tags": ["Security", "Computer Science Theory"],
+					"slug": "what-the-auth-pt-4",
+					"authors": ["Guna Abhiram Bondada"],
+					"category": "Security",
+					"featured": false,
+					"coverImage": "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*KYk5uc_eAqLNdCpzHhBHkg.jpeg",
+					"externalLink": "https://medium.com/@abhiknowswhy/what-the-auth-pt-4-21e46d16e3b9"
 				}
 			]
 		},
