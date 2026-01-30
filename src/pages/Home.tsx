@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, MapPin, Calendar, Code, BookOpen, Globe, Pen } from 'lucide-react';
+import { ArrowRight, Download, MapPin, Calendar, Code, Globe, Pen, Award, Briefcase, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPersonalData, getProjectsData, getFeaturedProjects, getLibraryData } from '../lib/dataLoader';
 import type { Project } from '../types/data';
+import { StatsGlassBar } from '@/components/ui/StatsGlassBar';
 
 export default function Home() {
 	const personalData = getPersonalData();
@@ -142,54 +143,13 @@ export default function Home() {
 
 			{/* Stats Section */}
 			<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.6 }}
-					className="grid grid-cols-1 md:grid-cols-3 gap-8"
-				>
-					<motion.div 
-						className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center"
-						whileHover={{ y: -5 }}
-						transition={{ duration: 0.3 }}
-					>
-						<div className="flex justify-center mb-4">
-							<Code className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-						</div>
-						<h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-							{projectsData.projects.length}+
-						</h3>
-						<p className="text-gray-600 dark:text-gray-400">Projects Completed</p>
-					</motion.div>
-
-					<motion.div 
-						className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center"
-						whileHover={{ y: -5 }}
-						transition={{ duration: 0.3 }}
-					>
-						<div className="flex justify-center mb-4">
-							<BookOpen className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-						</div>
-						<h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-							{libraryData.books.length}
-						</h3>
-						<p className="text-gray-600 dark:text-gray-400">Books in Library</p>
-					</motion.div>
-
-					<motion.div 
-						className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center"
-						whileHover={{ y: -5 }}
-						transition={{ duration: 0.3 }}
-					>
-						<div className="flex justify-center mb-4">
-							<Calendar className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-						</div>
-						<h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-							{personalData.experience.length}+
-						</h3>
-						<p className="text-gray-600 dark:text-gray-400">Years Experience</p>
-					</motion.div>
-				</motion.div>
+				<StatsGlassBar 
+					stats={[
+						{ value: personalData.experience.length, label: 'Years Experience', icon: <Briefcase className="w-6 h-6" />, suffix: '+', color: '#10B981' },
+						{ value: projectsData.projects.length, label: 'Projects Completed', icon: <Code className="w-6 h-6" />, suffix: '+', color: '#3B82F6' },
+						{ value: 8, label: 'Certifications', icon: <Award className="w-6 h-6" />, color: '#F59E0B' },
+					]}
+				/>
 			</section>
 
 			{/* Quick Navigation */}

@@ -67,6 +67,39 @@ The project uses custom CSS variables defined in `src/index.css`:
 - Secondary colors: `secondary-50` through `secondary-900` (purple tones)
 - Use Tailwind's `dark:` variant for dark mode styles
 
+## Dark Mode / Light Mode Guidelines
+This project supports both dark and light themes. **Always implement both modes** for any new component or feature.
+
+### Theme Implementation Rules
+1. **Always pair light and dark styles** - Every color class should have a `dark:` counterpart
+2. **Use semantic color mappings**:
+   - Backgrounds: `bg-white dark:bg-gray-800` or `bg-gray-50 dark:bg-gray-900`
+   - Text: `text-gray-900 dark:text-white` (primary) or `text-gray-600 dark:text-gray-400` (secondary)
+   - Borders: `border-gray-200 dark:border-gray-700`
+   - Hover states: `hover:bg-gray-100 dark:hover:bg-gray-700`
+
+### Color Patterns for Common Elements
+```
+Cards/Containers:     bg-white dark:bg-gray-800
+Page backgrounds:     bg-gray-50 dark:bg-gray-900
+Primary text:         text-gray-900 dark:text-white
+Secondary text:       text-gray-600 dark:text-gray-400
+Muted text:           text-gray-500 dark:text-gray-500
+Borders:              border-gray-200 dark:border-gray-700
+Dividers:             bg-gray-200 dark:bg-gray-700
+Interactive hover:    hover:bg-gray-100 dark:hover:bg-gray-700
+Primary accent:       text-primary-600 dark:text-primary-400
+Links:                text-blue-600 dark:text-blue-400
+```
+
+### Icons in Dark Mode
+- Always add color classes to icons: `text-gray-700 dark:text-white` or `text-gray-600 dark:text-gray-400`
+- Never leave icons without explicit color in components that support dark mode
+
+### Testing
+- Always test components in both light and dark modes before considering them complete
+- Toggle theme using the sun/moon button in the navigation
+
 ## Dependencies
 - React 19+
 - Vite as the build tool
