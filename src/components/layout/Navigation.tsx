@@ -1,8 +1,14 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../hooks/useTheme';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const navigationItems = [
 	{ name: 'Home', href: '/' },
@@ -14,7 +20,6 @@ const navigationItems = [
 ];
 
 export default function Navigation() {
-	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 	const { theme, setTheme } = useTheme();
 
@@ -96,44 +101,37 @@ export default function Navigation() {
 							{getThemeIcon()}
 						</button>
             
-						<button
-							onClick={() => setIsOpen(!isOpen)}
-							className="p-2 rounded-lg glass-card hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-							aria-label="Toggle menu"
-						>
-							{isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-						</button>
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<button
+									className="p-2 rounded-lg glass-card hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+									aria-label="Toggle menu"
+								>
+									<Menu className="w-6 h-6" />
+								</button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end" className="w-48">
+								{navigationItems.map((item, index) => (
+									<div key={item.name}>
+										<DropdownMenuItem asChild>
+											<Link
+												to={item.href}
+												className={`w-full cursor-pointer ${
+													location.pathname === item.href
+														? 'text-primary-600 dark:text-primary-400 font-medium'
+														: ''
+												}`}
+											>
+												{item.name}
+											</Link>
+										</DropdownMenuItem>
+										{index < navigationItems.length - 1 && <DropdownMenuSeparator />}
+									</div>
+								))}
+							</DropdownMenuContent>
+						</DropdownMenu>
 					</div>
 				</div>
-
-				{/* Mobile Navigation */}
-				<motion.div
-					className="md:hidden"
-					initial={false}
-					animate={{
-						height: isOpen ? 'auto' : 0,
-						opacity: isOpen ? 1 : 0,
-					}}
-					transition={{ duration: 0.3 }}
-					style={{ overflow: 'hidden' }}
-				>
-					<div className="px-2 pt-2 pb-3 space-y-1 glass-card mt-2 rounded-lg">
-						{navigationItems.map((item) => (
-							<Link
-								key={item.name}
-								to={item.href}
-								className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-									location.pathname === item.href
-										? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-										: 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-700/50'
-								}`}
-								onClick={() => setIsOpen(false)}
-							>
-								{item.name}
-							</Link>
-						))}
-					</div>
-				</motion.div>
 			</div>
 		</motion.nav>
 	);

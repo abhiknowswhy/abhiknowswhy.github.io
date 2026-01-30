@@ -95,6 +95,7 @@ export interface Project {
   githubUrl?: string;
   caseStudyUrl?: string;
   featured: boolean;
+  visible: boolean;
   challenges?: string[];
   solutions?: string[];
   metrics?: {
