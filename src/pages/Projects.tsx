@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Search, Filter, ExternalLink, Github, ArrowRight, ChevronDown, Check } from 'lucide-react';
+import { Search, Filter, ExternalLink, Github, ArrowRight, ChevronDown, Check, CircleDot } from 'lucide-react';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { getProjectsData, getPersonalData } from '../lib/dataLoader';
 import type { Project } from '../types/data';
@@ -133,8 +133,8 @@ export default function Projects() {
 							{/* Category Filter */}
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
-									<button className="w-full flex items-center justify-between pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
-										<Filter className="absolute left-3 w-4 h-4 text-gray-400" />
+									<button className="relative w-full flex items-center justify-between pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
+										<Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
 										<span className={selectedCategory === 'all' ? 'text-gray-500' : ''}>
 											{selectedCategory === 'all' 
 												? 'All Categories' 
@@ -167,7 +167,8 @@ export default function Projects() {
 							{/* Status Filter */}
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
-									<button className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
+									<button className="relative w-full flex items-center justify-between pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
+										<CircleDot className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
 										<span className={selectedStatus === 'all' ? 'text-gray-500' : ''}>
 											{selectedStatus === 'all' 
 												? 'All Statuses' 

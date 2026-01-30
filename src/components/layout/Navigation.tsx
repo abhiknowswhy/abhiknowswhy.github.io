@@ -107,7 +107,7 @@ export default function Navigation() {
 									className="p-2 rounded-lg glass-card hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
 									aria-label="Toggle menu"
 								>
-									<Menu className="w-6 h-6" />
+									<Menu className="w-6 h-6 text-gray-800 dark:text-white" />
 								</button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent align="end" className="w-48">
