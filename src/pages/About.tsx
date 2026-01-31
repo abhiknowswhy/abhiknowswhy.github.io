@@ -60,7 +60,7 @@ export default function About() {
 				{/* Page Header */}
 				<motion.div variants={itemVariants} className="text-center mb-12">
 					<h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-						About Me
+						About <span className="gradient-text">Me</span>
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
 						My journey, skills, and achievements

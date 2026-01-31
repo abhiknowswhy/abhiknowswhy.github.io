@@ -53,7 +53,7 @@ export default function Home() {
 								Hello, I'm
 							</p>
 							<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-								{personalData.profile.name}
+								Abhiram <span className="gradient-text">Bondada</span>
 							</h1>
 							<p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 font-medium">
 								{personalData.profile.title}
@@ -144,7 +144,7 @@ export default function Home() {
 					className="text-center mb-12"
 				>
 					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-						Explore My World
+						Explore My <span className="gradient-text">World</span>
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
 						Dive into my projects, adventures, and interests
