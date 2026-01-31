@@ -1,651 +1,479 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Utensils, Music, Instagram, Youtube, BookOpen, MapPin, Calendar, Star, Search, Filter, Target, Quote } from 'lucide-react';
-import { getLibraryData } from '../lib/dataLoader';
-import type { Book } from '../types/data';
+import { Utensils, Music, BookOpen, MapPin, Clock, Sparkles, ExternalLink, Star } from 'lucide-react';
 
 const tabData = [
 	{
+		id: 'library',
+		label: 'Library',
+		icon: BookOpen,
+		gradient: 'from-emerald-500 to-teal-600',
+	},
+	{
 		id: 'music',
 		label: 'Music',
-		icon: <Music className="h-5 w-5" />,
+		icon: Music,
+		gradient: 'from-purple-500 to-pink-600',
 	},
 	{
 		id: 'cooking',
 		label: 'Cooking',
-		icon: <Utensils className="h-5 w-5" />,
-	},
-	{
-		id: 'library',
-		label: 'Library',
-		icon: <BookOpen className="h-5 w-5" />,
+		icon: Utensils,
+		gradient: 'from-orange-500 to-red-600',
 	},
 	{
 		id: 'travel',
 		label: 'Travel',
-		icon: <MapPin className="h-5 w-5" />,
+		icon: MapPin,
+		gradient: 'from-blue-500 to-indigo-600',
 	},
 ];
 
-// Sample music data
-const musicData = [
+// Book type definition
+interface Book {
+	title: string;
+	author: string;
+	cover: string;
+	rating: number;
+	link: string;
+	dateRead?: string;
+}
+
+// Currently reading books (from Goodreads RSS: currently-reading shelf)
+const currentlyReading: Book[] = [
 	{
-		id: 1,
-		title: 'Piano Composition - Rainfall',
-		description: 'An original piano piece inspired by the tranquility of rain.',
-		type: 'audio',
-		url: '/music/rainfall.mp3',
-		instagramUrl: 'https://instagram.com/user/post1',
-		youtubeUrl: 'https://youtube.com/watch?v=example1',
-		date: 'March 2023',
+		title: 'Into the Wild',
+		author: 'Jon Krakauer',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1650755924l/60869516._SY475_.jpg',
+		rating: 0,
+		link: 'https://www.goodreads.com/book/show/60869516-into-the-wild',
 	},
 	{
-		id: 2,
-		title: 'Guitar Cover - Autumn Leaves',
-		description: 'My interpretation of the jazz standard "Autumn Leaves".',
-		type: 'video',
-		url: '/music/autumn-leaves.mp4',
-		youtubeUrl: 'https://youtube.com/watch?v=example2',
-		date: 'November 2022',
-	},
-	{
-		id: 3,
-		title: 'Electronic Production - Horizon',
-		description: 'An electronic music track created using Ableton Live.',
-		type: 'audio',
-		url: '/music/horizon.mp3',
-		instagramUrl: 'https://instagram.com/user/post3',
-		date: 'January 2023',
+		title: 'The Metamorphosis',
+		author: 'Franz Kafka',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1646444605l/485894._SY475_.jpg',
+		rating: 0,
+		link: 'https://www.goodreads.com/book/show/485894.The_Metamorphosis',
 	},
 ];
 
-// Sample cooking data
-const cookingData = [
+// Read books (from Goodreads RSS: read shelf - most recent first)
+const readBooks: Book[] = [
 	{
-		id: 1,
-		title: 'Homemade Pasta Carbonara',
-		description: 'Classic Italian carbonara made with fresh ingredients and homemade pasta.',
-		image: '/cooking/carbonara.jpg',
-		instagramUrl: 'https://instagram.com/user/cooking1',
-		ingredients: [
-			'400g fresh pasta', '200g pancetta', '4 egg yolks', '50g pecorino cheese', 
-			'50g parmesan', 'Black pepper', 'Salt'
-		],
-		instructions: 'Cook pasta al dente. Meanwhile, fry pancetta until crisp. Mix egg yolks with grated cheese. Combine hot pasta with pancetta, then mix in egg mixture away from heat. The residual heat will cook the eggs into a creamy sauce.',
-		date: 'April 2023',
+		title: 'Designing Data-Intensive Applications',
+		author: 'Martin Kleppmann',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1415816873l/23463279._SX318_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/23463279-designing-data-intensive-applications',
+		dateRead: '2026',
 	},
 	{
-		id: 2,
-		title: 'Japanese Matcha Soufflé Pancakes',
-		description: 'Fluffy Japanese-style pancakes with a delicate matcha flavor.',
-		image: '/cooking/matcha-pancakes.jpg',
-		instagramUrl: 'https://instagram.com/user/cooking2',
-		ingredients: [
-			'2 eggs (separated)', '30g sugar', '40g milk', '40g flour', 
-			'1 tsp matcha powder', '1/2 tsp baking powder', 'Pinch of salt'
-		],
-		instructions: 'Whisk egg whites with sugar until stiff peaks form. Mix egg yolks, milk, flour, matcha, and baking powder. Fold egg whites into yolk mixture. Cook on low heat with molds for height.',
-		date: 'February 2023',
+		title: 'When Breath Becomes Air',
+		author: 'Paul Kalanithi',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1492677644l/25899336._SX318_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/25899336-when-breath-becomes-air',
+		dateRead: '2025',
 	},
 	{
-		id: 3,
-		title: 'Mediterranean Mezze Platter',
-		description: 'A selection of homemade Mediterranean appetizers including hummus, baba ganoush, and falafel.',
-		image: '/cooking/mezze.jpg',
-		instagramUrl: 'https://instagram.com/user/cooking3',
-		ingredients: [
-			'Chickpeas', 'Tahini', 'Eggplant', 'Fresh herbs', 'Olive oil', 'Pita bread'
-		],
-		instructions: 'For hummus: blend chickpeas, tahini, garlic, lemon juice, and olive oil. For baba ganoush: roast eggplant until soft, then blend with tahini, garlic, and lemon juice. Serve with warm pita bread.',
-		date: 'May 2023',
+		title: 'The System Design Interview',
+		author: 'Lewis C. Lin',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1625121264l/58465299._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/58465299-the-system-design-interview',
+		dateRead: '2025',
+	},
+	{
+		title: 'The Hard Thing About Hard Things',
+		author: 'Ben Horowitz',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386609333l/18176747._SX318_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/18176747-the-hard-thing-about-hard-things',
+		dateRead: '2025',
+	},
+	{
+		title: 'Sapiens: A Brief History of Humankind',
+		author: 'Yuval Noah Harari',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1703329310l/23692271._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/23692271-sapiens',
+		dateRead: '2024',
+	},
+	{
+		title: 'Think Again',
+		author: 'Adam M. Grant',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1602574232l/55539565._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/55539565-think-again',
+		dateRead: '2024',
+	},
+	{
+		title: 'No Rules Rules',
+		author: 'Reed Hastings',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1595815356l/49099937._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/49099937-no-rules-rules',
+		dateRead: '2024',
+	},
+	{
+		title: 'Hooked',
+		author: 'Nir Eyal',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1407112405l/22668729._SY475_.jpg',
+		rating: 4,
+		link: 'https://www.goodreads.com/book/show/22668729-hooked',
+		dateRead: '2024',
+	},
+	{
+		title: 'Same as Ever',
+		author: 'Morgan Housel',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1680687321l/125116554._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/125116554-same-as-ever',
+		dateRead: '2024',
+	},
+	{
+		title: 'Mistborn: The Final Empire',
+		author: 'Brandon Sanderson',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1617768316l/68428._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/68428.Mistborn',
+		dateRead: '2024',
+	},
+	{
+		title: 'The Forty Rules of Love',
+		author: 'Elif Shafak',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1442161289l/6642715._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/6642715-the-forty-rules-of-love',
+		dateRead: '2024',
+	},
+	{
+		title: 'It Ends with Us',
+		author: 'Colleen Hoover',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1688011813l/27362503._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/27362503-it-ends-with-us',
+		dateRead: '2024',
+	},
+	{
+		title: 'The Black Swan',
+		author: 'Nassim Nicholas Taleb',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1714172313l/242472._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/242472.The_Black_Swan',
+		dateRead: '2024',
+	},
+	{
+		title: 'The Psychology of Money',
+		author: 'Morgan Housel',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581527774l/41881472._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/41881472-the-psychology-of-money',
+		dateRead: '2024',
+	},
+	{
+		title: 'Thinking, Fast and Slow',
+		author: 'Daniel Kahneman',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1317793965l/11468377._SX318_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/11468377-thinking-fast-and-slow',
+		dateRead: '2024',
+	},
+	{
+		title: 'Atomic Habits',
+		author: 'James Clear',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1655988385l/40121378._SY475_.jpg',
+		rating: 4,
+		link: 'https://www.goodreads.com/book/show/40121378-atomic-habits',
+		dateRead: '2024',
+	},
+	{
+		title: 'Steve Jobs',
+		author: 'Walter Isaacson',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1511288482l/11084145._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/11084145-steve-jobs',
+		dateRead: '2024',
+	},
+	{
+		title: 'The Almanack of Naval Ravikant',
+		author: 'Eric Jorgenson',
+		cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598011736l/54898389._SY475_.jpg',
+		rating: 5,
+		link: 'https://www.goodreads.com/book/show/54898389-the-almanack-of-naval-ravikant',
+		dateRead: '2024',
 	},
 ];
 
-// Sample travel data
-const travelData = [
-	{
-		id: 1,
-		location: 'Tokyo, Japan',
-		coordinates: [35.6762, 139.6503],
-		date: 'May 2023',
-		description: 'Explored the bustling streets of Shibuya and enjoyed traditional temples in Asakusa.',
-		images: ['/tokyo1.jpg', '/tokyo2.jpg'],
-		highlights: ['Shibuya Crossing', 'Senso-ji Temple', 'Tokyo Skytree'],
-	},
-	{
-		id: 2,
-		location: 'Barcelona, Spain',
-		coordinates: [41.3874, 2.1686],
-		date: 'August 2022',
-		description: 'Admired Gaudi\'s architectural masterpieces and enjoyed Mediterranean cuisine.',
-		images: ['/barcelona1.jpg', '/barcelona2.jpg'],
-		highlights: ['Sagrada Familia', 'Park Güell', 'La Rambla'],
-	},
-	{
-		id: 3,
-		location: 'New York City, USA',
-		coordinates: [40.7128, -74.0060],
-		date: 'December 2022',
-		description: 'Experienced the magic of NYC during the holiday season with snow-covered Central Park.',
-		images: ['/nyc1.jpg', '/nyc2.jpg'],
-		highlights: ['Central Park', 'Empire State Building', 'Times Square'],
-	},
-	{
-		id: 4,
-		location: 'Cape Town, South Africa',
-		coordinates: [-33.9249, 18.4241],
-		date: 'February 2023',
-		description: 'Hiked Table Mountain and explored the beautiful coastline.',
-		images: ['/capetown1.jpg', '/capetown2.jpg'],
-		highlights: ['Table Mountain', 'Cape of Good Hope', 'Boulders Beach'],
-	},
-];
+// Book Card Component
+function BookCard({ book, isCurrentlyReading = false }: { book: Book; isCurrentlyReading?: boolean }) {
+	return (
+		<motion.a
+			href={book.link}
+			target="_blank"
+			rel="noopener noreferrer"
+			className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+			whileHover={{ y: -4 }}
+		>
+			<div className="aspect-[2/3] overflow-hidden">
+				<img
+					src={book.cover}
+					alt={book.title}
+					className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+					loading="lazy"
+				/>
+			</div>
+			<div className="p-3">
+				<h4 className="font-semibold text-sm text-gray-900 dark:text-white line-clamp-2 mb-1">
+					{book.title}
+				</h4>
+				<p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+					{book.author}
+				</p>
+				{!isCurrentlyReading && book.rating > 0 && (
+					<div className="flex items-center gap-0.5">
+						{[...Array(5)].map((_, i) => (
+							<Star
+								key={i}
+								className={`w-3 h-3 ${
+									i < book.rating
+										? 'text-yellow-400 fill-yellow-400'
+										: 'text-gray-300 dark:text-gray-600'
+								}`}
+							/>
+						))}
+					</div>
+				)}
+				{isCurrentlyReading && (
+					<span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-medium">
+						<BookOpen className="w-3 h-3" />
+						Reading
+					</span>
+				)}
+			</div>
+		</motion.a>
+	);
+}
 
-export default function Personal() {
-	const [activeTab, setActiveTab] = useState('music');
-	const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
-	const locationRefs = useRef<(HTMLDivElement | null)[]>([]);
-	const libraryData = getLibraryData();
-	const [searchTerm, setSearchTerm] = useState('');
-	const [selectedGenre, setSelectedGenre] = useState('all');
-	const [selectedStatus, setSelectedStatus] = useState('all');
-
-	// Get unique genres and statuses for library
-	const genres = Array.from(new Set(libraryData.books.flatMap((b: Book) => b.genre)));
-	const statuses = Array.from(new Set(libraryData.books.map((b: Book) => b.readingStatus)));
-
-	// Filter books
-	const filteredBooks = libraryData.books.filter((book: Book) => {
-		const matchesSearch = searchTerm === '' || 
-		book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-		book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-		book.genre.some((g: string) => g.toLowerCase().includes(searchTerm.toLowerCase()));
-		const matchesGenre = selectedGenre === 'all' || book.genre.includes(selectedGenre);
-		const matchesStatus = selectedStatus === 'all' || book.readingStatus === selectedStatus;
-    
-		return matchesSearch && matchesGenre && matchesStatus;
-	});
-
-	// Handle scrolling to selected location for travel tab
-	useEffect(() => {
-		if (activeTab === 'travel' && selectedLocation !== null) {
-			locationRefs.current[selectedLocation]?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'center',
-			});
-		}
-	}, [selectedLocation, activeTab]);
+// Library Component with books from Goodreads RSS
+function GoodreadsLibrary() {
+	const [showAllBooks, setShowAllBooks] = useState(false);
+	const displayedBooks = showAllBooks ? readBooks : readBooks.slice(0, 12);
 
 	return (
-		<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.5 }}
-				className="space-y-12"
+		<div className="space-y-8">
+			{/* Currently Reading Section */}
+			<div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+				<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+					<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+						<BookOpen className="w-4 h-4 text-white" />
+					</span>
+					Currently Reading
+				</h3>
+				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+					{currentlyReading.map((book, index) => (
+						<BookCard key={index} book={book} isCurrentlyReading />
+					))}
+				</div>
+			</div>
+
+			{/* Read Books Section */}
+			<div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+				<div className="flex items-center justify-between mb-6">
+					<h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+						<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+							<BookOpen className="w-4 h-4 text-white" />
+						</span>
+						Books I've Read
+					</h3>
+					<span className="text-sm text-gray-500 dark:text-gray-400">
+						{readBooks.length} books
+					</span>
+				</div>
+				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+					{displayedBooks.map((book, index) => (
+						<BookCard key={index} book={book} />
+					))}
+				</div>
+				{readBooks.length > 12 && (
+					<div className="mt-6 text-center">
+						<button
+							onClick={() => setShowAllBooks(!showAllBooks)}
+							className="px-6 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+						>
+							{showAllBooks ? 'Show Less' : `Show All ${readBooks.length} Books`}
+						</button>
+					</div>
+				)}
+			</div>
+
+			{/* View on Goodreads Link */}
+			<motion.a
+				href="https://www.goodreads.com/user/show/178378557-abhiram"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
+				whileHover={{ scale: 1.02 }}
+				whileTap={{ scale: 0.98 }}
 			>
-				{/* Header */}
-				<div className="text-center">
-					<h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-						My <span className="gradient-text">Interests</span>
-					</h1>
-					<p className="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400">
-						Beyond code and design, these are the things that bring me joy and inspiration.
-					</p>
-				</div>
-        
-				{/* Tabs */}
-				<div className="border-b border-gray-200 dark:border-gray-700">
-					<nav className="flex justify-center space-x-8">
-						{tabData.map(tab => (
-							<button
-								key={tab.id}
-								className={`py-4 px-1 flex items-center space-x-2 border-b-2 font-medium text-sm ${
-									activeTab === tab.id
-										? 'border-blue-500 text-blue-600 dark:text-blue-400'
-										: 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
-								}`}
-								onClick={() => setActiveTab(tab.id)}
-							>
-								{tab.icon}
-								<span>{tab.label}</span>
-							</button>
-						))}
-					</nav>
-				</div>
-        
-				{/* Music Tab */}
-				{activeTab === 'music' && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						className="space-y-10"
-					>
-						<p className="text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-							Music has always been a significant part of my life. Here are some of my original compositions, 
-							covers, and musical experiments.
-						</p>
-            
-						<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{musicData.map(music => (
-								<motion.div
-									key={music.id}
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5 }}
-									className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-								>
-									<div className="p-6">
-										<h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-											{music.title}
-										</h3>
-                    
-										<p className="text-gray-600 dark:text-gray-300 mb-4">
-											{music.description}
-										</p>
-                    
-										<div className="mb-4">
-											{music.type === 'audio' ? (
-												<div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-center">
-													<p className="text-gray-500 dark:text-gray-400 text-sm">
-														Audio player would be embedded here
-													</p>
-												</div>
-											) : (
-												<div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-center h-40 flex items-center justify-center">
-													<p className="text-gray-500 dark:text-gray-400 text-sm">
-														Video player would be embedded here
-													</p>
-												</div>
-											)}
-										</div>
-                    
-										<div className="flex space-x-3">
-											{music.instagramUrl && (
-												<a
-													href={music.instagramUrl}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="flex items-center text-pink-600 hover:text-pink-700 transition-colors"
-												>
-													<Instagram className="h-4 w-4 mr-1" />
-													<span className="text-sm">Instagram</span>
-												</a>
-											)}
-											{music.youtubeUrl && (
-												<a
-													href={music.youtubeUrl}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="flex items-center text-red-600 hover:text-red-700 transition-colors"
-												>
-													<Youtube className="h-4 w-4 mr-1" />
-													<span className="text-sm">YouTube</span>
-												</a>
-											)}
-										</div>
-									</div>
-								</motion.div>
-							))}
-						</div>
-					</motion.div>
-				)}
-        
-				{/* Cooking Tab */}
-				{activeTab === 'cooking' && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						className="space-y-10"
-					>
-						<p className="text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-							Cooking is my creative outlet and a way to share culture and experiences with friends and family. 
-							Here are some of my favorite recipes and culinary experiments.
-						</p>
-            
-						<div className="space-y-12">
-							{cookingData.map(recipe => (
-								<motion.div
-									key={recipe.id}
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5 }}
-									className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-								>
-									<div className="md:flex">
-										<div className="md:w-1/3 bg-gray-100 dark:bg-gray-700 h-60 md:h-auto">
-											<div className="h-full flex items-center justify-center">
-												<p className="text-gray-500 dark:text-gray-400 text-sm p-4 text-center">
-													Food photo would be displayed here
-												</p>
-											</div>
-										</div>
-                    
-										<div className="p-6 md:w-2/3">
-											<div className="flex justify-between items-start mb-3">
-												<h3 className="text-xl font-bold text-gray-900 dark:text-white">
-													{recipe.title}
-												</h3>
-                        
-												{recipe.instagramUrl && (
-													<a
-														href={recipe.instagramUrl}
-														target="_blank"
-														rel="noopener noreferrer"
-														className="flex items-center text-pink-600 hover:text-pink-700 transition-colors"
-													>
-														<Instagram className="h-4 w-4 mr-1" />
-														<span className="text-sm">View on Instagram</span>
-													</a>
-												)}
-											</div>
-                      
-											<p className="text-gray-600 dark:text-gray-300 mb-4">
-												{recipe.description}
-											</p>
-                      
-											<div className="mb-4">
-												<h4 className="font-medium text-gray-900 dark:text-white mb-2">Ingredients:</h4>
-												<ul className="list-disc list-inside text-gray-600 dark:text-gray-300 grid grid-cols-2 gap-x-4 gap-y-1">
-													{recipe.ingredients.map((ingredient, i) => (
-														<li key={i} className="text-sm">{ingredient}</li>
-													))}
-												</ul>
-											</div>
-                      
-											<div>
-												<h4 className="font-medium text-gray-900 dark:text-white mb-2">Instructions:</h4>
-												<p className="text-gray-600 dark:text-gray-300 text-sm">
-													{recipe.instructions}
-												</p>
-											</div>
-										</div>
-									</div>
-								</motion.div>
-							))}
-						</div>
-					</motion.div>
-				)}
-        
-				{/* Library Tab */}
-				{activeTab === 'library' && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						className="space-y-10"
-					>
-						<p className="text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-							Books have been a constant source of inspiration, knowledge, and entertainment throughout my life.
-							Here's a collection of books I've read, am reading, or plan to read.
-						</p>
-            
-						{/* Filter and Search */}
-						<div className="flex flex-col md:flex-row justify-between items-center gap-4">
-							<div className="w-full md:w-auto">
-								<div className="relative">
-									<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-									<input
-										type="text"
-										placeholder="Search books..."
-										className="w-full md:w-80 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
-										value={searchTerm}
-										onChange={(e) => setSearchTerm(e.target.value)}
-									/>
-								</div>
-							</div>
-              
-							<div className="flex flex-wrap gap-2">
-								<div className="flex items-center space-x-2">
-									<Filter className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-									<span className="text-sm text-gray-600 dark:text-gray-400">Genre:</span>
-								</div>
-								<button
-									className={`px-3 py-1 text-sm rounded-full ${
-										selectedGenre === 'all'
-											? 'bg-blue-500 text-white'
-											: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-									}`}
-									onClick={() => setSelectedGenre('all')}
-								>
-									All
-								</button>
-								{genres.map((genre: string) => (
-									<button
-										key={genre}
-										className={`px-3 py-1 text-sm rounded-full ${
-											selectedGenre === genre
-												? 'bg-blue-500 text-white'
-												: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-										}`}
-										onClick={() => setSelectedGenre(genre)}
-									>
-										{genre}
-									</button>
-								))}
-							</div>
-              
-							<div className="flex flex-wrap gap-2">
-								<div className="flex items-center space-x-2">
-									<Target className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-									<span className="text-sm text-gray-600 dark:text-gray-400">Status:</span>
-								</div>
-								<button
-									className={`px-3 py-1 text-sm rounded-full ${
-										selectedStatus === 'all'
-											? 'bg-blue-500 text-white'
-											: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-									}`}
-									onClick={() => setSelectedStatus('all')}
-								>
-									All
-								</button>
-								{statuses.map((status: string) => (
-									<button
-										key={status}
-										className={`px-3 py-1 text-sm rounded-full ${
-											selectedStatus === status
-												? 'bg-blue-500 text-white'
-												: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-										}`}
-										onClick={() => setSelectedStatus(status)}
-									>
-										{status}
-									</button>
-								))}
-							</div>
-						</div>
-            
-						{/* Book Grid */}
-						<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{filteredBooks.length > 0 ? (
-								filteredBooks.map((book: Book) => (
-									<motion.div
-										key={book.id}
-										initial={{ opacity: 0, y: 20 }}
-										animate={{ opacity: 1, y: 0 }}
-										transition={{ duration: 0.5 }}
-										className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg"
-									>
-										<div className="p-6">
-											<div className="flex justify-between items-start mb-4">
-												<div>
-													<h3 className="text-lg font-bold text-gray-900 dark:text-white">
-														{book.title}
-													</h3>
-													<p className="text-gray-600 dark:text-gray-400">
-														by {book.author}
-													</p>
-												</div>
-                        
-												<div className={`px-3 py-1 text-xs rounded-full ${
-													book.readingStatus === 'read' 
-														? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-														: book.readingStatus === 'currently-reading' 
-															? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
-															: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-												}`}>
-													{book.readingStatus === 'read' ? 'Read' : 
-														book.readingStatus === 'currently-reading' ? 'Reading' : 
-															book.readingStatus === 'want-to-read' ? 'Want to Read' : 'Did Not Finish'}
-												</div>
-											</div>
-                      
-											<div className="mb-4 aspect-[2/3] bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-												<p className="text-gray-500 dark:text-gray-400 text-sm p-4 text-center">
-													Book cover would be displayed here
-												</p>
-											</div>
-                      
-											<div className="flex flex-wrap gap-2 mb-4">
-												{book.genre.map(g => (
-													<span
-														key={g}
-														className="inline-flex items-center text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full"
-													>
-														{g}
-													</span>
-												))}
-											</div>
-                      
-											{book.rating !== undefined && book.rating > 0 && (
-												<div className="flex items-center space-x-1 mb-4">
-													{Array.from({ length: 5 }).map((_, i) => (
-														<Star
-															key={i}
-															className={`h-4 w-4 ${
-																i < (book.rating || 0)
-																	? 'text-yellow-500 fill-current'
-																	: 'text-gray-300 dark:text-gray-600'
-															}`}
-														/>
-													))}
-												</div>
-											)}
-                      
-											{book.review && (
-												<div className="flex items-start space-x-2">
-													<Quote className="h-4 w-4 text-gray-500 dark:text-gray-400 flex-shrink-0 mt-1" />
-													<p className="text-sm text-gray-600 dark:text-gray-300 italic">
-														{book.review}
-													</p>
-												</div>
-											)}
-										</div>
-									</motion.div>
-								))
-							) : (
-								<div className="col-span-full text-center py-12">
-									<p className="text-gray-500 dark:text-gray-400 text-lg">
-										No books found matching your criteria. Try adjusting your search or filters.
-									</p>
-								</div>
-							)}
-						</div>
-					</motion.div>
-				)}
-        
-				{/* Travel Tab */}
-				{activeTab === 'travel' && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						className="space-y-12"
-					>
-						<p className="text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-							Exploring the world one adventure at a time. Here are some of my favorite destinations.
-						</p>
-            
-						{/* Map Section */}
-						<div className="space-y-6">
-							<div className="bg-blue-50 dark:bg-gray-800 rounded-lg overflow-hidden h-[400px] md:h-[600px] flex items-center justify-center">
-								<div className="text-center">
-									<MapPin className="mx-auto h-12 w-12 text-blue-500 mb-4" />
-									<p className="text-gray-600 dark:text-gray-300">
-										Interactive map would be implemented here using Leaflet.js or Mapbox
-									</p>
-								</div>
-							</div>
-              
-							<div className="flex flex-wrap gap-2 justify-center">
-								{travelData.map((location, index) => (
-									<button
-										key={location.id}
-										onClick={() => setSelectedLocation(index)}
-										className={`px-4 py-2 rounded-full flex items-center text-sm ${
-											selectedLocation === index
-												? 'bg-blue-500 text-white'
-												: 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
-										}`}
-									>
-										<MapPin className="h-4 w-4 mr-1" />
-										{location.location}
-									</button>
-								))}
-							</div>
-						</div>
-            
-						{/* Travel Entries */}
-						<div className="space-y-8">
-							{travelData.map((travel, index) => (
-								<motion.div
-									key={travel.id}
-									ref={(el) => {
-										locationRefs.current[index] = el;
-										return undefined;
-									}}
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.5, delay: index * 0.1 }}
-									className={`bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg p-6 border-l-4 ${
-										selectedLocation === index ? 'border-blue-500' : 'border-transparent'
-									}`}
-								>
-									<div className="md:flex md:items-start">
-										<div className="md:w-2/3 md:pr-8">
-											<div className="flex items-center mb-3">
-												<MapPin className="h-5 w-5 text-blue-500 mr-2" />
-												<h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-													{travel.location}
-												</h2>
-											</div>
-                      
-											<div className="flex items-center text-gray-500 dark:text-gray-400 mb-4">
-												<Calendar className="h-4 w-4 mr-2" />
-												<span>{travel.date}</span>
-											</div>
-                      
-											<p className="text-gray-600 dark:text-gray-300 mb-4">
-												{travel.description}
-											</p>
-                      
-											<div className="mb-4">
-												<h3 className="font-medium text-gray-900 dark:text-white mb-2">Highlights:</h3>
-												<ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
-													{travel.highlights.map((highlight, i) => (
-														<li key={i}>{highlight}</li>
-													))}
-												</ul>
-											</div>
-										</div>
-                    
-										<div className="mt-4 md:mt-0 md:w-1/3">
-											<div className="bg-gray-200 dark:bg-gray-700 h-48 rounded-lg flex items-center justify-center">
-												<p className="text-gray-500 dark:text-gray-400 text-sm text-center p-4">
-													Photo gallery would be displayed here
-												</p>
-											</div>
-										</div>
-									</div>
-								</motion.div>
-							))}
-						</div>
-					</motion.div>
-				)}
-			</motion.div>
+				<ExternalLink className="w-5 h-5" />
+				View Full Library on Goodreads
+			</motion.a>
 		</div>
+	);
+}
+
+// Coming Soon Component
+function ComingSoon({ title, description, gradient, icon: Icon }: { 
+	title: string; 
+	description: string; 
+	gradient: string;
+	icon: React.ElementType;
+}) {
+	return (
+		<motion.div
+			initial={{ opacity: 0, y: 20 }}
+			animate={{ opacity: 1, y: 0 }}
+			className="flex flex-col items-center justify-center py-16 px-8"
+		>
+			<div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-8 shadow-2xl`}>
+				<Icon className="w-12 h-12 text-white" />
+			</div>
+			<h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+				{title}
+			</h2>
+			<p className="text-gray-600 dark:text-gray-400 text-center max-w-md mb-8">
+				{description}
+			</p>
+			<div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 text-gray-600 dark:text-gray-300">
+				<Clock className="w-5 h-5" />
+				<span className="font-medium">Coming Soon</span>
+			</div>
+		</motion.div>
+	);
+}
+
+export default function Personal() {
+	const [activeTab, setActiveTab] = useState('library');
+
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.1,
+			},
+		},
+	};
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: {
+				duration: 0.6,
+			},
+		},
+	};
+
+	return (
+		<motion.div
+			className="min-h-screen"
+			variants={containerVariants}
+			initial="hidden"
+			animate="visible"
+		>
+			{/* Hero Section */}
+			<div className="relative overflow-hidden">
+				<div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-50" />
+				<div className="absolute top-20 left-10 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl" />
+				<div className="absolute bottom-10 right-10 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl" />
+				
+				<div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+					<motion.div variants={itemVariants} className="text-center">
+						<motion.div
+							className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6"
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+						>
+							<Sparkles className="w-4 h-4" />
+							Beyond Code
+						</motion.div>
+						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+							My <span className="gradient-text">Interests</span>
+						</h1>
+						<p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+							Beyond code and design, these are the things that bring me joy and inspiration.
+						</p>
+					</motion.div>
+				</div>
+			</div>
+
+			{/* Content Section */}
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+				{/* Tabs */}
+				<motion.div variants={itemVariants} className="mb-8">
+					<div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+						{tabData.map(tab => {
+							const Icon = tab.icon;
+							const isActive = activeTab === tab.id;
+							return (
+								<button
+									key={tab.id}
+									onClick={() => setActiveTab(tab.id)}
+									className={`flex items-center gap-2 px-4 sm:px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+										isActive
+											? `bg-gradient-to-r ${tab.gradient} text-white shadow-lg`
+											: 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+									}`}
+								>
+									<Icon className="w-5 h-5" />
+									<span className="hidden sm:inline">{tab.label}</span>
+								</button>
+							);
+						})}
+					</div>
+				</motion.div>
+
+				{/* Tab Content */}
+				<motion.div
+					key={activeTab}
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.4 }}
+				>
+					{activeTab === 'library' && <GoodreadsLibrary />}
+					
+					{activeTab === 'music' && (
+						<ComingSoon
+							title="Music"
+							description="Original compositions, covers, and musical experiments. I love playing piano and exploring different genres."
+							gradient="from-purple-500 to-pink-600"
+							icon={Music}
+						/>
+					)}
+					
+					{activeTab === 'cooking' && (
+						<ComingSoon
+							title="Cooking"
+							description="Recipes, culinary experiments, and food photography. Cooking is my creative outlet and a way to share culture."
+							gradient="from-orange-500 to-red-600"
+							icon={Utensils}
+						/>
+					)}
+					
+					{activeTab === 'travel' && (
+						<ComingSoon
+							title="Travel"
+							description="Adventures and destinations around the world. Exploring new places and cultures is one of my greatest joys."
+							gradient="from-blue-500 to-indigo-600"
+							icon={MapPin}
+						/>
+					)}
+				</motion.div>
+			</div>
+		</motion.div>
 	);
 }

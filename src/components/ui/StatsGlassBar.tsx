@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { Code, Award, Briefcase } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface StatItem {
 	value: number;
@@ -8,6 +9,7 @@ interface StatItem {
 	icon: React.ReactNode;
 	suffix?: string;
 	color: string;
+	link: string;
 }
 
 // Animated counter hook
@@ -54,9 +56,9 @@ interface StatsGlassBarProps {
 export function StatsGlassBar({ stats: customStats }: StatsGlassBarProps) {
 	// Default stats if none provided
 	const defaultStats: StatItem[] = [
-		{ value: 5, label: 'Years Experience', icon: <Briefcase className="w-6 h-6" />, suffix: '+', color: '#10B981' },
-		{ value: 15, label: 'Projects Completed', icon: <Code className="w-6 h-6" />, suffix: '+', color: '#3B82F6' },
-		{ value: 8, label: 'Certifications', icon: <Award className="w-6 h-6" />, color: '#F59E0B' },
+		{ value: 5, label: 'Years Experience', icon: <Briefcase className="w-6 h-6" />, suffix: '+', color: '#10B981', link: '/about#experience' },
+		{ value: 15, label: 'Projects Completed', icon: <Code className="w-6 h-6" />, suffix: '+', color: '#3B82F6', link: '/projects' },
+		{ value: 8, label: 'Certifications', icon: <Award className="w-6 h-6" />, color: '#F59E0B', link: '/about#certifications' },
 	];
 
 	const stats = customStats || defaultStats;
@@ -93,20 +95,22 @@ function GlassStatItem({ stat, index, isLast }: { stat: StatItem; index: number;
 				initial={{ opacity: 0, scale: 0.8 }}
 				whileInView={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.5, delay: index * 0.1 }}
-				className="flex items-center gap-4"
+				whileHover={{ scale: 1.05 }}
 			>
-				<div 
-					className="p-4 rounded-2xl"
-					style={{ backgroundColor: `${stat.color}20` }}
-				>
-					<div style={{ color: stat.color }}>{stat.icon}</div>
-				</div>
-				<div>
-					<span className="text-4xl font-bold text-gray-900 dark:text-white">
-						{count}{stat.suffix}
-					</span>
-					<p className="text-gray-500 dark:text-gray-400">{stat.label}</p>
-				</div>
+				<Link to={stat.link} className="flex items-center gap-4 cursor-pointer">
+					<div 
+						className="p-4 rounded-2xl transition-transform duration-300 shadow-md"
+						style={{ background: `linear-gradient(135deg, ${stat.color}, ${stat.color}dd)` }}
+					>
+						<div className="text-white">{stat.icon}</div>
+					</div>
+					<div>
+						<span className="text-4xl font-bold text-gray-900 dark:text-white">
+							{count}{stat.suffix}
+						</span>
+						<p className="text-gray-500 dark:text-gray-400">{stat.label}</p>
+					</div>
+				</Link>
 			</motion.div>
 			{!isLast && (
 				<div className="hidden md:block w-px h-16 bg-gradient-to-b from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
