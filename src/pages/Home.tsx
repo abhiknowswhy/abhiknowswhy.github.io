@@ -15,7 +15,7 @@ export default function Home() {
 	const yearsOfExperience = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365));
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen overflow-x-hidden">
 			{/* Hero Section - Clean About-style layout */}
 			<section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-24">
 				{/* Background decoration */}
