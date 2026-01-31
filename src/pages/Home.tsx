@@ -1,9 +1,78 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download, Code, Globe, Pen, BookOpen, Music, ChefHat, Award, Briefcase, Sparkles, MapPin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPersonalData, getProjectsData } from '../lib/dataLoader';
 import { StatsGlassBar } from '@/components/ui/StatsGlassBar';
 import { socialIcons, socialIconColors } from '@/lib/socialIcons';
+
+// Greetings in multiple languages (romanized)
+const greetings = [
+	"Hello, I'm",           // English
+	"Bonjour, je suis",     // French
+	"Hallo, ich bin",       // German
+	"Ni hao, wo shi",       // Chinese (Mandarin)
+	"Annyeong, jeoneun",    // Korean
+	"Konnichiwa, watashi wa", // Japanese
+	"Namaskaram, nenu",     // Telugu
+	"Namaste, main",        // Hindi
+	"Namaskara, naanu",     // Kannada
+	"Vanakkam, naan",       // Tamil
+	"Hola, soy",            // Spanish
+	"Ciao, sono",           // Italian
+	"Olá, eu sou",          // Portuguese
+	"Privet, ya",           // Russian
+	"Merhaba, ben",         // Turkish
+	"Sawubona, ngingu",     // Zulu
+];
+
+function TypewriterGreeting() {
+	const [displayText, setDisplayText] = useState('');
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [greetingIndex, setGreetingIndex] = useState(0);
+	
+	useEffect(() => {
+		const currentGreeting = greetings[greetingIndex];
+		const typeSpeed = isDeleting ? 50 : 100;
+		const pauseTime = 1500;
+		
+		const handleTyping = () => {
+			if (!isDeleting) {
+				// Typing forward
+				if (displayText.length < currentGreeting.length) {
+					setDisplayText(currentGreeting.slice(0, displayText.length + 1));
+				} else {
+					// Finished typing, wait then start deleting
+					setTimeout(() => setIsDeleting(true), pauseTime);
+					return;
+				}
+			} else {
+				// Deleting
+				if (displayText.length > 0) {
+					setDisplayText(currentGreeting.slice(0, displayText.length - 1));
+				} else {
+					// Finished deleting, move to next greeting
+					setIsDeleting(false);
+					setGreetingIndex((prev) => (prev + 1) % greetings.length);
+				}
+			}
+		};
+		
+		const timer = setTimeout(handleTyping, typeSpeed);
+		return () => clearTimeout(timer);
+	}, [displayText, isDeleting, greetingIndex]);
+	
+	return (
+		<>
+			{displayText}
+			<motion.span
+				animate={{ opacity: [1, 0] }}
+				transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+				className="inline-block w-[2px] h-4 bg-primary-600 dark:bg-primary-400 ml-0.5 align-middle"
+			/>
+		</>
+	);
+}
 
 export default function Home() {
 	const personalData = getPersonalData();
@@ -48,9 +117,9 @@ export default function Home() {
 						className="lg:col-span-8 space-y-6"
 					>
 						<div>
-							<p className="text-primary-600 dark:text-primary-400 font-semibold mb-2 flex items-center gap-2">
-								<Sparkles className="w-4 h-4" />
-								Hello, I'm
+							<p className="text-primary-600 dark:text-primary-400 font-semibold mb-2 flex items-center gap-2 min-h-[1.5rem]">
+								<Sparkles className="w-4 h-4 flex-shrink-0" />
+								<span className="font-mono"><TypewriterGreeting /></span>
 							</p>
 							<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
 								Abhiram <span className="gradient-text">Bondada</span>

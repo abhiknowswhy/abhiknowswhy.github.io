@@ -55,7 +55,7 @@ export default function Navigation() {
 						to="/"
 						className="text-xl font-bold gradient-text"
 					>
-						Portfolio
+						abhiknowswhy
 					</Link>
 
 					{/* Desktop Navigation */}
