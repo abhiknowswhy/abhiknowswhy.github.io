@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin, Twitter, Download } from 'lucide-react';
+import { Mail, MapPin, Send, Sparkles, MessageCircle } from 'lucide-react';
+import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaMedium } from 'react-icons/fa6';
+import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
 import { getPersonalData } from '../lib/dataLoader';
 
 export default function Contact() {
@@ -11,6 +13,7 @@ export default function Contact() {
 		subject: '',
 		message: '',
 	});
+	const [focusedField, setFocusedField] = useState<string | null>(null);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -51,9 +54,23 @@ export default function Contact() {
 	};
 
 	const socialIcons = {
-		github: Github,
-		linkedin: Linkedin,
-		twitter: Twitter,
+		github: FaGithub,
+		linkedin: FaLinkedin,
+		twitter: FaTwitter,
+		youtube: FaYoutube,
+		medium: FaMedium,
+		leetcode: SiLeetcode,
+		buymeacoffee: SiBuymeacoffee,
+	};
+
+	const socialColors: Record<string, string> = {
+		github: 'from-gray-700 to-gray-900',
+		linkedin: 'from-blue-600 to-blue-800',
+		twitter: 'from-sky-400 to-sky-600',
+		youtube: 'from-red-500 to-red-700',
+		medium: 'from-gray-800 to-black',
+		leetcode: 'from-amber-500 to-orange-600',
+		buymeacoffee: 'from-yellow-400 to-yellow-600',
 	};
 
 	return (
@@ -63,91 +80,96 @@ export default function Contact() {
 			initial="hidden"
 			animate="visible"
 		>
-			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				{/* Header */}
-				<motion.div variants={itemVariants} className="text-center mb-16">
-					<h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-						Get In <span className="gradient-text">Touch</span>
-					</h1>
-					<p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-						I'm always interested in hearing about new opportunities, exciting projects, 
-						or just having a conversation about technology and development.
-					</p>
-				</motion.div>
+			{/* Hero Section with Gradient Background */}
+			<div className="relative overflow-hidden">
+				<div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-50" />
+				<div className="absolute top-20 left-10 w-72 h-72 bg-primary-400/20 rounded-full blur-3xl" />
+				<div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary-400/20 rounded-full blur-3xl" />
+				
+				<div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+					{/* Header */}
+					<motion.div variants={itemVariants} className="text-center mb-12">
+						<motion.div
+							className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6"
+							initial={{ scale: 0.9, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							transition={{ delay: 0.2 }}
+						>
+							<Sparkles className="w-4 h-4" />
+							Let's Build Something Amazing
+						</motion.div>
+						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+							Get In <span className="gradient-text">Touch</span>
+						</h1>
+						<p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+							I'm always interested in hearing about new opportunities, exciting projects, 
+							or just having a conversation about technology.
+						</p>
+					</motion.div>
+				</div>
+			</div>
 
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-					{/* Contact Information */}
-					<motion.div variants={itemVariants} className="space-y-8">
-						<div>
-							<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-								Let's Connect
-							</h2>
-							<p className="text-gray-600 dark:text-gray-400 mb-8">
-								Feel free to reach out through any of the following channels. 
-								I typically respond within 24 hours.
-							</p>
-						</div>
-
-						{/* Contact Methods */}
-						<div className="space-y-6">
-							<motion.div 
-								className="glass-card p-6 rounded-xl"
-								whileHover={{ scale: 1.02 }}
-								transition={{ duration: 0.2 }}
-							>
-								<div className="flex items-start space-x-4">
-									<div className="flex-shrink-0">
-										<Mail className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+				<div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
+					{/* Contact Information - Left Side */}
+					<motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
+						{/* Quick Contact Card */}
+						<div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-600 p-8 text-white flex-1">
+							<div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+							<div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+							
+							<div className="relative z-10">
+								<div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6">
+									<MessageCircle className="w-7 h-7" />
+								</div>
+								<h2 className="text-2xl font-bold mb-3">
+									Let's Connect
+								</h2>
+								<p className="text-white/80 mb-6">
+									Feel free to reach out. I typically respond within 24 hours.
+								</p>
+								
+								{/* Email */}
+								<div className="flex items-center gap-3 mb-4">
+									<div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+										<Mail className="w-5 h-5" />
 									</div>
 									<div>
-										<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-											Email
-										</h3>
-										<p className="text-gray-600 dark:text-gray-400 mb-2">
-											Send me an email and I'll get back to you soon.
-										</p>
+										<p className="text-white/60 text-sm">Email</p>
 										<a
 											href={`mailto:${personalData.profile.email}`}
-											className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+											className="hover:text-white/80 transition-colors font-medium"
 										>
 											{personalData.profile.email}
 										</a>
 									</div>
 								</div>
-							</motion.div>
-
-							<motion.div 
-								className="glass-card p-6 rounded-xl"
-								whileHover={{ scale: 1.02 }}
-								transition={{ duration: 0.2 }}
-							>
-								<div className="flex items-start space-x-4">
-									<div className="flex-shrink-0">
-										<MapPin className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+								
+								{/* Location */}
+								<div className="flex items-center gap-3">
+									<div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+										<MapPin className="w-5 h-5" />
 									</div>
 									<div>
-										<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-											Location
-										</h3>
-										<p className="text-gray-600 dark:text-gray-400 mb-2">
-											Based in {personalData.profile.location}
-										</p>
-										<p className="text-gray-500 dark:text-gray-500 text-sm">
-											Open to remote work and collaborations
-										</p>
+										<p className="text-white/60 text-sm">Location</p>
+										<p className="font-medium">{personalData.profile.location}</p>
 									</div>
 								</div>
-							</motion.div>
+							</div>
 						</div>
 
-						{/* Social Links */}
-						<div>
-							<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+						{/* Social Links Card */}
+						<div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700">
+							<h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+								<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center">
+									<Sparkles className="w-4 h-4 text-white" />
+								</span>
 								Follow Me
 							</h3>
-							<div className="flex space-x-4">
+							<div className="grid grid-cols-4 gap-3">
 								{Object.entries(personalData.social).map(([platform, url]) => {
 									const Icon = socialIcons[platform as keyof typeof socialIcons];
+									const gradient = socialColors[platform] || 'from-gray-600 to-gray-800';
 									if (!Icon || !url) return null;
                   
 									return (
@@ -156,12 +178,12 @@ export default function Contact() {
 											href={url}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="glass-card p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-											whileHover={{ scale: 1.1 }}
+											className={`aspect-square rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300`}
+											whileHover={{ scale: 1.1, rotate: 5 }}
 											whileTap={{ scale: 0.95 }}
 											aria-label={`Visit ${platform} profile`}
 										>
-											<Icon className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+											<Icon className="w-5 h-5 text-white" />
 										</motion.a>
 									);
 								})}
@@ -169,21 +191,35 @@ export default function Contact() {
 						</div>
 					</motion.div>
 
-					{/* Contact Form */}
-					<motion.div variants={itemVariants}>
-						<div className="glass-card p-8 rounded-xl">
-							<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-								Send a Message
-							</h2>
+					{/* Contact Form - Right Side */}
+					<motion.div variants={itemVariants} className="lg:col-span-3 flex">
+						<div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 flex-1 flex flex-col">
+							<div className="flex items-center gap-3 mb-8">
+								<div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-secondary-600 flex items-center justify-center">
+									<Send className="w-6 h-6 text-white" />
+								</div>
+								<div>
+									<h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+										Send a Message
+									</h2>
+									<p className="text-sm text-gray-500 dark:text-gray-400">
+										Fill out the form and I'll get back to you
+									</p>
+								</div>
+							</div>
               
-							<form onSubmit={handleSubmit} className="space-y-6">
-								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-									<div>
+							<form onSubmit={handleSubmit} className="space-y-5 flex-1 flex flex-col">
+								<div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+									<div className="relative">
 										<label
 											htmlFor="name"
-											className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+											className={`absolute left-4 transition-all duration-200 pointer-events-none ${
+												focusedField === 'name' || formData.name
+													? '-top-2.5 text-xs bg-white dark:bg-gray-800 px-2 text-primary-600 dark:text-primary-400 font-medium'
+													: 'top-3.5 text-gray-400 dark:text-gray-500'
+											}`}
 										>
-											Name *
+											Your Name *
 										</label>
 										<input
 											type="text"
@@ -192,17 +228,22 @@ export default function Contact() {
 											required
 											value={formData.name}
 											onChange={handleInputChange}
-											className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-											placeholder="Your full name"
+											onFocus={() => setFocusedField('name')}
+											onBlur={() => setFocusedField(null)}
+											className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-0 focus:border-primary-500 dark:focus:border-primary-500 transition-colors duration-200"
 										/>
 									</div>
 
-									<div>
+									<div className="relative">
 										<label
 											htmlFor="email"
-											className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+											className={`absolute left-4 transition-all duration-200 pointer-events-none ${
+												focusedField === 'email' || formData.email
+													? '-top-2.5 text-xs bg-white dark:bg-gray-800 px-2 text-primary-600 dark:text-primary-400 font-medium'
+													: 'top-3.5 text-gray-400 dark:text-gray-500'
+											}`}
 										>
-											Email *
+											Email Address *
 										</label>
 										<input
 											type="email"
@@ -211,16 +252,21 @@ export default function Contact() {
 											required
 											value={formData.email}
 											onChange={handleInputChange}
-											className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-											placeholder="your.email@example.com"
+											onFocus={() => setFocusedField('email')}
+											onBlur={() => setFocusedField(null)}
+											className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-0 focus:border-primary-500 dark:focus:border-primary-500 transition-colors duration-200"
 										/>
 									</div>
 								</div>
 
-								<div>
+								<div className="relative">
 									<label
 										htmlFor="subject"
-										className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+										className={`absolute left-4 transition-all duration-200 pointer-events-none ${
+											focusedField === 'subject' || formData.subject
+												? '-top-2.5 text-xs bg-white dark:bg-gray-800 px-2 text-primary-600 dark:text-primary-400 font-medium'
+												: 'top-3.5 text-gray-400 dark:text-gray-500'
+										}`}
 									>
 										Subject
 									</label>
@@ -230,48 +276,53 @@ export default function Contact() {
 										name="subject"
 										value={formData.subject}
 										onChange={handleInputChange}
-										className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-										placeholder="What's this about?"
+										onFocus={() => setFocusedField('subject')}
+										onBlur={() => setFocusedField(null)}
+										className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-0 focus:border-primary-500 dark:focus:border-primary-500 transition-colors duration-200"
 									/>
 								</div>
 
-								<div>
+								<div className="relative flex-1 flex flex-col">
 									<label
 										htmlFor="message"
-										className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+										className={`absolute left-4 transition-all duration-200 pointer-events-none ${
+											focusedField === 'message' || formData.message
+												? '-top-2.5 text-xs bg-white dark:bg-gray-800 px-2 text-primary-600 dark:text-primary-400 font-medium z-10'
+												: 'top-3.5 text-gray-400 dark:text-gray-500'
+										}`}
 									>
-										Message *
+										Your Message *
 									</label>
 									<textarea
 										id="message"
 										name="message"
 										required
-										rows={6}
 										value={formData.message}
 										onChange={handleInputChange}
-										className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 resize-none"
-										placeholder="Tell me about your project, idea, or just say hello..."
+										onFocus={() => setFocusedField('message')}
+										onBlur={() => setFocusedField(null)}
+										className="w-full flex-1 min-h-[120px] px-4 py-3.5 bg-gray-50 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:ring-0 focus:border-primary-500 dark:focus:border-primary-500 transition-colors duration-200 resize-none"
 									/>
 								</div>
 
 								<motion.button
 									type="submit"
-									className="w-full inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-200 group"
+									className="w-full inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 group"
 									whileHover={{ scale: 1.02 }}
 									whileTap={{ scale: 0.98 }}
 								>
-									<Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-200" />
+									<Send className="w-5 h-5 mr-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
 									Send Message
 								</motion.button>
 							</form>
 
 							<div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-								<p className="text-sm text-gray-500 dark:text-gray-500 text-center">
+								<p className="text-sm text-gray-500 dark:text-gray-400 text-center">
 									This form will open your default email client. 
-									Alternatively, you can email me directly at{' '}
+									You can also email me directly at{' '}
 									<a
 										href={`mailto:${personalData.profile.email}`}
-										className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300"
+										className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
 									>
 										{personalData.profile.email}
 									</a>
@@ -280,44 +331,6 @@ export default function Contact() {
 						</div>
 					</motion.div>
 				</div>
-
-				{/* Call to Action */}
-				<motion.div 
-					variants={itemVariants}
-					className="text-center mt-16"
-				>
-					<div className="glass-card p-8 rounded-xl max-w-3xl mx-auto">
-						<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-							Ready to Work Together?
-						</h2>
-						<p className="text-gray-600 dark:text-gray-400 mb-6">
-							Whether you have a project in mind, want to discuss opportunities, 
-							or just want to connect, I'd love to hear from you.
-						</p>
-						<div className="flex flex-col sm:flex-row gap-4 justify-center">
-							<a
-								href={`mailto:${personalData.profile.email}`}
-								className="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-200"
-							>
-								<Mail className="w-4 h-4 mr-2" />
-								Send Email
-							</a>
-							{personalData.profile.resumeUrl && (
-								<motion.a
-									href={personalData.profile.resumeUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="inline-flex items-center px-6 py-3 glass-card hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg transition-colors duration-200"
-									whileHover={{ scale: 1.02 }}
-									whileTap={{ scale: 0.98 }}
-								>
-									<Download className="w-4 h-4 mr-2" />
-									Download Resume
-								</motion.a>
-							)}
-						</div>
-					</div>
-				</motion.div>
 			</div>
 		</motion.div>
 	);

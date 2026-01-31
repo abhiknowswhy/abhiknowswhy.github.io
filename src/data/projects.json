@@ -1,13 +1,13 @@
 {
-	"categories": ["Web Development", "Mobile Apps", "API Development", "DevOps", "Open Source", "Machine Learning"],
-	"featured": ["ai-portfolio", "ecommerce-platform", "ml-classifier"],
+	"categories": ["Fullstack", "Backend", "Cloud", "Web App", "Mobile App", "Open Source", "Machine Learning", "Agentic AI", "Implementation", "Tools", "Software Design"],
+	"featured": ["gang-of-four-design-patterns"],
 	"projects": [
 		{
 			"id": "ai-portfolio",
 			"title": "AI-Powered Portfolio Website",
 			"description": "A modern, responsive portfolio website built with React and Next.js, featuring AI-powered content generation and dynamic theming. Includes smooth animations, dark/light mode toggle, and optimized performance.",
 			"longDescription": "A comprehensive portfolio solution showcasing modern web development techniques. Features AI-powered content generation, responsive design, smooth animations using Framer Motion, and optimized performance. Built with cutting-edge technologies for an exceptional user experience.",
-			"category": "Web Development",
+			"category": "Fullstack",
 			"tags": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "OpenAI API"],
 			"technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "OpenAI API"],
 			"features": [
@@ -35,7 +35,8 @@
 			],
 			"demoUrl": "https://abhiknowswhy.github.io",
 			"githubUrl": "https://github.com/abhiknowswhy/portfolio-website",
-			"featured": true,
+			"featured": false,
+			"visible": false,
 			"challenges": [
 				"Integrating AI content generation seamlessly",
 				"Optimizing performance with animations",
@@ -66,7 +67,7 @@
 			"title": "E-Commerce Platform",
 			"description": "Full-stack e-commerce application with user authentication, product management, shopping cart functionality, and secure payment processing using Stripe. Features responsive design and real-time inventory updates.",
 			"longDescription": "A comprehensive e-commerce solution that includes user authentication, product catalog, shopping cart, payment integration with Stripe, order management, and an admin dashboard. The platform supports multiple payment methods and includes features like wishlist, product reviews, and inventory tracking.",
-			"category": "Web Development",
+			"category": "Fullstack",
 			"tags": ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Redux"],
 			"technologies": ["React", "Node.js", "Express", "MongoDB", "Stripe API", "JWT", "Redux"],
 			"features": [
@@ -93,7 +94,8 @@
 				"/images/projects/ecommerce-2.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/ecommerce-platform",
-			"featured": true,
+			"featured": false,
+			"visible": false,
 			"challenges": [
 				"Implementing real-time inventory updates",
 				"Optimizing database queries for large product catalogs",
@@ -151,7 +153,8 @@
 				"/images/projects/ml-classifier-2.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/image-classifier",
-			"featured": true,
+			"featured": false,
+			"visible": false,
 			"challenges": [
 				"Optimizing model performance for web deployment",
 				"Handling various image formats and sizes",
@@ -181,7 +184,7 @@
 			"id": "realtime-chat",
 			"title": "Real-time Chat Application",
 			"description": "A real-time chat application built with WebSocket technology, featuring private messaging, group chats, file sharing, and message encryption. Includes user authentication and online status indicators.",
-			"category": "Web Development",
+			"category": "Web App",
 			"tags": ["React", "Node.js", "Socket.io", "MongoDB", "JWT", "Express", "WebRTC"],
 			"technologies": ["React", "Node.js", "Socket.io", "MongoDB", "JWT", "Express", "WebRTC"],
 			"features": [
@@ -202,13 +205,14 @@
 				"/images/projects/chat-app-1.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/chat-app",
-			"featured": false
+			"featured": false,
+			"visible": false
 		},
 		{
 			"id": "task-dashboard",
 			"title": "Task Management Dashboard",
 			"description": "A comprehensive task management system with drag-and-drop functionality, progress tracking, team collaboration features, and detailed analytics. Built with modern web technologies for optimal performance.",
-			"category": "Web Development",
+			"category": "Web App",
 			"tags": ["Vue.js", "Node.js", "PostgreSQL", "Redis", "GraphQL", "Docker", "AWS"],
 			"technologies": ["Vue.js", "Node.js", "PostgreSQL", "Redis", "GraphQL", "Docker", "AWS"],
 			"features": [
@@ -229,13 +233,14 @@
 				"/images/projects/task-dashboard-1.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/task-dashboard",
-			"featured": false
+			"featured": false,
+			"visible": false
 		},
 		{
 			"id": "weather-app",
 			"title": "Weather Forecast App",
 			"description": "A weather application that provides real-time weather data, 7-day forecasts, and location-based weather alerts. Features beautiful UI design and integrates with multiple weather APIs for accurate data.",
-			"category": "Mobile Apps",
+			"category": "Mobile App",
 			"tags": ["React Native", "Expo", "TypeScript", "Weather API", "Geolocation", "AsyncStorage"],
 			"technologies": ["React Native", "Expo", "TypeScript", "Weather API", "Geolocation", "AsyncStorage"],
 			"features": [
@@ -256,13 +261,14 @@
 				"/images/projects/weather-app-1.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/weather-app",
-			"featured": false
+			"featured": false,
+			"visible": false
 		},
 		{
 			"id": "recipe-finder",
 			"title": "Recipe Finder Application",
 			"description": "A recipe discovery app that helps users find recipes based on available ingredients, dietary restrictions, and cooking preferences. Includes nutritional information and step-by-step cooking instructions.",
-			"category": "Web Development",
+			"category": "Web App",
 			"tags": ["Angular", "Node.js", "MySQL", "Spoonacular API", "Bootstrap", "JWT"],
 			"technologies": ["Angular", "Node.js", "MySQL", "Spoonacular API", "Bootstrap", "JWT"],
 			"features": [
@@ -283,13 +289,14 @@
 				"/images/projects/recipe-finder-1.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/recipe-finder",
-			"featured": false
+			"featured": false,
+			"visible": false
 		},
 		{
 			"id": "fitness-tracker",
 			"title": "Fitness Tracking Platform",
 			"description": "A comprehensive fitness tracking application that monitors workouts, nutrition, and progress over time. Features customizable workout plans, progress charts, and social sharing capabilities.",
-			"category": "Web Development",
+			"category": "Mobile App",
 			"tags": ["React", "Firebase", "Chart.js", "PWA", "IndexedDB", "Service Workers"],
 			"technologies": ["React", "Firebase", "Chart.js", "PWA", "IndexedDB", "Service Workers"],
 			"features": [
@@ -310,7 +317,32 @@
 				"/images/projects/fitness-tracker-1.jpg"
 			],
 			"githubUrl": "https://github.com/abhiknowswhy/fitness-tracker",
-			"featured": false
+			"featured": false,
+			"visible": false
+		},
+		{
+			"id": "gang-of-four-design-patterns",
+			"title": "Gang of Four Design Patterns in Java",
+			"description": "Comprehensive implementation of Gang of Four design patterns in Java. This implementation was inspired from the books 'Head First Design Patterns' by Eric Freeman and Elisabeth Robson, 'Design Patterns: Elements of Reusable Object-Oriented Software' by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides (Gang of Four). ",
+			"category": "Software Design",
+			"tags": ["Low Level Design", "OOPS"],
+			"technologies": ["Java", "Maven"],
+			"features": [
+				"Real-world examples for each pattern",
+				"Well-documented code with explanations",
+				"Annotations with UML Diagrams for clarity",
+				"Maven build configuration"
+			],
+			"status": "completed",
+			"startDate": "2024-01",
+			"endDate": "2024-01",
+			"thumbnail": "https://raw.githubusercontent.com/abhiknowswhy/LLD/main/design-patterns/image/README/1769763060788.png",
+			"images": [
+				"https://raw.githubusercontent.com/abhiknowswhy/LLD/main/design-patterns/image/README/1769763060788.png"
+			],
+			"githubUrl": "https://github.com/abhiknowswhy/LLD/blob/main/design-patterns/README.md",
+			"featured": true,
+			"visible": true
 		}
 	]
 }

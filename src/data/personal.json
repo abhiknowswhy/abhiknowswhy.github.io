@@ -25,12 +25,13 @@
 			"Azure PaaS"
 		],
 		"interests": [
-			"AI and Machine Learning",
-			"Software Engineering",
-			"Algorithmic Game Theory",
-			"Cloud Computing",
-			"Open Source",
-			"Product Management"
+			"Engineering",
+			"AI",
+			"Content Creation",
+			"Teaching",
+			"Product Management",
+			"Finance",
+			"Music"
 		]
 	},
 	"social": {
@@ -48,100 +49,106 @@
 		{
 			"id": "exp-1",
 			"company": "Microsoft",
-			"position": "Software Development Engineer",
+			"position": "Software Engineer (L60)",
 			"location": "Hyderabad, India",
-			"startDate": "2025-03",
+			"startDate": "2025-01",
 			"endDate": null,
-			"description": "Working on Dataverse CRM Foundations team, focusing on Microsoft Graph, Semantic Kernel, and AI-powered solutions.",
-			"technologies": ["Microsoft Graph", "Semantic Kernel", "Vector Databases", "React JS", "Flask", "Model Context Protocol"],
+			"description": "Dataverse - Microsoft Agent Cloud",
+			"technologies": ["Dotnet C#", "Microsoft Graph", "Semantic Kernel", "MCP", "TS React", "Azure"],
 			"achievements": [
-				"Developing AI-powered CRM solutions",
-				"Working with cutting-edge AI technologies",
-				"Contributing to Microsoft's AI initiatives"
+				"Implemented a Bulkhead pattern for Microsoft Graph IDM (AuthN/AuthZ) S2S calls - ensuring ~99.9% availability, diverting traffic to partitions and achieved zero global outages since deployment",
+				"Designed Scale group level cache mechanism to improve IDM cache hit rate, optimized p99 Auth latency by ~75%",
+				"Led development of Intelligent On-call Engineer Assistant using MCP, Semantic Kernel, React, and Flask, reducing incident triage time from ~1 day to near-real time"
 			],
-			"companyLogo": "/images/companies/microsoft.png",
+			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
 		},
 		{
 			"id": "exp-2",
 			"company": "Microsoft",
-			"position": "Software Engineer",
+			"position": "Software Engineer (L59)",
 			"location": "Hyderabad, India",
 			"startDate": "2022-06",
-			"endDate": "2025-03",
-			"description": "Worked on Cloud for Industry - Energy charter team, building Copilot for Energy customers and AI-powered automation solutions.",
-			"technologies": ["Semantic Kernel", "Azure OpenAI", "AI Foundry", "Copilot SDK", "Azure PaaS", "Apache Airflow", "Docker", "CI/CD"],
+			"endDate": "2024-12",
+			"description": "Azure - Cloud for Industry",
+			"technologies": ["Azure PaaS", "Docker", "CI/CD", "Apache Airflow", "CBL-Mariner-Linux"],
 			"achievements": [
-				"Built Copilot for Energy customers",
-				"On-call incident summary automation saving ~5 hours/week",
-				"Winner, Energy team Hackathon 2023: GPT for automated customer support ticket resolution",
-				"Azure Costs analysis: identified issues resulting in $7.2M savings"
+				"Cloud spend analysis: Identified issues with Azure engineering spend that resulted in savings of ~$9.2M",
+				"Authored multi-stage Docker files and CBL-Mariner-Linux distroless base images which mitigated ~150 CVEs, resulted in ~80% leaner docker images and reduced build time by ~10%",
+				"Operationalized a cross-tenant CI/CD for partner environment, reduced turnaround time from 2 months to 1 week",
+				"Onboarded Schlumberger Data workspace (SLB-DW) on Azure (PaaS) which enabled timely release of SLB's first revenue generating Cloud solution on Azure",
+				"Owner and maintainer of Seismic services and Airflow DAGs suite, observability infrastructure for the application (logs, metrics, monitoring), Swagger public documentation for all REST endpoints"
 			],
-			"companyLogo": "/images/companies/microsoft.png",
+			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
 		},
 		{
 			"id": "exp-3",
 			"company": "Microsoft",
 			"position": "Shadow Product Manager",
-			"location": "Hyderabad and Bangalore, India",
+			"location": "Hyderabad & Bangalore, India",
 			"startDate": "2024-07",
 			"endDate": "2024-11",
-			"description": "Worked on Microsoft Fabric adoption strategy for Energy customers and product specifications for Customer Data Consumption experiences.",
-			"technologies": ["Microsoft Fabric", "Product Management", "Customer Analytics"],
+			"description": "Product management rotation focused on Microsoft Fabric adoption strategy and customer data consumption experiences for enterprise energy customers.",
+			"technologies": ["Microsoft Fabric", "Product Management", "Customer Analytics", "Data Platform", "Power BI"],
 			"achievements": [
-				"Microsoft Fabric adoption strategy for Energy customers",
-				"Product specs for Customer Data Consumption experiences",
-				"Customer conversations with Equinor, Halliburton, Schlumberger"
+				"Developed Microsoft Fabric adoption strategy for Energy vertical, creating roadmap for customer migration",
+				"Authored product specifications for Customer Data Consumption experiences improving data accessibility",
+				"Conducted customer discovery sessions with Equinor, Halliburton, and Schlumberger to gather requirements",
+				"Collaborated with engineering teams to translate customer needs into actionable product features"
 			],
-			"companyLogo": "/images/companies/microsoft.png",
+			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
 		},
 		{
 			"id": "exp-4",
 			"company": "Microsoft",
 			"position": "Software Engineer Intern",
-			"location": "India · Remote",
+			"location": "Hyderabad, India",
 			"startDate": "2021-05",
-			"endDate": "2021-07",
-			"description": "Worked on Azure Datamanager for Energy team, focusing on Redis optimization for storage record retrieval.",
+			"endDate": "2021-06",
+			"description": "Azure - Cloud for Industry",
 			"technologies": ["Java", "Microsoft Azure", "Redis"],
 			"achievements": [
-				"Gauged effectiveness of Redis optimization for storage record retrieval"
+				"Assessed Redis caching for storage requests. Retired the approach after benchmarking showed low read repetition and unfavorable cost–benefit trade-offs"
 			],
-			"companyLogo": "/images/companies/microsoft.png",
+			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
 		},
 		{
 			"id": "exp-5",
 			"company": "IIIT Hyderabad",
-			"position": "Student Researcher",
+			"position": "Undergraduate Research Assistant",
 			"location": "Hyderabad, India",
 			"startDate": "2020-07",
 			"endDate": "2021-04",
-			"description": "Undergraduate Research Assistant under Prof. Praveen Paruchuri in the area of Algorithmic Game Theory.",
-			"technologies": ["Algorithmic Game Theory", "Psychology", "Security", "Machine Learning"],
+			"description": "Research assistant under Prof. Praveen Paruchuri at the Machine Learning Lab, focusing on Algorithmic Game Theory and its applications in security and behavioral modeling.",
+			"technologies": ["Algorithmic Game Theory", "Machine Learning", "Python", "Game Theory", "Security"],
 			"achievements": [
-				"Research in Algorithmic Game Theory",
-				"Published research in machine learning and security"
+				"Researched bounded rationality models in security games, exploring human decision-making patterns",
+				"Developed simulation frameworks for evaluating game-theoretic security strategies in Bayesian Stackelberg games"
 			],
-			"companyLogo": "/images/companies/iiit-hyderabad.png",
+			"companyLogo": "https://media.licdn.com/dms/image/v2/D4D0BAQGXiXmbE3nzEw/company-logo_200_200/company-logo_200_200/0/1729748082101/iiithofficial_logo?e=1771459200&v=beta&t=ANfHJa3LhCBP7OZsQkVBQe3fnwav5JhDX7nxpbmY6i0",
 			"companyUrl": "https://iiit.ac.in"
 		}
 	],
 	"education": [
 		{
 			"id": "edu-1",
-			"institution": "International Institute of Information Technology, Hyderabad",
-			"degree": "B.Tech in Electronics and Communication Engineering Hons.",
-			"fieldOfStudy": "Electronics and Communication Engineering",
+			"institution": "IIIT-Hyderabad",
+			"degree": "B.Tech. Hons. (Electronics and Communications Engineering)",
+			"fieldOfStudy": "Electronics and Communications Engineering",
 			"location": "Hyderabad, India",
-			"startDate": "2018-07",
-			"endDate": "2022-05",
-			"gpa": "Honors",
-			"honors": ["Graduated with Honors", "Specialized in AI and Game theory"],
-			"description": "Graduated with honors, specialized in AI and Game theory. Active in research and teaching assistant roles.",
-			"logo": "/images/education/iiit-hyderabad-logo.png"
+			"startDate": "2018",
+			"endDate": "2022",
+			"gpa": "9.01",
+			"honors": [
+				"Dean's List Awardee in 4/8 semesters",
+				"Teaching Assistant for Probability and Linear Algebra courses (2020 – 2021)",
+				"Student Researcher in Machine Learning, Security, Algorithmic Game Theory, under Advisor: Dr. Praveen Paruchuri"
+			],
+			"description": "",
+			"logo": "https://media.licdn.com/dms/image/v2/D4D0BAQGXiXmbE3nzEw/company-logo_200_200/company-logo_200_200/0/1729748082101/iiithofficial_logo?e=1771459200&v=beta&t=ANfHJa3LhCBP7OZsQkVBQe3fnwav5JhDX7nxpbmY6i0"
 		}
 	],
 	"certifications": [

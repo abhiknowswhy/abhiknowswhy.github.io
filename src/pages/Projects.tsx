@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Search, Filter, ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { Search, Filter, ExternalLink, Github, ArrowRight, ChevronDown, Check, CircleDot } from 'lucide-react';
 import { SiBuymeacoffee } from 'react-icons/si';
 import { getProjectsData, getPersonalData } from '../lib/dataLoader';
 import type { Project } from '../types/data';
 import { useTheme } from '../hooks/useTheme';
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function Projects() {
 	const { theme } = useTheme();
@@ -33,8 +39,9 @@ export default function Projects() {
 		project.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 		const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
 		const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
+		const isVisible = project.visible !== false; // Show projects where visible is true or undefined
 
-		return matchesSearch && matchesCategory && matchesStatus;
+		return matchesSearch && matchesCategory && matchesStatus && isVisible;
 	});
 
 	const containerVariants = {
@@ -119,42 +126,77 @@ export default function Projects() {
 									placeholder="Search projects..."
 									value={searchTerm}
 									onChange={(e) => setSearchTerm(e.target.value)}
-									className="w-full pl-10 pr-4 py-2 bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent backdrop-blur-sm"
+									className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
 								/>
 							</div>
 
 							{/* Category Filter */}
-							<div className="relative">
-								<Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-								<select
-									value={selectedCategory}
-									onChange={(e) => setSelectedCategory(e.target.value)}
-									className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none"
-								>
-									<option value="all">All Categories</option>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<button className="relative w-full flex items-center justify-between pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
+										<Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+										<span className={selectedCategory === 'all' ? 'text-gray-500' : ''}>
+											{selectedCategory === 'all' 
+												? 'All Categories' 
+												: selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}
+										</span>
+										<ChevronDown className="w-4 h-4 text-gray-400" />
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="start" className="w-[var(--radix-dropdown-menu-trigger-width)]">
+									<DropdownMenuItem 
+										onClick={() => setSelectedCategory('all')}
+										className="flex items-center justify-between cursor-pointer"
+									>
+										All Categories
+										{selectedCategory === 'all' && <Check className="w-4 h-4 text-primary-600" />}
+									</DropdownMenuItem>
 									{categories.map((category) => (
-										<option key={category} value={category}>
+										<DropdownMenuItem 
+											key={category} 
+											onClick={() => setSelectedCategory(category)}
+											className="flex items-center justify-between cursor-pointer"
+										>
 											{category.charAt(0).toUpperCase() + category.slice(1)}
-										</option>
+											{selectedCategory === category && <Check className="w-4 h-4 text-primary-600" />}
+										</DropdownMenuItem>
 									))}
-								</select>
-							</div>
+								</DropdownMenuContent>
+							</DropdownMenu>
 
 							{/* Status Filter */}
-							<div className="relative">
-								<select
-									value={selectedStatus}
-									onChange={(e) => setSelectedStatus(e.target.value)}
-									className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none"
-								>
-									<option value="all">All Statuses</option>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<button className="relative w-full flex items-center justify-between pl-10 pr-4 py-2 bg-white dark:bg-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-left">
+										<CircleDot className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+										<span className={selectedStatus === 'all' ? 'text-gray-500' : ''}>
+											{selectedStatus === 'all' 
+												? 'All Statuses' 
+												: selectedStatus.charAt(0).toUpperCase() + selectedStatus.slice(1).replace('-', ' ')}
+										</span>
+										<ChevronDown className="w-4 h-4 text-gray-400" />
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="start" className="w-[var(--radix-dropdown-menu-trigger-width)]">
+									<DropdownMenuItem 
+										onClick={() => setSelectedStatus('all')}
+										className="flex items-center justify-between cursor-pointer"
+									>
+										All Statuses
+										{selectedStatus === 'all' && <Check className="w-4 h-4 text-primary-600" />}
+									</DropdownMenuItem>
 									{statuses.map((status) => (
-										<option key={status} value={status}>
+										<DropdownMenuItem 
+											key={status} 
+											onClick={() => setSelectedStatus(status)}
+											className="flex items-center justify-between cursor-pointer"
+										>
 											{status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
-										</option>
+											{selectedStatus === status && <Check className="w-4 h-4 text-primary-600" />}
+										</DropdownMenuItem>
 									))}
-								</select>
-							</div>
+								</DropdownMenuContent>
+							</DropdownMenu>
 
 							{/* Results Count */}
 							<div className="flex items-center justify-center lg:justify-start">

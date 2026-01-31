@@ -1,14 +1,11 @@
 import personalData from '../data/personal.json';
 import projectsData from '../data/projects.json';
-import libraryData from '../data/library.json';
 import blogData from '../data/blog.json';
 
 import type {
 	PersonalData,
 	ProjectsData,
 	Project,
-	LibraryData,
-	Book,
 	BlogData,
 	BlogPost,
 	BlogItem,
@@ -68,82 +65,8 @@ export const getAllProjectTags = (): string[] => {
 	return [...new Set(allTags)];
 };
 
-// Library Data
-export const getLibraryData = (): LibraryData => libraryData as LibraryData;
-
-export const getCurrentlyReadingBooks = (): Book[] => {
-	return (libraryData as LibraryData).books.filter(book => 
-		libraryData.currentlyReading.includes(book.id)
-	);
-};
-
-export const getFavoriteBooks = (): Book[] => {
-	return (libraryData as LibraryData).books.filter(book => book.favorite);
-};
-
-export const getBookById = (id: string): Book | undefined => {
-	return (libraryData as LibraryData).books.find(book => book.id === id);
-};
-
-export const getBooksByGenre = (genre: string): Book[] => {
-	return (libraryData as LibraryData).books.filter(book => 
-		book.genre.includes(genre)
-	);
-};
-
-export const getBooksByStatus = (status: string): Book[] => {
-	return (libraryData as LibraryData).books.filter(book => 
-		book.readingStatus === status
-	);
-};
-
-export const getBooksByRating = (minRating: number): Book[] => {
-	return (libraryData as LibraryData).books.filter(book => 
-		book.rating && book.rating >= minRating
-	);
-};
-
-export const getReadingStats = () => {
-	const books = (libraryData as LibraryData).books;
-	const readBooks = books.filter(book => book.readingStatus === 'read');
-	const currentlyReading = books.filter(book => book.readingStatus === 'currently-reading');
-	const wantToRead = books.filter(book => book.readingStatus === 'want-to-read');
-  
-	const totalPages = readBooks.reduce((total, book) => {
-		return total + (book.pageCount || 0);
-	}, 0);
-  
-	const averageRating = readBooks.reduce((total, book) => {
-		return total + (book.rating || 0);
-	}, 0) / readBooks.length;
-  
-	const genreCounts = books.reduce((counts, book) => {
-		book.genre.forEach(genre => {
-			counts[genre] = (counts[genre] || 0) + 1;
-		});
-		return counts;
-	}, {} as Record<string, number>);
-  
-	const topGenres = Object.entries(genreCounts)
-		.sort(([,a], [,b]) => b - a)
-		.slice(0, 5)
-		.map(([genre]) => genre);
-  
-	return {
-		totalBooks: books.length,
-		readBooks: readBooks.length,
-		currentlyReading: currentlyReading.length,
-		wantToRead: wantToRead.length,
-		totalPages,
-		averageRating: Number(averageRating.toFixed(1)),
-		topGenres,
-		readingGoals: libraryData.readingGoals,
-		favoriteGenres: libraryData.favoriteGenres
-	};
-};
-
 // Search functionality
-export const searchContent = (query: string, types: string[] = ['projects', 'books']) => {
+export const searchContent = (query: string, types: string[] = ['projects']) => {
 	const results = [];
 	const lowerQuery = query.toLowerCase();
   
@@ -165,26 +88,6 @@ export const searchContent = (query: string, types: string[] = ['projects', 'boo
 			}));
     
 		results.push(...projectResults);
-	}
-  
-	if (types.includes('books')) {
-		const bookResults = (libraryData as LibraryData).books
-			.filter(book => 
-				book.title.toLowerCase().includes(lowerQuery) ||
-        book.author.toLowerCase().includes(lowerQuery) ||
-        book.genre.some(genre => genre.toLowerCase().includes(lowerQuery)) ||
-        (book.review && book.review.toLowerCase().includes(lowerQuery))
-			)
-			.map(book => ({
-				id: book.id,
-				title: book.title,
-				type: 'book' as const,
-				excerpt: `${book.author} - ${book.genre.join(', ')}`,
-				url: `/library/${book.id}`,
-				relevance: calculateRelevance(book.title + ' ' + book.author, query)
-			}));
-    
-		results.push(...bookResults);
 	}
   
 	return results.sort((a, b) => b.relevance - a.relevance);
@@ -249,13 +152,6 @@ export const getCompletedProjects = (): Project[] => {
 
 export const getInProgressProjects = (): Project[] => {
 	return (projectsData as ProjectsData).projects.filter(project => project.status === 'in-progress');
-};
-
-export const getRecentlyReadBooks = (limit = 3): Book[] => {
-	return (libraryData as LibraryData).books
-		.filter(book => book.readingStatus === 'read' && book.finishDate)
-		.sort((a, b) => new Date(b.finishDate!).getTime() - new Date(a.finishDate!).getTime())
-		.slice(0, limit);
 };
 
 // Blog Data
@@ -430,6 +326,5 @@ export const getBlogPostsByAuthor = (author: string): BlogPost[] => {
 export const getAllData = () => ({
 	personal: getPersonalData(),
 	projects: getProjectsData(),
-	library: getLibraryData(),
 	blog: getBlogData()
 });
