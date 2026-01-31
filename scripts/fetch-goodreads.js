@@ -133,7 +133,7 @@ async function main() {
 	};
 	
 	// Ensure data directory exists
-	const outputPath = join(__dirname, '..', 'src', 'data', 'books.json');
+	const outputPath = join(__dirname, '..', 'src', 'data', 'generated', 'books.json');
 	const outputDir = dirname(outputPath);
 	
 	if (!existsSync(outputDir)) {
@@ -143,7 +143,7 @@ async function main() {
 	// Write to file
 	writeFileSync(outputPath, JSON.stringify(booksData, null, '\t'));
 	
-	console.log(`📖 Saved to: src/data/books.json`);
+	console.log(`📖 Saved to: src/data/generated/books.json`);
 	console.log(`   - Currently reading: ${currentlyReading.length} books`);
 	console.log(`   - Read: ${readBooks.length} books`);
 	

@@ -1,17 +1,10 @@
 import personalData from '../data/personal.json';
 import projectsData from '../data/projects.json';
-import blogData from '../data/blog.json';
 
 import type {
 	PersonalData,
 	ProjectsData,
-	Project,
-	BlogData,
-	BlogPost,
-	BlogItem,
-	SoloBlogPost,
-	BlogSeries,
-	BlogVisitor
+	Project
 } from '../types/data';
 
 // Personal Data
@@ -154,177 +147,8 @@ export const getInProgressProjects = (): Project[] => {
 	return (projectsData as ProjectsData).projects.filter(project => project.status === 'in-progress');
 };
 
-// Blog Data
-export const getBlogData = (): BlogData => {
-	return blogData as unknown as BlogData;
-};
-
-/**
- * Deserialize blog items from JSON and add visitor pattern support
- */
-function deserializeBlogItem(item: Record<string, unknown>): BlogItem {
-	if (item.type === 'series') {
-		const series: BlogSeries = {
-			id: item.id as string,
-			type: 'series',
-			title: item.title as string,
-			description: item.description as string,
-			excerpt: item.excerpt as string,
-			date: item.date as string,
-			category: item.category as string,
-			tags: item.tags as string[],
-			featured: item.featured as boolean,
-			coverImage: item.coverImage as string | undefined,
-			posts: (item.posts as Record<string, unknown>[]).map(p => ({
-				id: p.id as string,
-				type: 'solo' as const,
-				title: p.title as string,
-				slug: p.slug as string,
-				excerpt: p.excerpt as string,
-				category: p.category as string,
-				tags: p.tags as string[],
-				date: p.date as string,
-				readingTime: p.readingTime as number,
-				featured: p.featured as boolean,
-				authors: p.authors as string[],
-				coverImage: p.coverImage as string | undefined,
-				externalLink: p.externalLink as string | undefined,
-				accept<T>(visitor: BlogVisitor<T>): T {
-					return visitor.visitSolo(this);
-				}
-			})),
-			accept<T>(visitor: BlogVisitor<T>): T {
-				return visitor.visitSeries(this);
-			}
-		};
-		return series;
-	} else {
-		const post: SoloBlogPost = {
-			id: item.id as string,
-			type: 'solo',
-			title: item.title as string,
-			slug: item.slug as string,
-			excerpt: item.excerpt as string,
-			category: item.category as string,
-			tags: item.tags as string[],
-			date: item.date as string,
-			readingTime: item.readingTime as number,
-			featured: item.featured as boolean,
-			authors: item.authors as string[],
-			coverImage: item.coverImage as string | undefined,
-			externalLink: item.externalLink as string | undefined,
-			accept<T>(visitor: BlogVisitor<T>): T {
-				return visitor.visitSolo(this);
-			}
-		};
-		return post;
-	}
-}
-
-/**
- * Get all blog items (series and solo posts) with visitor pattern support
- */
-export const getAllBlogItems = (): BlogItem[] => {
-	const data = getBlogData();
-	return (data.items || []).map(item => deserializeBlogItem(item as unknown as Record<string, unknown>));
-};
-
-export const getAllBlogPosts = (): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts;
-};
-
-export const getFeaturedBlogPosts = (): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts.filter(post => 
-		data.featured.includes(post.id)
-	);
-};
-
-export const getBlogPostById = (id: string): BlogPost | undefined => {
-	const data = getBlogData();
-	return data.posts.find(post => post.id === id);
-};
-
-export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
-	const data = getBlogData();
-	return data.posts.find(post => post.slug === slug);
-};
-
-export const getBlogPostsByCategory = (category: string): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts.filter(post => 
-		post.category === category
-	);
-};
-
-export const getBlogPostsByTag = (tag: string): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts.filter(post => 
-		post.tags.includes(tag)
-	);
-};
-
-export const getRecentBlogPosts = (limit = 5): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts
-		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-		.slice(0, limit);
-};
-
-export const getAllBlogCategories = (): string[] => {
-	const data = getBlogData();
-	return data.categories;
-};
-
-export const getAllBlogTags = (): string[] => {
-	const data = getBlogData();
-	const allTags = data.posts.reduce((tags, post) => {
-		return [...tags, ...post.tags];
-	}, [] as string[]);
-	return [...new Set(allTags)];
-};
-
-/**
- * Get all blog tags from items using visitor pattern
- */
-export const getAllBlogTagsFromItems = (): string[] => {
-	const items = getAllBlogItems();
-	const allTags = new Set<string>();
-	
-	items.forEach(item => {
-		const tags = item.accept({
-			visitSolo(post: SoloBlogPost) {
-				return post.tags;
-			},
-			visitSeries(series: BlogSeries) {
-				return [...series.tags, ...series.posts.flatMap(p => p.tags)];
-			}
-		});
-		tags.forEach(tag => allTags.add(tag));
-	});
-
-	return Array.from(allTags);
-};
-
-export const getAllBlogAuthors = (): string[] => {
-	const data = getBlogData();
-	const allAuthors = data.posts.reduce((authors, post) => {
-		return [...authors, ...post.authors];
-	}, [] as string[]);
-	return [...new Set(allAuthors)];
-};
-
-export const getBlogPostsByAuthor = (author: string): BlogPost[] => {
-	const data = getBlogData();
-	return data.posts.filter(post => 
-		post.authors.includes(author)
-	);
-};
-
 // Export all data for sitemap generation or other needs
 export const getAllData = () => ({
 	personal: getPersonalData(),
-	projects: getProjectsData(),
-	blog: getBlogData()
+	projects: getProjectsData()
 });

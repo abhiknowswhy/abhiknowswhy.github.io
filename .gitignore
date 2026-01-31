@@ -13,6 +13,9 @@ dist-ssr
 *.local
 samples
 
+# Generated data (fetched at build time)
+src/data/generated/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -6,8 +6,10 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"prebuild": "node scripts/fetch-goodreads.js",
+		"prebuild": "node scripts/fetch-goodreads.js && node scripts/fetch-medium.js",
 		"fetch:books": "node scripts/fetch-goodreads.js",
+		"fetch:articles": "node scripts/fetch-medium.js",
+		"fetch:all": "node scripts/fetch-goodreads.js && node scripts/fetch-medium.js",
 		"lint": "eslint . && stylelint \"**/*.css\"",
 		"lint:fix": "eslint . --fix && stylelint \"**/*.css\" --fix",
 		"preview": "vite preview",

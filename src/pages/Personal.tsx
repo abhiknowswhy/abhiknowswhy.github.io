@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Utensils, Music, BookOpen, MapPin, Clock, Sparkles, ExternalLink, Star } from 'lucide-react';
-import booksData from '../data/books.json';
+import booksData from '../data/generated/books.json';
 
 const tabData = [
 	{
