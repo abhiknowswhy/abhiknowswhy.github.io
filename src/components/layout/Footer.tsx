@@ -1,21 +1,10 @@
 import { Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getPersonalData } from '../../lib/dataLoader';
-import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaMedium } from 'react-icons/fa6';
-import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
+import { socialIcons, socialIconColors } from '@/lib/socialIcons';
 
 export default function Footer() {
 	const personalData = getPersonalData();
-
-	const socialIcons = {
-		github: FaGithub,
-		linkedin: FaLinkedin,
-		twitter: FaTwitter,
-		youtube: FaYoutube,
-		medium: FaMedium,
-		leetcode: SiLeetcode,
-		buymeacoffee: SiBuymeacoffee,
-	};
 
 	return (
 		<footer className="glass-card mt-16">
@@ -48,6 +37,7 @@ export default function Footer() {
 						<div className="flex space-x-4">
 							{Object.entries(personalData.social).map(([platform, url]) => {
 								const Icon = socialIcons[platform as keyof typeof socialIcons];
+								const iconColor = socialIconColors[platform] || 'text-gray-600 dark:text-gray-400';
 								if (!Icon || !url) return null;
                 
 								return (
@@ -61,7 +51,7 @@ export default function Footer() {
 										whileTap={{ scale: 0.95 }}
 										aria-label={`Visit ${platform} profile`}
 									>
-										<Icon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+										<Icon className={`w-5 h-5 ${iconColor}`} />
 									</motion.a>
 								);
 							})}

@@ -100,6 +100,27 @@ Links:                text-blue-600 dark:text-blue-400
 - Always test components in both light and dark modes before considering them complete
 - Toggle theme using the sun/moon button in the navigation
 
+## Adding New Social Links
+Social icons are centralized in `src/lib/socialIcons.ts`. To add a new social platform:
+
+1. **Add the URL** to `src/data/personal.json` under the `social` object:
+   ```json
+   "social": {
+     "newplatform": "https://newplatform.com/username"
+   }
+   ```
+
+2. **Update `src/lib/socialIcons.ts`** with:
+   - Import the icon from `react-icons` (e.g., `FaNewPlatform` from `react-icons/fa6`)
+   - Add to `socialIcons` mapping: `newplatform: FaNewPlatform`
+   - Add to `socialColors` (gradient for Contact page cards): `newplatform: 'from-color-500 to-color-700'`
+   - Add to `socialIconColors` (brand color for inline icons): `newplatform: 'text-[#HEXCOLOR]'`
+
+The social links will automatically appear in:
+- Home page (hero section)
+- Footer
+- Contact page ("Follow Me" section)
+
 ## Dependencies
 - React 19+
 - Vite as the build tool

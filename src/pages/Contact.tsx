@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, Sparkles, MessageCircle } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaMedium } from 'react-icons/fa6';
-import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
 import { getPersonalData } from '../lib/dataLoader';
+import { socialIcons, socialColors } from '@/lib/socialIcons';
 
 export default function Contact() {
 	const personalData = getPersonalData();
@@ -51,26 +50,6 @@ export default function Contact() {
 			`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
 		);
 		window.location.href = `mailto:${personalData.profile.email}?subject=${subject}&body=${body}`;
-	};
-
-	const socialIcons = {
-		github: FaGithub,
-		linkedin: FaLinkedin,
-		twitter: FaTwitter,
-		youtube: FaYoutube,
-		medium: FaMedium,
-		leetcode: SiLeetcode,
-		buymeacoffee: SiBuymeacoffee,
-	};
-
-	const socialColors: Record<string, string> = {
-		github: 'from-gray-700 to-gray-900',
-		linkedin: 'from-blue-600 to-blue-800',
-		twitter: 'from-sky-400 to-sky-600',
-		youtube: 'from-red-500 to-red-700',
-		medium: 'from-gray-800 to-black',
-		leetcode: 'from-amber-500 to-orange-600',
-		buymeacoffee: 'from-yellow-400 to-yellow-600',
 	};
 
 	return (

@@ -3,8 +3,7 @@ import { ArrowRight, Download, Code, Globe, Pen, BookOpen, Music, ChefHat, Award
 import { Link } from 'react-router-dom';
 import { getPersonalData, getProjectsData } from '../lib/dataLoader';
 import { StatsGlassBar } from '@/components/ui/StatsGlassBar';
-import { FaGithub, FaLinkedin, FaTwitter, FaYoutube, FaMedium } from 'react-icons/fa6';
-import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
+import { socialIcons, socialIconColors } from '@/lib/socialIcons';
 
 export default function Home() {
 	const personalData = getPersonalData();
@@ -14,16 +13,6 @@ export default function Home() {
 	const startDate = new Date('2022-07-20');
 	const today = new Date();
 	const yearsOfExperience = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365));
-
-	const socialIcons = {
-		github: FaGithub,
-		linkedin: FaLinkedin,
-		twitter: FaTwitter,
-		youtube: FaYoutube,
-		medium: FaMedium,
-		leetcode: SiLeetcode,
-		buymeacoffee: SiBuymeacoffee,
-	};
 
 	return (
 		<div className="min-h-screen">
@@ -64,7 +53,7 @@ export default function Home() {
 								Hello, I'm
 							</p>
 							<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-								{personalData.profile.name}
+								Abhiram <span className="gradient-text">Bondada</span>
 							</h1>
 							<p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 font-medium">
 								{personalData.profile.title}
@@ -115,6 +104,7 @@ export default function Home() {
 						<div className="flex items-center gap-3 pt-2">
 							{Object.entries(personalData.social).map(([platform, url]) => {
 								const Icon = socialIcons[platform as keyof typeof socialIcons];
+								const iconColor = socialIconColors[platform] || 'text-gray-700 dark:text-gray-300';
 								if (!Icon || !url) return null;
 								return (
 									<a
@@ -125,7 +115,7 @@ export default function Home() {
 										className="p-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-all hover:-translate-y-1"
 										aria-label={`Visit ${platform} profile`}
 									>
-										<Icon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+										<Icon className={`w-5 h-5 ${iconColor}`} />
 									</a>
 								);
 							})}
@@ -154,7 +144,7 @@ export default function Home() {
 					className="text-center mb-12"
 				>
 					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-						Explore My World
+						Explore My <span className="gradient-text">World</span>
 					</h2>
 					<p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
 						Dive into my projects, adventures, and interests
