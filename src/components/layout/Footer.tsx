@@ -6,7 +6,6 @@ import { SiLeetcode, SiBuymeacoffee } from 'react-icons/si';
 
 export default function Footer() {
 	const personalData = getPersonalData();
-	const currentYear = new Date().getFullYear();
 
 	const socialIcons = {
 		github: FaGithub,

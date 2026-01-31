@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Utensils, Music, BookOpen, MapPin, Clock, Sparkles, ExternalLink, Star } from 'lucide-react';
 
@@ -353,8 +354,26 @@ function ComingSoon({ title, description, gradient, icon: Icon }: {
 	);
 }
 
+// Helper to get initial tab from URL hash
+const getInitialTab = () => {
+	if (typeof window === 'undefined') return 'library';
+	const hash = window.location.hash.replace('#', '');
+	const validTabs = tabData.map(tab => tab.id);
+	return validTabs.includes(hash) ? hash : 'library';
+};
+
 export default function Personal() {
-	const [activeTab, setActiveTab] = useState('library');
+	const location = useLocation();
+	const [activeTab, setActiveTab] = useState(getInitialTab);
+
+	// Handle hash navigation when hash changes after initial load
+	useEffect(() => {
+		const hash = location.hash.replace('#', '');
+		const validTabs = tabData.map(tab => tab.id);
+		if (hash && validTabs.includes(hash)) {
+			setActiveTab(hash);
+		}
+	}, [location.hash]);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },

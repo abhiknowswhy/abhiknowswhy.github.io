@@ -199,7 +199,7 @@ export default function Home() {
 						className="col-span-1 row-span-1"
 					>
 						<Link
-							to="/travel"
+							to="/personal#travel"
 							className="block h-full rounded-2xl shadow-lg relative overflow-hidden group bg-gradient-to-br from-emerald-500 to-teal-600"
 						>
 							<div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -225,7 +225,7 @@ export default function Home() {
 						className="col-span-1 row-span-1"
 					>
 						<Link
-							to="/library"
+							to="/personal#library"
 							className="block h-full rounded-2xl shadow-lg relative overflow-hidden group bg-gradient-to-br from-amber-500 to-orange-600"
 						>
 							<div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
