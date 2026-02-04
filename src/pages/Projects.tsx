@@ -87,35 +87,32 @@ export default function Projects() {
 			initial="hidden"
 			animate="visible"
 		>
-			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-				{/* Header */}
-				<motion.div variants={itemVariants} className="text-center mb-12">
-					<h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-						My <span className="gradient-text">Projects</span>
-					</h1>
-					<p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-						A collection of projects I've worked on.
-					</p>
-				</motion.div>
-
-				{/* Buy Me A Coffee Section */}
-				<motion.div variants={itemVariants} className="flex items-center justify-center mb-12">
-					<p className="text-gray-600 dark:text-gray-400">
-						If you like my work, consider{' '}
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+				{/* Compact Header */}
+				<motion.div variants={itemVariants} className="mb-6">
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+						<div>
+							<h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+								My <span className="gradient-text">Projects</span>
+							</h1>
+							<p className="mt-1 text-gray-600 dark:text-gray-400">
+								A collection of projects I've worked on
+							</p>
+						</div>
 						<a
 							href={personalData.social.buymeacoffee}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+							className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors text-sm font-medium"
 						>
-							buying me a coffee
-							<SiBuymeacoffee className="w-5 h-5" />
+							<SiBuymeacoffee className="w-4 h-4" />
+							Buy me a coffee
 						</a>
-					</p>
+					</div>
 				</motion.div>
 
 				{/* Filters */}
-				<motion.div variants={itemVariants} className="mb-12">
+				<motion.div variants={itemVariants} className="mb-8">
 					<div className="glass-card p-6 rounded-xl">
 						<div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
 							{/* Search */}

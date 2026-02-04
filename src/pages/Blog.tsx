@@ -2,9 +2,9 @@
  * Alternative Blog page using Medium RSS feed
  * This is a simpler, RSS-based blog page for comparison
  */
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ExternalLink, Search, Sparkles } from 'lucide-react';
+import { Calendar, Clock, ExternalLink, Search, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SiMedium } from 'react-icons/si';
 import mediumData from '../data/generated/medium-articles.json';
 
@@ -31,9 +31,12 @@ const cardGradients = [
 	'from-indigo-500 to-purple-600',
 ];
 
+const ARTICLES_PER_PAGE = 6;
+
 export default function BlogRSS() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [selectedTag, setSelectedTag] = useState<string | null>(null);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	const articles: Article[] = mediumData.articles;
 
@@ -59,6 +62,18 @@ export default function BlogRSS() {
 			return matchesSearch && matchesTag;
 		});
 	}, [articles, searchTerm, selectedTag]);
+
+	// Reset to page 1 when filters change
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchTerm, selectedTag]);
+
+	// Pagination
+	const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+	const paginatedArticles = useMemo(() => {
+		const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
+		return filteredArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+	}, [filteredArticles, currentPage]);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },
@@ -88,38 +103,30 @@ export default function BlogRSS() {
 			initial="hidden"
 			animate="visible"
 		>
-			{/* Hero Section */}
-			<div className="relative overflow-hidden">
-				<div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-50" />
-				<div className="absolute top-20 left-10 w-72 h-72 bg-primary-400/20 rounded-full blur-3xl" />
-				<div className="absolute bottom-10 right-10 w-96 h-96 bg-secondary-400/20 rounded-full blur-3xl" />
-
-				<div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-					<motion.div variants={itemVariants} className="text-center mb-12">
-						<motion.div
-							className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6"
-							initial={{ scale: 0.9, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							transition={{ delay: 0.2 }}
+			{/* Main Content */}
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+				{/* Compact Header */}
+				<motion.div variants={itemVariants} className="mb-8">
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+						<div>
+							<h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+								My <span className="gradient-text">Blogs</span>
+							</h1>
+							<p className="mt-1 text-gray-600 dark:text-gray-400">
+								Thoughts, tutorials, and insights on software engineering
+							</p>
+						</div>
+						<a
+							href={`https://medium.com/@${mediumData.username}`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors text-sm"
 						>
 							<SiMedium className="w-4 h-4" />
-							Powered by Medium RSS
-						</motion.div>
-						<h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-							My <span className="gradient-text">Blogs</span>
-						</h1>
-						<p className="mt-4 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-							Thoughts, tutorials, and insights on software engineering
-						</p>
-						<p className="mt-2 text-sm text-gray-500 dark:text-gray-500">
-							Last updated: {new Date(mediumData.lastUpdated).toLocaleDateString()}
-						</p>
-					</motion.div>
-				</div>
-			</div>
-
-			{/* Main Content */}
-			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+							Follow on Medium
+						</a>
+					</div>
+				</motion.div>
 				{/* Search and Filters */}
 				<motion.div variants={itemVariants} className="mb-8">
 					<div className="flex flex-col sm:flex-row gap-4">
@@ -169,7 +176,7 @@ export default function BlogRSS() {
 					variants={containerVariants}
 					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
 				>
-					{filteredArticles.map((article, index) => (
+					{paginatedArticles.map((article, index) => (
 						<motion.a
 							key={article.link}
 							href={article.link}
@@ -262,21 +269,57 @@ export default function BlogRSS() {
 					</motion.div>
 				)}
 
-				{/* Follow on Medium CTA */}
-				<motion.div
-					variants={itemVariants}
-					className="mt-12 text-center"
-				>
-					<a
-						href={`https://medium.com/@${mediumData.username}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+				{/* Pagination */}
+				{totalPages > 1 && (
+					<motion.div
+						variants={itemVariants}
+						className="mt-10 flex items-center justify-center gap-2"
 					>
-						<SiMedium className="w-5 h-5" />
-						Follow on Medium
-					</a>
-				</motion.div>
+						<button
+							onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+							disabled={currentPage === 1}
+							className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							aria-label="Previous page"
+						>
+							<ChevronLeft className="w-5 h-5" />
+						</button>
+						
+						<div className="flex items-center gap-1">
+							{Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+								<button
+									key={page}
+									onClick={() => setCurrentPage(page)}
+									className={`w-10 h-10 rounded-lg font-medium transition-colors ${
+										currentPage === page
+											? 'bg-primary-600 text-white'
+											: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+									}`}
+								>
+									{page}
+								</button>
+							))}
+						</div>
+						
+						<button
+							onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+							disabled={currentPage === totalPages}
+							className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+							aria-label="Next page"
+						>
+							<ChevronRight className="w-5 h-5" />
+						</button>
+					</motion.div>
+				)}
+
+				{/* Results info */}
+				{filteredArticles.length > 0 && (
+					<motion.p
+						variants={itemVariants}
+						className="mt-4 text-center text-sm text-gray-500 dark:text-gray-500"
+					>
+						Showing {((currentPage - 1) * ARTICLES_PER_PAGE) + 1}-{Math.min(currentPage * ARTICLES_PER_PAGE, filteredArticles.length)} of {filteredArticles.length} articles
+					</motion.p>
+				)}
 			</div>
 		</motion.div>
 	);

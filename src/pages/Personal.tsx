@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Utensils, Music, BookOpen, MapPin, Clock, Sparkles, ExternalLink, Star } from 'lucide-react';
+import { Utensils, Music, BookOpen, MapPin, Clock, ExternalLink, Star } from 'lucide-react';
 import booksData from '../data/generated/books.json';
 
 const tabData = [
@@ -242,35 +242,17 @@ export default function Personal() {
 			initial="hidden"
 			animate="visible"
 		>
-			{/* Hero Section */}
-			<div className="relative overflow-hidden">
-				<div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-50" />
-				<div className="absolute top-20 left-10 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl" />
-				<div className="absolute bottom-10 right-10 w-96 h-96 bg-emerald-400/20 rounded-full blur-3xl" />
-				
-				<div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-					<motion.div variants={itemVariants} className="text-center">
-						<motion.div
-							className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6"
-							initial={{ scale: 0.9, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							transition={{ delay: 0.2 }}
-						>
-							<Sparkles className="w-4 h-4" />
-							Beyond Code
-						</motion.div>
-						<h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-							My <span className="gradient-text">Interests</span>
-						</h1>
-						<p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-							Beyond code and design, these are the things that bring me joy and inspiration.
-						</p>
-					</motion.div>
-				</div>
-			</div>
-
 			{/* Content Section */}
-			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+				{/* Compact Header */}
+				<motion.div variants={itemVariants} className="mb-8">
+					<h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+						My <span className="gradient-text">Interests</span>
+					</h1>
+					<p className="mt-1 text-gray-600 dark:text-gray-400">
+						Beyond code and design — things that bring me joy and inspiration
+					</p>
+				</motion.div>
 				{/* Tabs */}
 				<motion.div variants={itemVariants} className="mb-8">
 					<div className="flex flex-wrap justify-center gap-2 sm:gap-4">
