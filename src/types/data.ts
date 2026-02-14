@@ -1,3 +1,13 @@
+// Goodreads Book Type (from RSS feed)
+export interface GoodreadsBook {
+  title: string;
+  author: string;
+  cover: string;
+  rating: number;
+  link: string;
+  dateRead?: string;
+}
+
 // Personal Data Types
 export interface PersonalProfile {
   name: string;

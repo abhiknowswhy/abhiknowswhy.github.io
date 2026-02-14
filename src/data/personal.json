@@ -57,9 +57,11 @@
 			"description": "Dataverse - Microsoft Agent Cloud",
 			"technologies": ["Dotnet C#", "Microsoft Graph", "Semantic Kernel", "MCP", "TS React", "Azure"],
 			"achievements": [
-				"Implemented a Bulkhead pattern for Microsoft Graph IDM (AuthN/AuthZ) S2S calls - ensuring ~99.9% availability, diverting traffic to partitions and achieved zero global outages since deployment",
-				"Designed Scale group level cache mechanism to improve IDM cache hit rate, optimized p99 Auth latency by ~75%",
-				"Led development of Intelligent On-call Engineer Assistant using MCP, Semantic Kernel, React, and Flask, reducing incident triage time from ~1 day to near-real time"
+				"Achieved ~99.9% availability and solved global outages in Authentication API traffic by architecting a Bulkhead isolation strategy with intelligent traffic partitioning",
+				"Reduced p99 latency by ~75% using Bloom filters for request routing and scale-group caches for improved cache hit rates",
+				"Saved $9.2M+ annually in cloud costs by identifying systemic inefficiencies in Azure engineering spend through stale-resource detection, automated cleanup, and a developer inner loop for infrastructure management",
+				"Led development of AI-powered On-call Engineer Assistant to automate signal correlation and context building, reducing incident triage time from ~1 day to near-real time",
+				"Enabled 2000+ customers to adopt Microsoft Sentinel (SIEM+SOAR) by building Dynamics 365 audit telemetry pipelines, onboarding 5+ security partners via a webhook in Power Platform Admin Center, and contributing 15+ production-grade threat-hunting queries to Microsoft open source"
 			],
 			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
@@ -67,26 +69,7 @@
 		{
 			"id": "exp-2",
 			"company": "Microsoft",
-			"position": "Software Engineer (L59)",
-			"location": "Hyderabad, India",
-			"startDate": "2022-06",
-			"endDate": "2024-12",
-			"description": "Azure - Cloud for Industry",
-			"technologies": ["Azure PaaS", "Docker", "CI/CD", "Apache Airflow", "CBL-Mariner-Linux"],
-			"achievements": [
-				"Cloud spend analysis: Identified issues with Azure engineering spend that resulted in savings of ~$9.2M",
-				"Authored multi-stage Docker files and CBL-Mariner-Linux distroless base images which mitigated ~150 CVEs, resulted in ~80% leaner docker images and reduced build time by ~10%",
-				"Operationalized a cross-tenant CI/CD for partner environment, reduced turnaround time from 2 months to 1 week",
-				"Onboarded Schlumberger Data workspace (SLB-DW) on Azure (PaaS) which enabled timely release of SLB's first revenue generating Cloud solution on Azure",
-				"Owner and maintainer of Seismic services and Airflow DAGs suite, observability infrastructure for the application (logs, metrics, monitoring), Swagger public documentation for all REST endpoints"
-			],
-			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
-			"companyUrl": "https://microsoft.com"
-		},
-		{
-			"id": "exp-3",
-			"company": "Microsoft",
-			"position": "Shadow Product Manager",
+			"position": "Associate Product Manager",
 			"location": "Hyderabad & Bangalore, India",
 			"startDate": "2024-07",
 			"endDate": "2024-11",
@@ -102,6 +85,25 @@
 			"companyUrl": "https://microsoft.com"
 		},
 		{
+			"id": "exp-3",
+			"company": "Microsoft",
+			"position": "Software Engineer (L59)",
+			"location": "Hyderabad, India",
+			"startDate": "2022-06",
+			"endDate": "2024-07",
+			"description": "Azure - Cloud for Industry",
+			"technologies": ["Azure PaaS", "Docker", "CI/CD", "Apache Airflow", "CBL-Mariner-Linux"],
+			"achievements": [
+				"Tripled ingestion throughput (7GB → 20GB file sizes) by re-architecting the platform from managed to self-hosted Apache Airflow and tuning Azure Kubernetes CPU resource tiers",
+				"Mitigated ~150 security vulnerabilities (CVEs), reduced container image sizes by ~80%, and build time by ~10% using multi-stage Docker files and Distroless Azure Linux base images",
+				"Accelerated development cycles by ~90% for partners by replacing manual workflows with a secure cross-tenant CI/CD automation, shortening approval timelines from 2 months to 1 week with zero manual interventions",
+				"Enabled consistent post-release API documentation updates for 25+ service/partner teams, saving ~1 developer-day per service per release by integrating automated Swagger spec publishing into CI/CD",
+				"Onboarded Schlumberger Data workspace on Azure PaaS which enabled timely release of SLB's first revenue generating Azure solution"
+			],
+			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
+			"companyUrl": "https://microsoft.com"
+		},
+		{
 			"id": "exp-4",
 			"company": "Microsoft",
 			"position": "Software Engineer Intern",
@@ -111,7 +113,7 @@
 			"description": "Azure - Cloud for Industry",
 			"technologies": ["Java", "Microsoft Azure", "Redis"],
 			"achievements": [
-				"Assessed Redis caching for storage requests. Retired the approach after benchmarking showed low read repetition and unfavorable cost–benefit trade-offs"
+				"Reduced infrastructure spend by ~$25K per month by evaluating Redis-based caching for storage-heavy workloads and rejecting the design after benchmarking showed low reuse and poor ROI"
 			],
 			"companyLogo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4",
 			"companyUrl": "https://microsoft.com"
@@ -155,31 +157,27 @@
 	"certifications": [
 		{
 			"id": "cert-1",
-			"name": "AI Fluency: Framework & Foundations",
-			"issuer": "Anthropic Education",
-			"issueDate": "2025-09-21",
-			"credentialId": "xg3edx872jr9",
-			"credentialUrl": "http://verify.skilljar.com/c/xg3edx872jr9",
-			"logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/anthropic.svg"
+			"name": "Microsoft Certified: Azure AI Engineer Associate",
+			"issuer": "Microsoft",
+			"issueDate": "2026-02-14",
+			"credentialUrl": "https://learn.microsoft.com/api/credentials/share/en-us/GunaAbhiramBondada-2003/B9B20091EDF8B42F?sharingId=3385D07D48D1222C",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
 		},
 		{
 			"id": "cert-2",
-			"name": "Kubernetes and Cloud Native Associate (KCNA)",
-			"issuer": "Cloud Native Computing Foundation",
-			"issueDate": "2025-06-14",
-			"credentialId": "LF-czo0bl961q",
-			"credentialUrl": "https://www.linkedin.com/in/guna-abhiram-bondada-582a9b203/details/certifications/1749883925068/single-media-viewer/?type=DOCUMENT&profileId=ACoAADPzznIBXbpKXQpBkXlfkBHXBJQrkqTpPF4",
-			"logo": "https://avatars.githubusercontent.com/u/13455738?s=200&v=4"
+			"name": "Microsoft Certified: Azure Data Scientist Associate",
+			"issuer": "Microsoft",
+			"issueDate": "2026-02-09",
+			"credentialUrl": "https://learn.microsoft.com/api/credentials/share/en-us/GunaAbhiramBondada-2003/980E514D4F9562?sharingId=3385D07D48D1222C",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
 		},
 		{
 			"id": "cert-3",
-			"name": "GitHub Copilot Certification Program",
-			"issuer": "GitHub",
-			"issueDate": "2025-05-23",
-			"expiryDate": "2028-05-23",
-			"credentialId": "9ca46e51-6670-42ef-ab46-8a6173b5fdbe",
-			"credentialUrl": "https://www.credly.com/badges/9ca46e51-6670-42ef-ab46-8a6173b5fdbe/linked_in_profile",
-			"logo": "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+			"name": "Microsoft Certified: AI Transformation Leader",
+			"issuer": "Microsoft",
+			"issueDate": "2026-01-31",
+			"credentialUrl": "https://learn.microsoft.com/api/credentials/share/en-us/GunaAbhiramBondada-2003/4DBB264004474B4?sharingId=3385D07D48D1222C",
+			"logo": "https://avatars.githubusercontent.com/u/6154722?s=200&v=4"
 		},
 		{
 			"id": "cert-4",
@@ -214,6 +212,34 @@
 		},
 		{
 			"id": "cert-7",
+			"name": "AI Fluency: Framework & Foundations",
+			"issuer": "Anthropic Education",
+			"issueDate": "2025-09-21",
+			"credentialId": "xg3edx872jr9",
+			"credentialUrl": "http://verify.skilljar.com/c/xg3edx872jr9",
+			"logo": "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/anthropic.svg"
+		},
+		{
+			"id": "cert-8",
+			"name": "Kubernetes and Cloud Native Associate (KCNA)",
+			"issuer": "Cloud Native Computing Foundation",
+			"issueDate": "2025-06-14",
+			"credentialId": "LF-czo0bl961q",
+			"credentialUrl": "https://www.linkedin.com/in/guna-abhiram-bondada-582a9b203/details/certifications/1749883925068/single-media-viewer/?type=DOCUMENT&profileId=ACoAADPzznIBXbpKXQpBkXlfkBHXBJQrkqTpPF4",
+			"logo": "https://avatars.githubusercontent.com/u/13455738?s=200&v=4"
+		},
+		{
+			"id": "cert-9",
+			"name": "GitHub Copilot Certification Program",
+			"issuer": "GitHub",
+			"issueDate": "2025-05-23",
+			"expiryDate": "2028-05-23",
+			"credentialId": "9ca46e51-6670-42ef-ab46-8a6173b5fdbe",
+			"credentialUrl": "https://www.credly.com/badges/9ca46e51-6670-42ef-ab46-8a6173b5fdbe/linked_in_profile",
+			"logo": "https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+		},
+		{
+			"id": "cert-10",
 			"name": "Weaviate Vector Databases Professional Certificate",
 			"issuer": "Weaviate, LinkedIn Learning",
 			"issueDate": "2025-03-19",

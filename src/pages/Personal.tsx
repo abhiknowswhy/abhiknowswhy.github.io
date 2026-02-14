@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Utensils, Music, BookOpen, MapPin, Clock, ExternalLink, Star } from 'lucide-react';
+import { MarqueeCarousel, type CardRenderer, plainCardStyle } from '@/components/ui/marquee-carousel';
+import type { GoodreadsBook } from '@/types/data';
 import booksData from '../data/generated/books.json';
 
 const tabData = [
@@ -31,29 +33,18 @@ const tabData = [
 	},
 ];
 
-// Book type definition
-interface Book {
-	title: string;
-	author: string;
-	cover: string;
-	rating: number;
-	link: string;
-	dateRead?: string;
-}
-
 // Get books from JSON (fetched from Goodreads RSS at build time)
-const currentlyReading: Book[] = booksData.currentlyReading;
-const readBooks: Book[] = booksData.readBooks;
+const currentlyReading: GoodreadsBook[] = booksData.currentlyReading;
+const readBooks: GoodreadsBook[] = booksData.readBooks;
 
-// Book Card Component
-function BookCard({ book, isCurrentlyReading = false }: { book: Book; isCurrentlyReading?: boolean }) {
+// Concrete Book Card Component — pure content renderer (style-agnostic)
+function BookCard({ item: book, isCurrentlyReading = false }: { item: GoodreadsBook; index?: number; isCurrentlyReading?: boolean }) {
 	return (
-		<motion.a
+		<a
 			href={book.link}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
-			whileHover={{ y: -4 }}
+			className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 block h-full"
 		>
 			<div className="aspect-[2/3] overflow-hidden">
 				<img
@@ -91,74 +82,71 @@ function BookCard({ book, isCurrentlyReading = false }: { book: Book; isCurrentl
 					</span>
 				)}
 			</div>
-		</motion.a>
+		</a>
 	);
 }
 
+/**
+ * Concrete CardRenderer<Book> — the strategy injected into MarqueeCarousel.
+ * Uses the `component` approach so the carousel renders BookCard directly.
+ */
+const bookCardRenderer: CardRenderer<GoodreadsBook> = {
+	component: BookCard,
+};
+
+const currentlyReadingCardRenderer: CardRenderer<GoodreadsBook> = {
+	render: (book, index) => <BookCard item={book} index={index} isCurrentlyReading />,
+};
+
 // Library Component with books from Goodreads RSS
 function GoodreadsLibrary() {
-	const [showAllBooks, setShowAllBooks] = useState(false);
-	const displayedBooks = showAllBooks ? readBooks : readBooks.slice(0, 12);
-
 	return (
 		<div className="space-y-8">
-			{/* Currently Reading Section */}
+			{/* Currently Reading Marquee */}
 			<div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-				<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-					<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-						<BookOpen className="w-4 h-4 text-white" />
-					</span>
-					Currently Reading
-				</h3>
-				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-					{currentlyReading.map((book, index) => (
-						<BookCard key={index} book={book} isCurrentlyReading />
-					))}
-				</div>
+				<MarqueeCarousel<GoodreadsBook>
+					items={currentlyReading}
+					renderCard={currentlyReadingCardRenderer}
+					cardStyle={plainCardStyle}
+					itemWidth={180}
+					gap={16}
+					speed={0.5}
+					skipCount={2}
+					countLabel="books"
+					arrowClassName="hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400"
+					header={
+						<h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+							<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+								<BookOpen className="w-4 h-4 text-white" />
+							</span>
+							Currently Reading
+						</h3>
+					}
+				/>
 			</div>
 
-			{/* Read Books Section */}
+			{/* Read Books Marquee */}
 			<div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-				<div className="flex items-center justify-between mb-6">
-					<h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-						<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-							<BookOpen className="w-4 h-4 text-white" />
-						</span>
-						Books I've Read
-					</h3>
-					<span className="text-sm text-gray-500 dark:text-gray-400">
-						{readBooks.length} books
-					</span>
-				</div>
-				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-					{displayedBooks.map((book, index) => (
-						<BookCard key={index} book={book} />
-					))}
-				</div>
-				{readBooks.length > 12 && (
-					<div className="mt-6 text-center">
-						<button
-							onClick={() => setShowAllBooks(!showAllBooks)}
-							className="px-6 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-						>
-							{showAllBooks ? 'Show Less' : `Show All ${readBooks.length} Books`}
-						</button>
-					</div>
-				)}
+				<MarqueeCarousel<GoodreadsBook>
+					items={readBooks}
+					renderCard={bookCardRenderer}
+					cardStyle={plainCardStyle}
+					itemWidth={180}
+					gap={16}
+					speed={0.8}
+					skipCount={3}
+					countLabel="books"
+					arrowClassName="hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:text-emerald-600 dark:hover:text-emerald-400"
+					header={
+						<h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+							<span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+								<BookOpen className="w-4 h-4 text-white" />
+							</span>
+							Books I've Read
+						</h3>
+					}
+				/>
 			</div>
-
-			{/* View on Goodreads Link */}
-			<motion.a
-				href="https://www.goodreads.com/user/show/178378557-abhiram"
-				target="_blank"
-				rel="noopener noreferrer"
-				className="flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all shadow-lg"
-				whileHover={{ scale: 1.02 }}
-				whileTap={{ scale: 0.98 }}
-			>
-				<ExternalLink className="w-5 h-5" />
-				View Full Library on Goodreads
-			</motion.a>
 		</div>
 	);
 }
@@ -276,6 +264,25 @@ export default function Personal() {
 						})}
 					</div>
 				</motion.div>
+
+				{/* Goodreads CTA - visible on library tab */}
+				{activeTab === 'library' && (
+					<motion.a
+						href="https://www.goodreads.com/user/show/178378557-abhiram"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center justify-center gap-2 px-5 py-2.5 mb-8 mx-auto w-fit rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-sm font-medium hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg"
+						whileHover={{ scale: 1.03 }}
+						whileTap={{ scale: 0.97 }}
+						initial={{ opacity: 0, y: -10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 0.2 }}
+					>
+						<BookOpen className="w-4 h-4" />
+						My Goodreads
+						<ExternalLink className="w-3.5 h-3.5 opacity-70" />
+					</motion.a>
+				)}
 
 				{/* Tab Content */}
 				<motion.div

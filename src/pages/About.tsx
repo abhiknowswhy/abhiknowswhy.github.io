@@ -130,109 +130,111 @@ export default function About() {
 							{personalData.experience.length} positions
 						</div>
 					</div>
-          
+
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-						{personalData.experience.map((exp, index) => (
-							<FlipCard
-								key={`${exp.company}-${exp.startDate}`}
-								gradient={experienceGradients[index % experienceGradients.length]}
-								front={
-									<>
-										<div>
-											<div className="flex items-center gap-3 mb-4">
-												<div className="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
-													{exp.companyLogo ? (
-														<img
-															src={exp.companyLogo}
-															alt={exp.company}
-															className="w-full h-full object-contain"
-														/>
-													) : (
-														<Briefcase className="w-6 h-6 text-gray-600 dark:text-gray-400" />
-													)}
+						{[...personalData.experience]
+							.sort((a, b) => (b.startDate).localeCompare(a.startDate))
+							.map((exp, index) => (
+								<FlipCard
+									key={`${exp.company}-${exp.startDate}`}
+									gradient={experienceGradients[index % experienceGradients.length]}
+									front={
+										<>
+											<div>
+												<div className="flex items-center gap-3 mb-4">
+													<div className="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700 flex items-center justify-center p-2">
+														{exp.companyLogo ? (
+															<img
+																src={exp.companyLogo}
+																alt={exp.company}
+																className="w-full h-full object-contain"
+															/>
+														) : (
+															<Briefcase className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+														)}
+													</div>
+													<div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium">
+														{exp.endDate ? `${exp.startDate} - ${exp.endDate}` : 'Current'}
+													</div>
 												</div>
-												<div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium">
-													{exp.endDate ? `${exp.startDate} - ${exp.endDate}` : 'Current'}
-												</div>
+												<h3 className="text-xl font-bold mb-1 leading-tight">{exp.position}</h3>
+												<p className="text-white/90 font-semibold">{exp.company}</p>
+												<p className="text-white/60 text-sm mt-1 flex items-center gap-1">
+													<MapPin className="w-3 h-3" />
+													{exp.location}
+												</p>
 											</div>
-											<h3 className="text-xl font-bold mb-1 leading-tight">{exp.position}</h3>
-											<p className="text-white/90 font-semibold">{exp.company}</p>
-											<p className="text-white/60 text-sm mt-1 flex items-center gap-1">
-												<MapPin className="w-3 h-3" />
-												{exp.location}
-											</p>
-										</div>
-										<div className="flex items-center gap-2 text-white/70 text-sm">
-											{exp.technologies && exp.technologies.slice(0, 2).map((tech) => (
-												<span key={tech} className="px-2 py-0.5 bg-white/10 rounded text-xs">
-													{tech}
-												</span>
-											))}
-											{exp.technologies && exp.technologies.length > 2 && (
-												<span className="text-xs">+{exp.technologies.length - 2}</span>
+											<div className="flex items-center gap-2 text-white/70 text-sm">
+												{exp.technologies && exp.technologies.slice(0, 2).map((tech) => (
+													<span key={tech} className="px-2 py-0.5 bg-white/10 rounded text-xs">
+														{tech}
+													</span>
+												))}
+												{exp.technologies && exp.technologies.length > 2 && (
+													<span className="text-xs">+{exp.technologies.length - 2}</span>
+												)}
+											</div>
+										</>
+									}
+									back={
+										<div className="text-gray-600 dark:text-gray-400">
+											{/* Header */}
+											<div className="mb-4 pb-3 border-b border-gray-100 dark:border-gray-800">
+												<h3 className="text-base font-bold text-gray-900 dark:text-white leading-tight">
+													{exp.position}
+												</h3>
+												<p className="text-primary-600 dark:text-primary-400 font-semibold text-sm">
+													{exp.company}
+												</p>
+												<p className="text-xs text-gray-500 mt-1">
+													{exp.startDate} - {exp.endDate || 'Present'} • {exp.location}
+												</p>
+											</div>
+											
+											{/* Description */}
+											<p className="text-sm mb-4 leading-relaxed">{exp.description}</p>
+											
+											{/* Achievements */}
+											{exp.achievements && exp.achievements.length > 0 && (
+												<div className="mb-4">
+													<h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 uppercase tracking-wider flex items-center gap-1">
+														<Award className="w-3 h-3" />
+														Key Achievements
+													</h4>
+													<ul className="space-y-1.5">
+														{exp.achievements.map((achievement, i) => (
+															<li key={i} className="text-xs flex items-start gap-2">
+																<span className="text-primary-500 mt-0.5 flex-shrink-0">✓</span>
+																<span className="leading-relaxed">{achievement}</span>
+															</li>
+														))}
+													</ul>
+												</div>
+											)}
+											
+											{/* Technologies */}
+											{exp.technologies && exp.technologies.length > 0 && (
+												<div>
+													<h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 uppercase tracking-wider flex items-center gap-1">
+														<Code className="w-3 h-3" />
+														Tech Stack
+													</h4>
+													<div className="flex flex-wrap gap-1.5">
+														{exp.technologies.map((tech) => (
+															<span
+																key={tech}
+																className="px-2 py-1 text-xs font-medium bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md border border-gray-200 dark:border-gray-700"
+															>
+																{tech}
+															</span>
+														))}
+													</div>
+												</div>
 											)}
 										</div>
-									</>
-								}
-								back={
-									<div className="text-gray-600 dark:text-gray-400">
-										{/* Header */}
-										<div className="mb-4 pb-3 border-b border-gray-100 dark:border-gray-800">
-											<h3 className="text-base font-bold text-gray-900 dark:text-white leading-tight">
-												{exp.position}
-											</h3>
-											<p className="text-primary-600 dark:text-primary-400 font-semibold text-sm">
-												{exp.company}
-											</p>
-											<p className="text-xs text-gray-500 mt-1">
-												{exp.startDate} - {exp.endDate || 'Present'} • {exp.location}
-											</p>
-										</div>
-										
-										{/* Description */}
-										<p className="text-sm mb-4 leading-relaxed">{exp.description}</p>
-										
-										{/* Achievements */}
-										{exp.achievements && exp.achievements.length > 0 && (
-											<div className="mb-4">
-												<h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 uppercase tracking-wider flex items-center gap-1">
-													<Award className="w-3 h-3" />
-													Key Achievements
-												</h4>
-												<ul className="space-y-1.5">
-													{exp.achievements.map((achievement, i) => (
-														<li key={i} className="text-xs flex items-start gap-2">
-															<span className="text-primary-500 mt-0.5 flex-shrink-0">✓</span>
-															<span className="leading-relaxed">{achievement}</span>
-														</li>
-													))}
-												</ul>
-											</div>
-										)}
-										
-										{/* Technologies */}
-										{exp.technologies && exp.technologies.length > 0 && (
-											<div>
-												<h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 uppercase tracking-wider flex items-center gap-1">
-													<Code className="w-3 h-3" />
-													Tech Stack
-												</h4>
-												<div className="flex flex-wrap gap-1.5">
-													{exp.technologies.map((tech) => (
-														<span
-															key={tech}
-															className="px-2 py-1 text-xs font-medium bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-md border border-gray-200 dark:border-gray-700"
-														>
-															{tech}
-														</span>
-													))}
-												</div>
-											</div>
-										)}
-									</div>
-								}
-							/>
-						))}
+									}
+								/>
+							))}
 					</div>
 				</motion.section>
 
@@ -246,85 +248,87 @@ export default function About() {
 					</h2>
 
 					<div className="grid grid-cols-1 gap-6">
-						{personalData.education.map((edu) => (
-							<TiltCard
-								key={`${edu.institution}-${edu.startDate}`}
-								borderGradient="from-emerald-400 via-teal-400 to-cyan-400"
-								tiltAmount={8}
-								className="h-full"
-							>
-								<div className="relative h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
-									{/* Subtle gradient background */}
-									<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 dark:opacity-30" />
-									
-									{/* Top accent line */}
-									<div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400" />
-									
-									<div className="relative p-8">
-										<div className="flex flex-col md:flex-row md:items-start gap-6">
-											{/* Logo */}
-											<div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-gray-100 dark:border-gray-700 p-2">
-												{edu.logo ? (
-													<img
-														src={edu.logo}
-														alt={edu.institution}
-														className="w-full h-full object-contain"
-													/>
-												) : (
-													<GraduationCap className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
-												)}
-											</div>
-											
-											<div className="flex-1">
-												<div className="flex flex-wrap items-start justify-between gap-4">
-													<div>
-														<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-															{edu.degree}
-														</h3>
-														<p className="text-emerald-600 dark:text-emerald-400 font-semibold mb-2">
-															{edu.institution}
-														</p>
-													</div>
-													<div className="text-right">
-														<p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-															{edu.startDate} – {edu.endDate}
-														</p>
-														<p className="text-sm text-gray-500 dark:text-gray-500">
-															{edu.location}
-														</p>
-													</div>
+						{[...personalData.education]
+							.sort((a, b) => (b.startDate).localeCompare(a.startDate))
+							.map((edu) => (
+								<TiltCard
+									key={`${edu.institution}-${edu.startDate}`}
+									borderGradient="from-emerald-400 via-teal-400 to-cyan-400"
+									tiltAmount={8}
+									className="h-full"
+								>
+									<div className="relative h-full bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden">
+										{/* Subtle gradient background */}
+										<div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-50 dark:opacity-30" />
+										
+										{/* Top accent line */}
+										<div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400" />
+										
+										<div className="relative p-8">
+											<div className="flex flex-col md:flex-row md:items-start gap-6">
+												{/* Logo */}
+												<div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg border border-gray-100 dark:border-gray-700 p-2">
+													{edu.logo ? (
+														<img
+															src={edu.logo}
+															alt={edu.institution}
+															className="w-full h-full object-contain"
+														/>
+													) : (
+														<GraduationCap className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+													)}
 												</div>
 												
-												{/* GPA Highlight */}
-												{edu.gpa && (
-													<div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg shadow-md">
-														<Award className="w-4 h-4 text-white" />
-														<span className="text-sm font-semibold text-white">
-															{edu.gpa} CGPA
-														</span>
+												<div className="flex-1">
+													<div className="flex flex-wrap items-start justify-between gap-4">
+														<div>
+															<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+																{edu.degree}
+															</h3>
+															<p className="text-emerald-600 dark:text-emerald-400 font-semibold mb-2">
+																{edu.institution}
+															</p>
+														</div>
+														<div className="text-right">
+															<p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+																{edu.startDate} – {edu.endDate}
+															</p>
+															<p className="text-sm text-gray-500 dark:text-gray-500">
+																{edu.location}
+															</p>
+														</div>
 													</div>
-												)}
-												
-												{/* Achievements as bullet points */}
-												{edu.honors && edu.honors.length > 0 && (
-													<ul className="mt-4 space-y-2">
-														{edu.honors.map((honor) => (
-															<li
-																key={honor}
-																className="flex items-start gap-3 text-gray-700 dark:text-gray-300"
-															>
-																<span className="w-1.5 h-1.5 mt-2 rounded-full bg-emerald-500 flex-shrink-0" />
-																<span>{honor}</span>
-															</li>
-														))}
-													</ul>
-												)}
+													
+													{/* GPA Highlight */}
+													{edu.gpa && (
+														<div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg shadow-md">
+															<Award className="w-4 h-4 text-white" />
+															<span className="text-sm font-semibold text-white">
+																{edu.gpa} CGPA
+															</span>
+														</div>
+													)}
+													
+													{/* Achievements as bullet points */}
+													{edu.honors && edu.honors.length > 0 && (
+														<ul className="mt-4 space-y-2">
+															{edu.honors.map((honor) => (
+																<li
+																	key={honor}
+																	className="flex items-start gap-3 text-gray-700 dark:text-gray-300"
+																>
+																	<span className="w-1.5 h-1.5 mt-2 rounded-full bg-emerald-500 flex-shrink-0" />
+																	<span>{honor}</span>
+																</li>
+															))}
+														</ul>
+													)}
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</TiltCard>
-						))}
+								</TiltCard>
+							))}
 					</div>
 				</motion.section>
 
