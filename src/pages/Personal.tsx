@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Utensils, Music, BookOpen, MapPin, Clock, ExternalLink, Star } from 'lucide-react';
-import { MarqueeCarousel, type CardRenderer, plainCardStyle } from '@/components/ui/marquee-carousel';
+import { MarqueeCarousel } from '@/components/ui/marquee-carousel';
+import { type CardRenderer, plainCardStyle } from '@/components/ui/marquee-carousel-card-styles';
 import type { GoodreadsBook } from '@/types/data';
 import booksData from '../data/generated/books.json';
 
