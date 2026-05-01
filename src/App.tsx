@@ -5,7 +5,7 @@ import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
 import Projects from './pages/Projects.tsx';
 import ProjectDetail from './pages/ProjectDetail.tsx';
-import Blog from './pages/Blog.tsx';
+import Content from './pages/Content.tsx';
 import Personal from './pages/Personal.tsx';
 import Contact from './pages/Contact.tsx';
 import NotFound from './pages/NotFound.tsx';
@@ -23,7 +23,8 @@ function App() {
 						<Route path="/about" element={<About />} />
 						<Route path="/projects" element={<Projects />} />
 						<Route path="/projects/:id" element={<ProjectDetail />} />
-						<Route path="/blog" element={<Blog />} />
+						<Route path="/content" element={<Content />} />
+						<Route path="/blog" element={<Navigate to="/content?tab=articles" />} />
 						<Route path="/personal" element={<Personal />} />
 						<Route path="/contact" element={<Contact />} />
 						<Route path="*" element={<NotFound />} />

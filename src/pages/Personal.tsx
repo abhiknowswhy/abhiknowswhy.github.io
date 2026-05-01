@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Utensils, Music, BookOpen, MapPin, Clock, ExternalLink, Star } from 'lucide-react';
 import { MarqueeCarousel } from '@/components/ui/marquee-carousel';
@@ -182,26 +182,21 @@ function ComingSoon({ title, description, gradient, icon: Icon }: {
 	);
 }
 
-// Helper to get initial tab from URL hash
-const getInitialTab = () => {
-	if (typeof window === 'undefined') return 'library';
-	const hash = window.location.hash.replace('#', '');
-	const validTabs = tabData.map(tab => tab.id);
-	return validTabs.includes(hash) ? hash : 'library';
-};
-
 export default function Personal() {
-	const location = useLocation();
-	const [activeTab, setActiveTab] = useState(getInitialTab);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const activeTab = searchParams.get('tab') || 'library';
 
-	// Handle hash navigation when hash changes after initial load
+	const setActiveTab = (tabId: string) => {
+		setSearchParams({ tab: tabId });
+	};
+
+	// Validate tab param
 	useEffect(() => {
-		const hash = location.hash.replace('#', '');
 		const validTabs = tabData.map(tab => tab.id);
-		if (hash && validTabs.includes(hash)) {
-			setActiveTab(hash);
+		if (!validTabs.includes(activeTab)) {
+			setSearchParams({ tab: 'library' }, { replace: true });
 		}
-	}, [location.hash]);
+	}, [activeTab, setSearchParams]);
 
 	const containerVariants = {
 		hidden: { opacity: 0 },

@@ -16,7 +16,7 @@ export default function Footer() {
 							Quick Links
 						</h3>
 						<div className="grid grid-cols-2 gap-2">
-							{['Home', 'About', 'Projects', 'Blog', 'Personal', 'Contact'].map((link) => (
+							{['Home', 'About', 'Projects', 'Content', 'Personal', 'Contact'].map((link) => (
 								<motion.a
 									key={link}
 									href={`/${link.toLowerCase() === 'home' ? '' : link.toLowerCase()}`}

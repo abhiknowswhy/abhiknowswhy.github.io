@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../hooks/useTheme';
@@ -14,14 +14,22 @@ const navigationItems = [
 	{ name: 'Home', href: '/' },
 	{ name: 'About', href: '/about' },
 	{ name: 'Projects', href: '/projects' },
-	{ name: 'Blog', href: '/blog' },
+	{ name: 'Content', href: '/content' },
 	{ name: 'Personal', href: '/personal' },
 	{ name: 'Contact', href: '/contact' },
 ];
 
 export default function Navigation() {
 	const location = useLocation();
+	const [searchParams] = useSearchParams();
 	const { theme, setTheme } = useTheme();
+
+	const getLinkTo = (href: string) => {
+		if (location.pathname === href && searchParams.toString()) {
+			return `${href}?${searchParams.toString()}`;
+		}
+		return href;
+	};
 
 	const getThemeIcon = () => {
 		switch (theme) {
@@ -63,7 +71,7 @@ export default function Navigation() {
 						{navigationItems.map((item) => (
 							<Link
 								key={item.name}
-								to={item.href}
+								to={getLinkTo(item.href)}
 								className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
 									location.pathname === item.href
 										? 'text-primary-600 dark:text-primary-400'
@@ -115,7 +123,7 @@ export default function Navigation() {
 									<div key={item.name}>
 										<DropdownMenuItem asChild>
 											<Link
-												to={item.href}
+												to={getLinkTo(item.href)}
 												className={`w-full cursor-pointer ${
 													location.pathname === item.href
 														? 'text-primary-600 dark:text-primary-400 font-medium'

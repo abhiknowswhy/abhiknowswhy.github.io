@@ -8,6 +8,16 @@ export interface GoodreadsBook {
   dateRead?: string;
 }
 
+// YouTube Video Type (from RSS feed)
+export interface YouTubeVideo {
+  videoId: string;
+  title: string;
+  thumbnail: string;
+  publishedAt: string;
+  description: string;
+  link: string;
+}
+
 // Personal Data Types
 export interface PersonalProfile {
   name: string;
